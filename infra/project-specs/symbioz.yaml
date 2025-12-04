@@ -1,0 +1,22 @@
+# Project Spec: Symbioz Game
+# Generated from template: portfolio-site
+
+name: "symbioz"
+description: "Symbioz Game - Portfolio/Landing Page"
+environment: "prod"
+
+components:
+  web:
+    provider: "vercel"
+    template: "nextjs-marketing-site"
+    repo: "aluate/symbioz"
+    root_dir: "apps/symbioz_web"
+    branch: "main"
+    build_command: "npm install && npm run build"
+    env_vars:
+      
+
+health_checks:
+  - name: "web-health"
+    url: ""
+
