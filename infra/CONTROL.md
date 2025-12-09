@@ -1,0 +1,479 @@
+# Otto – CONTROL DOCUMENT
+
+**Path:** `infra/CONTROL.md`  
+**Purpose:** Define how Otto (our Infra / SRE bot) works:
+
+- What problems it solves
+- Which providers it talks to (Render, Supabase, Stripe, GitHub, Vercel later)
+- Folder layout + config files
+- CLI commands it should expose
+- How Cursor should extend / modify it safely
+
+This document is written for **both humans and AI (Cursor / Frat)**.
+
+---
+
+## 1. Goals & Non-Goals
+
+### 1.1 Goals
+
+Otto (the Infra / SRE bot) should:
+
+1. **Run diagnostics across services** (Render, Supabase, Stripe, GitHub, Vercel) and write:
+   - A human summary: `diagnostics/latest.md`
+   - A machine summary: `diagnostics/latest.json`
+   - Raw provider responses in `diagnostics/raw/`
+
+2. **Provision and manage projects** via APIs / CLI:
+   - Create new app projects based on **project specs** (`infra/project-specs/*.yaml`)
+   - Create or update services on Render (and Vercel later)
+   - Wire environment variables from config and provider responses
+   - Trigger deploys and check for success
+
+3. **Be fully scriptable / no-click**:
+   - Runs as a CLI: `python tools/infra.py ...`
+   - All behavior is driven by YAML config and project specs
+   - Safe to call from shells, CI, or by a human dev
+
+4. **Expose a simple, stable interface to Cursor**:
+   - Clear, documented commands
+   - Clear places to add new providers or commands
+   - Minimal magic
+
+---
+
+### 1.2 Non-Goals (for now)
+
+Otto is **NOT** responsible for:
+
+- Creating new cloud accounts or handling billing / credit cards
+- Bypassing MFA, CAPTCHAs, or SSO-only UIs
+- Arbitrary "click-through UI automation" (no Selenium/Playwright scraping)
+- Managing DNS for production domains (future maybe, but out of scope v1)
+- Deleting production databases or destructive operations without **explicit flags**
+
+---
+
+## 2. High-Level Architecture
+
+### 2.1 Directory Layout
+
+Target structure (v1):
+
+```text
+infra/
+  CONTROL.md                # This document
+  config.yaml               # High-level global config (environments, defaults)
+
+  providers/
+    render.yaml             # Render-specific config (service IDs, defaults)
+    vercel.yaml             # (optional) Vercel config
+    supabase.yaml           # Supabase project / DB config
+    stripe.yaml             # Stripe config (webhooks, products, etc.)
+    github.yaml             # GitHub repo / branch config
+
+  project-specs/
+    example-marketing-site.yaml   # Example project spec
+    example-api-service.yaml      # Example backend spec
+    ...                           # One YAML per project type
+
+  templates/                # (optional) Infra-side templates (may live elsewhere)
+    README.md               # Notes on how templates are organized
+    # App templates might live in their own repos; infra just references them.
+
+diagnostics/
+  latest.md                 # Human-readable summary of last run
+  latest.json               # JSON summary of last run
+  history/                  # Older summaries, optional rotation
+    2025-11-30T09-12-00.json
+    2025-11-30T09-12-00.md
+  raw/                      # Raw provider responses (pruned / redacted)
+    render-2025-11-30T09-12-00.json
+    supabase-2025-11-30T09-12-00.json
+    stripe-2025-11-30T09-12-00.json
+    github-2025-11-30T09-12-00.json
+
+tools/
+  infra.py                  # Main CLI entrypoint for Infra / SRE bot
+```
+
+---
+
+### 2.2 Core Concepts
+
+* **Environment** – e.g. `dev`, `staging`, `prod`. Passed as `--env=<name>`.
+* **Project Spec** – YAML describing a logical project (e.g. `catered-by-me`) and its infra needs.
+* **Provider Config** – YAML files per provider containing IDs, names, and defaults.
+
+The bot is **stateless** other than:
+* Config files
+* Diagnostics outputs
+* Whatever state lives in providers (Render, Supabase, Stripe, GitHub, etc.)
+
+---
+
+## 3. Configuration Files
+
+### 3.1 `infra/config.yaml` (global config)
+
+**Purpose:** Define environments and global defaults.
+
+**Example:**
+
+```yaml
+default_env: dev
+
+environments:
+  dev:
+    vercel_team_id: "team_xxx"
+    render_owner_id: "user_xxx"
+    github_default_branch: "dev"
+  prod:
+    vercel_team_id: "team_prod"
+    render_owner_id: "user_prod"
+    github_default_branch: "main"
+
+secrets:
+  # Names of ENV VARIABLES that must be present when running tools/infra.py
+  required_env_vars:
+    - VERCEL_TOKEN
+    - RENDER_API_KEY
+    - SUPABASE_ACCESS_TOKEN
+    - STRIPE_SECRET_KEY
+    - GITHUB_TOKEN
+```
+
+---
+
+### 3.2 Provider Configs (`infra/providers/*.yaml`)
+
+Each provider file defines IDs, URLs, and defaults for each environment.
+
+#### 3.2.1 `infra/providers/render.yaml`
+
+```yaml
+services:
+  catered-by-me-api:
+    env: prod
+    render_service_id: "srv-xxx"
+    repo: "githubuser/catered-by-me"
+    branch: "main"
+    build_command: "poetry run uvicorn apps.web.api:app --host 0.0.0.0 --port $PORT"
+    health_check_path: "/health"
+    region: "oregon"
+  # New services can be added here or generated by project-specs.
+```
+
+#### 3.2.2 `infra/providers/supabase.yaml`
+
+```yaml
+projects:
+  catered-by-me:
+    env: prod
+    project_ref: "abcd1234"
+    db_schema_file: "infra/sql/catered-by-me_schema.sql"
+    connection_env_vars:
+      url: "SUPABASE_URL"
+      anon_key: "SUPABASE_ANON_KEY"
+      service_key: "SUPABASE_SERVICE_KEY"
+```
+
+#### 3.2.3 `infra/providers/stripe.yaml`
+
+```yaml
+projects:
+  catered-by-me:
+    env: prod
+    webhook_endpoint_id: "we_12345"
+    product_specs_file: "infra/stripe/catered-by-me_products.yaml"
+```
+
+#### 3.2.4 `infra/providers/github.yaml`
+
+```yaml
+repos:
+  catered-by-me:
+    default_branch: "main"
+    ci_provider: "github-actions"
+    # optional: paths to workflow files, etc.
+```
+
+(Vercel config follows the same pattern if/when added.)
+
+---
+
+### 3.3 Project Specs (`infra/project-specs/*.yaml`)
+
+**Purpose:** Describe **one logical project** and everything it needs.
+
+Example: `infra/project-specs/catered-by-me.yaml`
+
+```yaml
+name: "catered-by-me"
+description: "Catering order web app with Stripe checkout"
+environment: "prod"
+
+components:
+  web:
+    provider: "vercel"        # or "render", depending on choice
+    template: "nextjs-marketing-site"
+    repo: "githubuser/catered-by-me"
+    root_dir: "apps/web"
+    env_vars:
+      SUPABASE_URL: from_provider:supabase:catered-by-me:url
+      NEXT_PUBLIC_SUPABASE_URL: mirror:SUPABASE_URL
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: from_env:STRIPE_PUBLISHABLE_KEY
+  api:
+    provider: "render"
+    template: "fastapi-api"
+    repo: "githubuser/catered-by-me"
+    root_dir: "apps/api"
+    env_vars:
+      SUPABASE_URL: from_provider:supabase:catered-by-me:url
+      SUPABASE_SERVICE_KEY: from_env:SUPABASE_SERVICE_KEY
+      STRIPE_SECRET_KEY: from_env:STRIPE_SECRET_KEY
+
+data:
+  supabase_project: "catered-by-me"
+
+payments:
+  stripe_project: "catered-by-me"
+
+health_checks:
+  - name: "api-health"
+    url: "https://catered-by-me-api.onrender.com/health"
+  - name: "web-health"
+    url: "https://cateredbyme.com/health"
+```
+
+---
+
+## 4. CLI Commands (`tools/infra.py`)
+
+The Infra / SRE bot is exposed as:
+
+```bash
+python tools/infra.py <command> [options]
+```
+
+At minimum, we want these commands:
+
+### 4.1 `diag` – Run Diagnostics
+
+**Usage:**
+
+```bash
+python tools/infra.py diag --env=prod
+```
+
+**Behavior:**
+
+1. Load `infra/config.yaml` and `infra/providers/*.yaml`.
+2. For the given `--env`:
+   * Run checks for each configured provider (Render, Supabase, Stripe, GitHub, Vercel if configured).
+3. Produce:
+   * `diagnostics/latest.json` – structured summary:
+     * `overall_status`
+     * `per_provider` details
+   * `diagnostics/latest.md` – human-readable report:
+     * Overall summary (✅/⚠️/❌)
+     * Per-provider sections with key findings
+   * `diagnostics/raw/*.json` – raw responses, with secrets removed or redacted.
+4. Optionally archive into `diagnostics/history/` with timestamp.
+
+**Cursor Guidance:**
+
+* Implement a provider interface like:
+
+  ```python
+  class ProviderCheckResult(TypedDict):
+      provider: str
+      status: Literal["ok", "warn", "error"]
+      human_summary: str
+      details: dict
+  ```
+
+* Add a module per provider: `infra/providers/render_client.py`, etc.
+
+* Keep provider-specific logic encapsulated.
+
+---
+
+### 4.2 `provision-project` – Create/Update Infra for a Project
+
+**Usage:**
+
+```bash
+python tools/infra.py provision-project \
+  --spec infra/project-specs/catered-by-me.yaml \
+  --env=prod
+```
+
+**Behavior:**
+
+1. Read the project spec file.
+
+2. For each component:
+   * Ensure required provider configs are present.
+   * Call provider APIs to:
+     * Create or update services (Render, Vercel, etc.).
+     * Wire environment variables according to mapping.
+
+3. For data providers:
+   * Optionally ensure Supabase project exists (or validate existing).
+   * Apply schema migrations if schema files exist.
+
+4. For Stripe:
+   * Ensure products, prices, and webhook endpoints match spec.
+
+5. Write a summary to `diagnostics/latest.md` and `latest.json` with:
+   * Created/updated services
+   * URLs
+   * Any issues or manual steps required.
+
+**Cursor Guidance:**
+
+* Start by implementing **Render** + **Supabase** + **Stripe** for one example project spec.
+
+* Write provider-specific helper functions, e.g.:
+  * `ensure_render_service(config, component_def) -> dict`
+  * `ensure_supabase_schema(config, project_name) -> dict`
+  * `ensure_stripe_resources(config, project_name) -> dict`
+
+---
+
+### 4.3 `deploy` – Trigger Deploy and Health-Check
+
+**Usage:**
+
+```bash
+python tools/infra.py deploy \
+  --spec infra/project-specs/catered-by-me.yaml \
+  --env=prod
+```
+
+**Behavior:**
+
+1. Read project spec.
+2. Trigger relevant deploys (Render services, Vercel deployments, etc.).
+3. Poll for completion status.
+4. Run defined `health_checks` from the spec.
+5. Write results into `diagnostics/latest.*` as usual.
+
+---
+
+### 4.4 (Future) `from-prompt` – Prompt → Project Spec → Infra
+
+This is a **future enhancement**:
+
+* Take a markdown or text prompt describing a project.
+* Use an LLM (via API) to generate:
+  * `infra/project-specs/<name>.yaml`
+  * Possibly scaffold app code from templates.
+* Then call `provision-project` and `deploy`.
+
+For now, this command is **spec'd but not implemented**.
+
+---
+
+## 5. Provider Integration Rules
+
+### 5.1 Common Rules
+
+* **No secrets in repo.**
+  * Provider tokens (Render API key, Vercel token, Stripe key, Supabase service key, GitHub token) must be read from **environment variables**.
+
+* **Redact secrets in logs.**
+  * Any field that looks like a secret must be stripped or replaced with `"***"` before writing to `diagnostics/raw/*.json`.
+
+* **Idempotency.**
+  * Running `diag`, `provision-project`, or `deploy` multiple times should be safe.
+
+* **Errors & Exit Codes.**
+  * If any provider is in status `error`, the CLI should exit with non-zero code.
+
+---
+
+### 5.2 Render Rules
+
+* Always use official Render API.
+* Do **not** delete services automatically.
+* When updating services, prefer PATCH-style changes over recreation.
+* Respect health check paths and timeouts from config / spec.
+
+### 5.3 Supabase Rules
+
+* Never drop databases or schemas automatically.
+* Schema changes must be applied via migration files (e.g. SQL in `infra/sql/`).
+* Tool may run a lightweight health query (`SELECT 1`) to confirm connectivity.
+
+### 5.4 Stripe Rules
+
+* Only manage **test mode** resources by default.
+* Production Stripe changes require an explicit flag (e.g. `--allow-stripe-live`).
+* Never log actual card data or sensitive PII (Stripe shouldn't expose it anyway, but be cautious).
+
+### 5.5 GitHub Rules
+
+* Use GitHub API to:
+  * Check last CI run status (optional, for diag).
+  * Avoid force-pushing or rewriting history.
+* Future: we can add "ensure CI workflows exist" here.
+
+---
+
+## 6. Cursor Instructions
+
+When Cursor is asked to modify or extend Otto, follow these rules:
+
+1. **Always read this file first** (`infra/CONTROL.md`) before editing anything in `infra/` or `tools/infra.py`.
+
+2. **Do not rename or move**:
+   * `infra/CONTROL.md`
+   * `tools/infra.py`
+   * The `infra/providers/` and `infra/project-specs/` directories
+
+3. When adding a new provider or command:
+   * Update **this document** to reflect new behavior.
+   * Keep new code in clear modules (e.g. `infra/providers/<provider>_client.py`).
+
+4. Avoid introducing:
+   * Hard-coded secrets
+   * Interactive prompts that break CI / automation
+
+5. When in doubt, log more, not less:
+   * Human-readable summary in `diagnostics/latest.md`
+   * Machine-readable details in `diagnostics/latest.json`
+
+---
+
+## 7. Implementation Order (for future dev / Cursor)
+
+Suggested build order:
+
+1. **Scaffold `tools/infra.py`** with click/argparse and a stub for:
+   * `diag`
+   * `provision-project`
+   * `deploy`
+
+2. Implement `diag` for:
+   * Render service status + logs
+   * Simple Supabase connectivity check
+   * Stripe webhook + recent failure check
+   * GitHub last CI status
+
+3. Implement `provision-project` for one example spec:
+   * Render API service for backend
+   * Supabase schema apply
+   * Stripe webhook creation
+
+4. Implement `deploy` for that same example spec.
+
+5. Expand to additional specs and providers as needed.
+
+---
+
+**End of Control Document**
+
+*This document defines the specification for the Infra / SRE bot. All implementation should follow this specification.*
+

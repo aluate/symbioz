@@ -1,0 +1,99 @@
+{
+  "Combine": {
+    "name": "Horizon Combine",
+    "ideology": "Corporate power, expansionist",
+    "baseAttitude": -1,
+    "towardAmberExposure": -2,
+    "towardHoneyExpertise": 1,
+    "towardFormerWarden": -1,
+    "towardResistanceSympathy": -3,
+    "towardMechanicalGrafts": 1,
+    "towardAmberResearch": 0,
+    "territory": [
+      "Kessar Prime",
+      "Frontier worlds",
+      "Processing facilities",
+      "Company towns"
+    ],
+    "divisions": {
+      "Research": {
+        "attitude": 0,
+        "towardAmberResearch": 1,
+        "towardEthicalBoundaries": -1
+      },
+      "Security": {
+        "attitude": -2,
+        "towardThreats": -3,
+        "towardIndependence": -2
+      }
+    },
+    "knownEnemies": ["Resistance", "Freeworlds"],
+    "knownAllies": ["Cartel (economic)"]
+  },
+  "Wardens": {
+    "name": "Wardens of the Reach",
+    "ideology": "Neutral protector faction",
+    "baseAttitude": 1,
+    "towardAmberExposure": 2,
+    "towardHoneyExpertise": 0,
+    "towardMechanicalGrafts": -1,
+    "towardAmberResearch": 1,
+    "towardProtection": 2,
+    "territory": [
+      "Neutral stations",
+      "Observation posts",
+      "Waystations",
+      "The Spindle"
+    ],
+    "knownEnemies": [],
+    "knownAllies": ["Freeworlds", "Scientific Community"]
+  },
+  "Freeworlds": {
+    "name": "Freeworlds / Independent Settlements",
+    "ideology": "Independence, self-determination",
+    "baseAttitude": 1,
+    "towardAmberExposure": 0,
+    "towardHoneyExpertise": 1,
+    "towardCombine": -3,
+    "towardResistance": 2,
+    "territory": [
+      "Independent planets",
+      "Frontier settlements",
+      "Hidden bases"
+    ],
+    "knownEnemies": ["Combine"],
+    "knownAllies": ["Wardens", "Resistance"]
+  },
+  "Cartel": {
+    "name": "Confluence Cartel",
+    "ideology": "Honey distribution, information broker",
+    "baseAttitude": 0,
+    "towardHoneyExpertise": 2,
+    "towardInformation": 2,
+    "towardEconomicOpportunity": 2,
+    "territory": [
+      "Trade routes",
+      "Black markets",
+      "Neutral zones",
+      "The Spindle"
+    ],
+    "knownEnemies": [],
+    "knownAllies": ["Combine (economic)", "Anyone (economic)"]
+  },
+  "Resistance": {
+    "name": "Resistance Cells",
+    "ideology": "Anti-Combine, worker protection",
+    "baseAttitude": 1,
+    "towardCombine": -3,
+    "towardWorkers": 2,
+    "towardCorporateExpansion": -3,
+    "territory": [
+      "Independent settlements",
+      "Hidden bases",
+      "Frontier operations"
+    ],
+    "knownEnemies": ["Combine"],
+    "knownAllies": ["Freeworlds"]
+  }
+}
+

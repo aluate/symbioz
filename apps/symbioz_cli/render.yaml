@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: symbioz-api
+    env: python
+    plan: free
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn api_server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.11
+      - key: ALLOWED_ORIGINS
+        value: https://*.vercel.app
+        # Note: Update this in Render dashboard after frontend is deployed
+        # to include your actual Vercel URL: https://your-project.vercel.app,https://*.vercel.app
+    autoDeploy: true
+

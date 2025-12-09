@@ -14,9 +14,22 @@ components:
     branch: "main"
     build_command: "npm install && npm run build"
     env_vars:
-      
+      NEXT_PUBLIC_API_URL: from_env:NEXT_PUBLIC_API_URL
+  
+  api:
+    provider: "render"
+    repo: "aluate/symbioz"
+    root_dir: "apps/symbioz_cli"
+    branch: "main"
+    build_command: "pip install -r requirements.txt"
+    start_command: "uvicorn api_server:app --host 0.0.0.0 --port $PORT"
+    env_vars:
+      PYTHON_VERSION: "3.11.11"
+      ALLOWED_ORIGINS: from_env:ALLOWED_ORIGINS
 
 health_checks:
   - name: "web-health"
     url: ""
+  - name: "api-health"
+    url: "/api/health"
 

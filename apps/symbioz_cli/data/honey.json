@@ -1,0 +1,33 @@
+[
+  {
+    "name": "Vital Honey",
+    "description": "Restores 2d4+2 HP when consumed.",
+    "effect": "heal",
+    "effect_value": "2d4+2"
+  },
+  {
+    "name": "Stim Honey",
+    "description": "Grants +2 to next attack roll for 1 turn.",
+    "effect": "buff_attack",
+    "effect_value": 2
+  },
+  {
+    "name": "Toxin Honey",
+    "description": "Deals 1d4 damage to target enemy.",
+    "effect": "damage",
+    "effect_value": "1d4"
+  },
+  {
+    "name": "Shield Honey",
+    "description": "Grants +2 Defense for 3 turns.",
+    "effect": "buff_defense",
+    "effect_value": 2
+  },
+  {
+    "name": "Focus Honey",
+    "description": "Grants +1 to all skill checks for 1 encounter.",
+    "effect": "buff_skills",
+    "effect_value": 1
+  }
+]
+

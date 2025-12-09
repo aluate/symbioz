@@ -1,0 +1,62 @@
+{
+  "KITCHEN_8FT_BASE": {
+    "label": "8' Base Run (Sink + 2-door + 3-drawer)",
+    "description": "Standard 8-foot base set: sink base, 2-door base, 3-drawer base.",
+    "default_room_suffix": "Base Run",
+    "items": [
+      {"family_code": "B_SINK", "width_in": 36},
+      {"family_code": "B_2D", "width_in": 30},
+      {"family_code": "B_3DR", "width_in": 30}
+    ]
+  },
+  "KITCHEN_10FT_BASE": {
+    "label": "10' Base Run (Sink + 2-door + 2-door + 3-drawer)",
+    "description": "Standard 10-foot base set: sink base, two 2-door bases, 3-drawer base.",
+    "default_room_suffix": "Base Run",
+    "items": [
+      {"family_code": "B_SINK", "width_in": 36},
+      {"family_code": "B_2D", "width_in": 30},
+      {"family_code": "B_2D", "width_in": 30},
+      {"family_code": "B_3DR", "width_in": 30}
+    ]
+  },
+  "BATH_60_VANITY": {
+    "label": "60\" Bath Vanity",
+    "description": "Drawer-sink-drawer vanity layout.",
+    "default_room_suffix": "Bath Vanity",
+    "items": [
+      {"family_code": "V_3DR", "width_in": 15},
+      {"family_code": "V_SINK_CENTER", "width_in": 30},
+      {"family_code": "V_3DR", "width_in": 15}
+    ]
+  },
+  "BATH_48_VANITY": {
+    "label": "48\" Bath Vanity",
+    "description": "Single drawer-sink vanity layout.",
+    "default_room_suffix": "Bath Vanity",
+    "items": [
+      {"family_code": "V_3DR", "width_in": 18},
+      {"family_code": "V_SINK_CENTER", "width_in": 30}
+    ]
+  },
+  "WALL_6FT": {
+    "label": "6' Wall Run (2-door + 2-door)",
+    "description": "Standard 6-foot wall cabinet set.",
+    "default_room_suffix": "Wall Cabinets",
+    "items": [
+      {"family_code": "W_2D", "width_in": 30},
+      {"family_code": "W_2D", "width_in": 30}
+    ]
+  },
+  "WALL_8FT": {
+    "label": "8' Wall Run (2-door + 2-door + 2-door)",
+    "description": "Standard 8-foot wall cabinet set.",
+    "default_room_suffix": "Wall Cabinets",
+    "items": [
+      {"family_code": "W_2D", "width_in": 30},
+      {"family_code": "W_2D", "width_in": 30},
+      {"family_code": "W_2D", "width_in": 30}
+    ]
+  }
+}
+

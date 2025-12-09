@@ -1,0 +1,56 @@
+Trim Take-Off Calculator Results
+Generated:,2025-11-19 13:00:04
+
+INPUTS
+Interior Walls (linear ft),150.0
+Exterior Walls (linear ft),20.0
+Exterior Doors,3
+Interior Doors,15
+Trimmed Openings,3
+Windows,15
+Sliders,3
+Door Height,6/8
+Finish Level,Standard
+Species,Cherry
+Wood Wrapped,True
+Has Schedule,False
+
+
+STYLE: Craftsman
+Trim Type,LF Needed,BF Required,Thickness Required (in),Thickness Category
+Base,404.80,289.74,1.000,4/4
+Casing,391.26,152.06,1.000,4/4
+Headers,227.70,223.52,1.250,5/4
+Sills,66.00,72.13,1.000,4/4
+Apron,66.00,47.24,1.000,4/4
+Jambs,266.96,226.92,1.000,4/4
+TOTALS,1422.73,1011.61,,
+
+STYLE: Mitered
+Trim Type,LF Needed,BF Required,Thickness Required (in),Thickness Category
+Base,369.60,264.54,1.000,4/4
+Casing,632.76,245.92,1.000,4/4
+Headers,128.70,126.34,1.250,5/4
+Jambs,349.76,217.50,1.000,4/4
+TOTALS,1480.83,854.30,,
+
+STYLE: Built-Up
+Trim Type,LF Needed,BF Required,Thickness Required (in),Thickness Category
+Base,704.00,503.89,1.000,4/4
+Casing,391.26,152.06,1.000,4/4
+Headers,227.70,223.52,1.250,5/4
+Sills,66.00,72.13,1.000,4/4
+Apron,66.00,47.24,1.000,4/4
+Jambs,266.96,226.92,1.000,4/4
+Dentils,198.00,30.24,1.000,4/4
+TOTALS,1919.93,1256.01,,
+
+STYLE: Sill/Apron Only
+Trim Type,LF Needed,BF Required,Thickness Required (in),Thickness Category
+Base,352.00,251.94,1.000,4/4
+Casing,253.13,98.38,1.000,4/4
+Headers,128.70,126.34,1.250,5/4
+Sills,66.00,72.13,1.000,4/4
+Apron,66.00,47.24,1.000,4/4
+Jambs,46.02,39.12,1.000,4/4
+TOTALS,911.85,635.15,,

@@ -1,0 +1,48 @@
+---
+# Chapter 23
+---
+
+Word came from the east that morning, spreading through the fort like wildfire, like hope, like a promise of things to come—cavalry may ride, men ready to break Arpin's hold, soldiers coming to free them, to share burden, to balance scales, to end the tyranny, the cruelty, the binding.
+
+The fort buzzed with hope, voices rising, words spreading, eyes brightening, spirits lifting, as if help was coming, as if rescue was on the way, as if freedom was possible, as if balance was within reach.
+
+Taman seized on it, telling Sela this may be their chance, this may be the way out, this may be the rescue they'd been waiting for, the help they'd been hoping for, the freedom they'd been dreaming of.
+
+"Maybe," he said, his voice urgent. "Maybe this is it. Maybe the cavalry will come. Maybe they'll break Arpin's hold. Maybe they'll free us. Maybe they'll share burden, balance scales, end the tyranny. Maybe this is our chance. Maybe this is our way out."
+
+But Arpin played it smooth, welcoming the rumor, smiling wide, his expression calm, reasonable, as if the cavalry was welcome, as if their arrival was expected, as if their help was needed, wanted, appreciated.
+
+"Let them come," he said, his voice carrying. "Let them ride. Let them see the fort, the ledger, the system that protects you, that ensures you, that keeps you safe. Let them see the order, the balance, the way things should be. And if they're reasonable, if they understand, they'll see. They'll understand. They'll join. They'll help."
+
+But behind closed doors, he prepared gold and promises, working with Isaac, planning, plotting, preparing to turn soldiers into mercenaries, to buy loyalty, to bind help with debt, to make allies into weapons, burden bending even men in uniform.
+
+"If they come," Arpin said, his voice low. "If they ride. If they try to help. We'll meet them. We'll talk. We'll negotiate. And if gold doesn't work, if promises don't work, if debt doesn't work, then Isaac's coin will work. It always works. It bends wills. It twists truth. It makes people agree to things they wouldn't normally. And soldiers are people. They bend. They twist. They agree. They join."
+
+Boone wrote the terms, sick with shame, his hand moving the ink, his words recording the plans, the promises, the debts that would bind the soldiers, that would turn help into weapons, that would make allies into enemies.
+
+He couldn't stop his hand from moving the ink, couldn't stop the words from forming, couldn't stop the debt from being recorded, couldn't stop the binding from being created. He was bound. He was obligated. He was caught in chains he couldn't break, couldn't escape, couldn't be free of.
+
+But as he wrote, he also felt something else—shame. He was creating bindings, recording debts, turning help into weapons. And the shame of that, the guilt of that, the burden of that—it pressed down, heavy and constant, a reminder of what he was doing, what he was creating, what he was becoming.
+
+Taman found him later that evening, his expression troubled. "You're writing their bindings," he said, his voice tight. "You're recording their debts. You're turning help into weapons."
+
+Boone looked up, his eyes seeing something that made his expression shift. "I know. I know what I'm doing. I know what I'm creating. And I hate it. I hate every word. I hate every debt. I hate every binding. But I can't stop. I'm bound. I'm obligated. I'm caught in chains I can't break."
+
+"Then we break them together," Taman said, making another choice. "We find a way. We share the burden. We bear it together. And maybe, just maybe, that makes it easier. Maybe, just maybe, that makes it possible."
+
+Boone was silent for a long moment. Then he nodded, his expression troubled but determined. "Then maybe we do. Maybe we find a way. Maybe we break them together."
+
+But his words were halting, fragile, uncertain, and Taman felt something shift, felt hope fading, felt the burden of Boone's hesitation pressing down. Boone wanted to break free, wanted to act, wanted to choose courage. But wanting and doing were different things.
+
+The missionary wandered the barracks that evening, muttering of armies that march in circles, always back to the beginning, his words tumbling, his voice rising and falling, his warnings lost in the noise, the hope, the promise of rescue.
+
+"Armies march in circles," he muttered. "Always back to the beginning. Always back to where they started. Always back to the burden, to the scales, to the choices that brought them here, that bound them, that owned them. Armies can't break burden. Armies can't balance scales. Armies can't free what's bound. They just add burden. They just shift scales. They just bind tighter."
+
+The hawk perched on the wall, watching the drills, the preparations, the movements of men getting ready, preparing for what was coming, what was building, what was gathering.
+
+The bird watched, its eyes sharp, intelligent, seeing something that made it still, quiet, waiting, as if judging the men, their preparations, their plans, their choices, their burden, their scales, their something that was coming, something that would break, something that would change.
+
+Taman felt the ground tremor again, the rhythm of drums beneath the soil, the mountain groaning, shifting, responding to the burden, to the choices, to the something that was building, that was gathering, that was coming.
+
+The cavalry rumor spread, hope growing, voices rising, spirits lifting. But the burden remained. The scales shifted. The mountain groaned. And sooner or later, it would all come due.
+

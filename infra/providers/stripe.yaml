@@ -1,0 +1,15 @@
+# Stripe Provider Configuration
+
+projects:
+  # Catered By Me (TEST MODE ONLY - Default behavior)
+  catered-by-me:
+    env: prod
+    webhook_endpoint_id: "we_1SZHTGK3XMzVSHTY3u7a4pvv"  # Webhook endpoint for billing events
+    product_specs_file: null  # Optional: path to product definitions if using
+    # NOTE: Stripe operations default to TEST mode for safety
+  
+  # Add more projects as needed
+  # another-project:
+  #   env: prod
+  #   webhook_endpoint_id: "we_67890"
+

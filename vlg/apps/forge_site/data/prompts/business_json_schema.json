@@ -1,0 +1,282 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "required": [
+    "businessName",
+    "industry",
+    "primaryGoal"
+  ],
+  "properties": {
+    "businessName": {
+      "type": "string",
+      "description": "Official business name"
+    },
+    "industry": {
+      "type": "string",
+      "description": "Industry or business type (e.g., builder, contractor, designer, shop)"
+    },
+    "primaryGoal": {
+      "type": "string",
+      "enum": ["GET_LEADS", "SELL_PRODUCTS", "CREDIBILITY", "CLARITY"],
+      "description": "Main goal for the website"
+    },
+    "description": {
+      "type": "string",
+      "description": "What the business does in 1-2 sentences"
+    },
+    "serviceAreas": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Cities, regions, or areas served"
+    },
+    "services": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "shortDescription": {
+            "type": "string"
+          },
+          "flagship": {
+            "type": "boolean",
+            "default": false
+          }
+        },
+        "required": ["name"]
+      },
+      "description": "List of services offered"
+    },
+    "hasProducts": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether the business sells products online"
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "category": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "price"]
+      },
+      "description": "Product catalog (if hasProducts is true)"
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "description": {
+            "type": "string"
+          }
+        },
+        "required": ["title"]
+      },
+      "description": "Past projects or work examples"
+    },
+    "testimonials": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "quote": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "location": {
+            "type": "string"
+          }
+        },
+        "required": ["quote"]
+      },
+      "description": "Client testimonials or reviews"
+    },
+    "brandColors": {
+      "type": "object",
+      "properties": {
+        "primary": {
+          "type": "string"
+        },
+        "secondary": {
+          "type": "string"
+        },
+        "accent": {
+          "type": "string"
+        }
+      },
+      "description": "Optional brand color overrides (hex codes)"
+    },
+    "toneNotes": {
+      "type": "string",
+      "description": "Notes about desired tone of voice or style"
+    },
+    "imagesProvided": {
+      "type": "boolean",
+      "default": false,
+      "description": "Whether images are available"
+    },
+    "contact": {
+      "type": "object",
+      "properties": {
+        "phone": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "preferredContactMethod": {
+          "type": "string",
+          "enum": ["phone", "email", "form", "all"]
+        },
+        "hours": {
+          "type": "string"
+        }
+      },
+      "description": "Contact information"
+    },
+    "templateId": {
+      "type": "string",
+      "enum": ["simple-builder-landing", "lead-capture", "commerce-lite"],
+      "description": "Explicit template selection (overrides auto-selection)"
+    },
+    "modulesRequested": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Specific modules to include (optional)"
+    },
+    "pages": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Custom pages to include beyond template defaults (optional)"
+    },
+    "brandTokensPath": {
+      "type": "string",
+      "description": "Path to pre-existing brand tokens JSON file (if provided, brand generation is skipped)"
+    },
+    "brandInput": {
+      "type": "object",
+      "description": "Raw brand input for brand generation (conversation, intake form, notes)",
+      "properties": {
+        "brandPersonality": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "3 words that describe brand personality"
+        },
+        "brandFeel": {
+          "type": "string",
+          "description": "What the brand should feel like (e.g., 'confident and warm')"
+        },
+        "brandNeverFeel": {
+          "type": "string",
+          "description": "What the brand should never feel like (e.g., 'corporate' or 'flashy')"
+        },
+        "visualStyle": {
+          "type": "string",
+          "description": "Visual style preferences or design references"
+        },
+        "coreBeliefs": {
+          "type": "string",
+          "description": "Core beliefs or values that drive the business"
+        },
+        "colorPreferences": {
+          "type": "object",
+          "properties": {
+            "loved": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Colors the brand loves"
+            },
+            "hated": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Colors the brand hates or wants to avoid"
+            }
+          }
+        },
+        "toneOfVoice": {
+          "type": "string",
+          "description": "Desired tone of voice (e.g., 'Professional but friendly', 'Direct and no-nonsense')"
+        },
+        "wordsToAvoid": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Words or phrases to avoid in copy"
+        },
+        "visualReferences": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "URLs or descriptions of visual references or websites they like"
+        },
+        "conversationTranscript": {
+          "type": "string",
+          "description": "Raw conversation transcript about brand identity"
+        },
+        "notes": {
+          "type": "string",
+          "description": "General notes about brand identity"
+        }
+      }
+    }
+  }
+}
+

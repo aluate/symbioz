@@ -1,0 +1,20 @@
+project_name,building_id,sheet_name,category,part_id,part_name,unit,qty,length_in,unit_price,ext_price,notes
+Test_B_40x60,Test_B_40x60,Insulation,insulation,INS_R19_SQFT,R-19 Insulation,sqft,2400.0,,0.83,1992.0,E61 bag coverage
+Test_B_40x60,Test_B_40x60,Framing,framing,LBR_2X6_LF,2x6 Lumber,lf,177.0,192.0,1.16,205.32,"Price derived from 2x6x12; Length: 16.0ft (192"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,21.0,144.0,52.199999999999996,1096.1999999999998,"12' panel covers 36 sqft; Length: 12.0ft (144"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,158,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 13.2ft (158"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,170,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 14.2ft (170"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,182,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 15.2ft (182"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,194,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 16.2ft (194"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,206,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 17.2ft (206"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,218,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 18.2ft (218"")"
+Test_B_40x60,Test_B_40x60,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,21.0,252.98221281347034,52.199999999999996,1096.1999999999998,"12' panel covers 36 sqft; Length: 21.1ft (253"")"
+Test_B_40x60,Test_B_40x60,Framing,framing,POST_6X6_PT,6x6 PT Post,ea,14.0,,75.0,1050.0,Avg of 8-12 ft PT posts
+Test_B_40x60,Test_B_40x60,Misc,trim,TRIM_BASE,Base Trim,lf,220.00000000000003,,3.13,688.6,-
+Test_B_40x60,Test_B_40x60,Misc,trim,TRIM_CORNER,Corner Trim,lf,52.800000000000004,,3.13,165.264,-
+Test_B_40x60,Test_B_40x60,Doors_Windows,trim,TRIM_DOOR,Door Trim,lf,37.400000000000006,,3.13,117.06200000000001,-
+Test_B_40x60,Test_B_40x60,Misc,trim,TRIM_EAVE,Eave Trim,lf,132.0,,3.13,413.15999999999997,-
+Test_B_40x60,Test_B_40x60,Doors_Windows,trim,TRIM_J_CHANNEL_29,J-Channel 29ga,ea,9.0,120.0,12.5,112.5,"10 ft sticks; Length: 10.0ft (120"")"
+Test_B_40x60,Test_B_40x60,Misc,trim,TRIM_RAKE,Rake Trim,lf,88.0,,3.13,275.44,-
+Test_B_40x60,Test_B_40x60,Doors_Windows,trim,TRIM_WINDOW,Window Trim,lf,52.800000000000004,,3.13,165.264,-
+Test_B_40x60,Test_B_40x60,Framing,framing,TRUSS_STD,Standard Truss,ea,7.0,,312.5,2187.5,Typical 30-40 ft span truss

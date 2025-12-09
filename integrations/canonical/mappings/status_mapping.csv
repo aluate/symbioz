@@ -1,0 +1,9 @@
+ppak_status,canonical_status,innergy_status,notes
+Draft,draft,draft,Project not started
+Quoted,quoted,quoted,Quote sent
+Approved,approved,approved,Ready to start
+In Progress,in_progress,active,Active project
+On Hold,on_hold,on_hold,Paused
+Complete,completed,completed,Finished
+Cancelled,cancelled,cancelled,Cancelled
+

@@ -1,0 +1,79 @@
+{
+  "characters": {
+    "Kaelen_Voss": {
+      "race": "Human",
+      "class": "Vanguard",
+      "amberExposure": "High",
+      "honeyAffinity": ["Ironflower Resin"],
+      "honeyExposure": "Childhood (developmental)",
+      "factionReputation": {
+        "Combine": -3,
+        "Wardens": 1,
+        "Freeworlds": 2,
+        "Cartel": 0
+      },
+      "uniqueTraits": [
+        "Scrap-interfacing intuition",
+        "Nightmare echo reverie",
+        "Gamma-7 witness"
+      ],
+      "mechanicalImplications": [
+        "INT bonus if interacting with derelict machine architecture",
+        "MADness check roll when handling raw Amber",
+        "+2 WIS (Amber-related)",
+        "+1 STR (Ironflower developmental)"
+      ],
+      "relationships": {
+        "Mara_Deep-Current": {
+          "type": "Colleague",
+          "trust": 2,
+          "knowledge": "Gamma-7 event together"
+        },
+        "Vex_Three-Stance": {
+          "type": "Acquaintance",
+          "trust": 1,
+          "knowledge": "Gamma-7 aftermath analysis"
+        }
+      },
+      "storyFlags": ["gamma7_witness", "amber_exposed", "warden_assigned"]
+    },
+    "Mara_Deep-Current": {
+      "race": "Ærathi",
+      "class": "Pioneer",
+      "amberExposure": "High (biological)",
+      "honeyAffinity": ["Tide-Petal"],
+      "factionReputation": {
+        "Combine": -2,
+        "Wardens": 0,
+        "Freeworlds": 2,
+        "Cartel": 0
+      },
+      "uniqueTraits": [
+        "Ecosystem awareness",
+        "Amber biological understanding",
+        "Former Warden",
+        "Gamma-7 witness"
+      ],
+      "mechanicalImplications": [
+        "+2 WIS (Amber biological)",
+        "High CON (Resilience)",
+        "Environmental adaptation bonuses",
+        "Underwater survival expertise"
+      ],
+      "relationships": {
+        "Kaelen_Voss": {
+          "type": "Colleague",
+          "trust": 2,
+          "knowledge": "Gamma-7 event together"
+        }
+      },
+      "storyFlags": ["gamma7_witness", "amber_exposed", "former_warden", "left_wardens"]
+    }
+  },
+  "metadata": {
+    "version": "1.0",
+    "source": "STORY_CANON_LEDGER.md + character stories",
+    "lastUpdated": "2025-01"
+  }
+}
+

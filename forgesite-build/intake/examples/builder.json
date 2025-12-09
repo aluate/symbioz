@@ -1,0 +1,34 @@
+{
+  "businessName": "Mountain View Builders",
+  "ownerName": "John Smith",
+  "tradeType": "builder",
+  "serviceArea": "Denver Metro, Colorado",
+  "services": [
+    "Custom Home Construction",
+    "Home Additions",
+    "Kitchen Remodels",
+    "Bathroom Renovations"
+  ],
+  "typicalJobSize": "$150,000 - $500,000",
+  "idealClientDescription": "Homeowners looking to build their dream home or expand their current space",
+  "differentiators": [
+    "20+ years experience",
+    "Licensed and insured",
+    "Energy-efficient building practices"
+  ],
+  "testimonials": [
+    {
+      "name": "Sarah Johnson",
+      "quote": "Mountain View built our dream home. Professional, on-time, and beautiful work.",
+      "projectType": "Custom Home"
+    }
+  ],
+  "brandVoice": "premium",
+  "mainGoal": "get_leads",
+  "contact": {
+    "phone": "(555) 123-4567",
+    "email": "info@mountainviewbuilders.com",
+    "address": "123 Builder St, Denver, CO 80202"
+  },
+  "packageLevel": "pro"
+}

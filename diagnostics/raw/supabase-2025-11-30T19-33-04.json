@@ -1,0 +1,8 @@
+{
+  "provider": "supabase",
+  "status": "error",
+  "human_summary": "Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>",
+  "details": {
+    "error": "'charmap' codec can't encode characters in position 0-1: character maps to <undefined>"
+  }
+}

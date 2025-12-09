@@ -1,0 +1,28 @@
+{
+  "provider": "github",
+  "status": "error",
+  "human_summary": "\u274c 1 repo(s) have errors",
+  "details": {
+    "repos": [
+      {
+        "repo": "catered-by-me",
+        "status": "error",
+        "repo_path": "aluate/catered_by_me",
+        "private": false,
+        "default_branch": "main",
+        "branch": {
+          "name": "main",
+          "sha": "***",
+          "commit_message": "Add Vercel deployment troubleshooting checklist"
+        },
+        "failing_checks": [
+          {
+            "context": "Vercel",
+            "description": "Deployment has failed"
+          }
+        ]
+      }
+    ],
+    "total_repos": 1
+  }
+}

@@ -1,0 +1,233 @@
+[
+  {
+    "id": "hero_basic",
+    "name": "Hero Basic",
+    "category": "hero",
+    "intentTags": ["INFORM", "CONVERT"],
+    "requiredFields": ["headline", "subheadline", "primaryCTA.label", "primaryCTA.href"],
+    "optionalFields": ["heroImage", "secondaryCTA"],
+    "layoutComponentPath": "modules/page_modules/HeroBasic.tsx",
+    "recommendedUseCases": ["Landing pages", "Home pages", "Campaign pages"]
+  },
+  {
+    "id": "hero_image_right",
+    "name": "Hero Image Right",
+    "category": "hero",
+    "intentTags": ["INFORM", "CONVERT", "SHOWCASE"],
+    "requiredFields": ["headline", "subheadline", "primaryCTA.label", "primaryCTA.href", "heroImage"],
+    "optionalFields": ["secondaryCTA"],
+    "layoutComponentPath": "modules/page_modules/HeroImageRight.tsx",
+    "recommendedUseCases": ["Product pages", "Service pages with imagery"]
+  },
+  {
+    "id": "services_grid",
+    "name": "Services Grid",
+    "category": "content",
+    "intentTags": ["INFORM", "SHOWCASE"],
+    "requiredFields": ["services"],
+    "optionalFields": ["serviceIcons", "serviceImages"],
+    "layoutComponentPath": "modules/page_modules/ServicesGrid.tsx",
+    "recommendedUseCases": ["Service business home pages", "Dedicated services pages", "Multi-service showcases"]
+  },
+  {
+    "id": "service_list_detailed",
+    "name": "Service List Detailed",
+    "category": "content",
+    "intentTags": ["INFORM"],
+    "requiredFields": ["services"],
+    "optionalFields": ["serviceDescriptions", "serviceImages", "servicePrices"],
+    "layoutComponentPath": "modules/page_modules/ServiceListDetailed.tsx",
+    "recommendedUseCases": ["Detailed service pages", "Service comparison pages"]
+  },
+  {
+    "id": "project_gallery_grid",
+    "name": "Project Gallery Grid",
+    "category": "gallery",
+    "intentTags": ["SHOWCASE", "TRUST"],
+    "requiredFields": ["projects"],
+    "optionalFields": ["projectDescriptions", "projectLinks"],
+    "layoutComponentPath": "modules/page_modules/ProjectGalleryGrid.tsx",
+    "recommendedUseCases": ["Builder portfolios", "Designer showcases", "Contractor work galleries"]
+  },
+  {
+    "id": "project_case_study",
+    "name": "Project Case Study",
+    "category": "gallery",
+    "intentTags": ["SHOWCASE", "TRUST", "INFORM"],
+    "requiredFields": ["project.title", "project.images", "project.description"],
+    "optionalFields": ["project.location", "project.date", "project.testimonial"],
+    "layoutComponentPath": "modules/page_modules/ProjectCaseStudy.tsx",
+    "recommendedUseCases": ["Individual project pages", "Detailed work showcases"]
+  },
+  {
+    "id": "testimonial_strip",
+    "name": "Testimonial Strip",
+    "category": "trust",
+    "intentTags": ["TRUST", "CONVERT"],
+    "requiredFields": ["testimonials"],
+    "optionalFields": ["testimonialImages", "testimonialNames", "testimonialRoles"],
+    "layoutComponentPath": "modules/page_modules/TestimonialStrip.tsx",
+    "recommendedUseCases": ["Home pages", "Landing pages", "Service pages"]
+  },
+  {
+    "id": "testimonial_grid",
+    "name": "Testimonial Grid",
+    "category": "trust",
+    "intentTags": ["TRUST", "CONVERT"],
+    "requiredFields": ["testimonials"],
+    "optionalFields": ["testimonialImages", "testimonialNames", "testimonialRoles"],
+    "layoutComponentPath": "modules/page_modules/TestimonialGrid.tsx",
+    "recommendedUseCases": ["Dedicated testimonials pages", "Long-form sales pages"]
+  },
+  {
+    "id": "faq_accordion",
+    "name": "FAQ Accordion",
+    "category": "content",
+    "intentTags": ["INFORM", "TRUST"],
+    "requiredFields": ["faqs"],
+    "optionalFields": [],
+    "layoutComponentPath": "modules/page_modules/FAQAccordion.tsx",
+    "recommendedUseCases": ["Landing pages", "Service pages", "Product pages"]
+  },
+  {
+    "id": "lead_capture_form",
+    "name": "Lead Capture Form",
+    "category": "form",
+    "intentTags": ["CAPTURE_LEAD", "CONVERT"],
+    "requiredFields": ["formFields"],
+    "optionalFields": ["formTitle", "formDescription", "privacyNote"],
+    "layoutComponentPath": "modules/page_modules/LeadCaptureForm.tsx",
+    "recommendedUseCases": ["Landing pages", "Lead-gen pages", "Home pages"]
+  },
+  {
+    "id": "contact_form_simple",
+    "name": "Contact Form Simple",
+    "category": "form",
+    "intentTags": ["CAPTURE_LEAD", "INFORM"],
+    "requiredFields": ["contact.email", "contact.phone"],
+    "optionalFields": ["contact.address", "contact.hours"],
+    "layoutComponentPath": "modules/page_modules/ContactFormSimple.tsx",
+    "recommendedUseCases": ["Contact pages", "Footer forms"]
+  },
+  {
+    "id": "pricing_table_three_column",
+    "name": "Pricing Table Three Column",
+    "category": "commerce",
+    "intentTags": ["SELL", "CONVERT"],
+    "requiredFields": ["pricingTiers"],
+    "optionalFields": ["pricingDescription", "pricingCTA"],
+    "layoutComponentPath": "modules/page_modules/PricingTableThreeColumn.tsx",
+    "recommendedUseCases": ["Service pricing pages", "Membership pages"]
+  },
+  {
+    "id": "product_grid_simple",
+    "name": "Product Grid Simple",
+    "category": "commerce",
+    "intentTags": ["SHOWCASE", "SELL"],
+    "requiredFields": ["products"],
+    "optionalFields": ["productCategories", "productFilters"],
+    "layoutComponentPath": "modules/page_modules/ProductGridSimple.tsx",
+    "recommendedUseCases": ["Shop pages", "Product catalog pages"]
+  },
+  {
+    "id": "product_detail_basic",
+    "name": "Product Detail Basic",
+    "category": "commerce",
+    "intentTags": ["SELL", "INFORM"],
+    "requiredFields": ["product.name", "product.price", "product.images"],
+    "optionalFields": ["product.description", "product.variants", "product.specs"],
+    "layoutComponentPath": "modules/page_modules/ProductDetailBasic.tsx",
+    "recommendedUseCases": ["Individual product pages"]
+  },
+  {
+    "id": "cart_page",
+    "name": "Cart Page",
+    "category": "commerce",
+    "intentTags": ["SELL", "CONVERT"],
+    "requiredFields": [],
+    "optionalFields": ["cartItems", "shippingOptions"],
+    "layoutComponentPath": "modules/page_modules/CartPage.tsx",
+    "recommendedUseCases": ["E-commerce cart pages"]
+  },
+  {
+    "id": "checkout_page",
+    "name": "Checkout Page",
+    "category": "commerce",
+    "intentTags": ["SELL", "CONVERT"],
+    "requiredFields": [],
+    "optionalFields": ["stripePublicKey"],
+    "layoutComponentPath": "modules/page_modules/CheckoutPage.tsx",
+    "recommendedUseCases": ["E-commerce checkout pages"]
+  },
+  {
+    "id": "blog_index",
+    "name": "Blog Index",
+    "category": "content",
+    "intentTags": ["INFORM", "TRUST"],
+    "requiredFields": ["blogPosts"],
+    "optionalFields": ["blogCategories", "blogTags"],
+    "layoutComponentPath": "modules/page_modules/BlogIndex.tsx",
+    "recommendedUseCases": ["Blog listing pages", "Article archives"]
+  },
+  {
+    "id": "blog_post_body",
+    "name": "Blog Post Body",
+    "category": "content",
+    "intentTags": ["INFORM", "TRUST"],
+    "requiredFields": ["post.title", "post.content", "post.date"],
+    "optionalFields": ["post.author", "post.tags", "post.category"],
+    "layoutComponentPath": "modules/page_modules/BlogPostBody.tsx",
+    "recommendedUseCases": ["Individual blog post pages"]
+  },
+  {
+    "id": "map_embed",
+    "name": "Map Embed",
+    "category": "content",
+    "intentTags": ["INFORM"],
+    "requiredFields": ["address"],
+    "optionalFields": ["mapProvider", "mapStyle"],
+    "layoutComponentPath": "modules/page_modules/MapEmbed.tsx",
+    "recommendedUseCases": ["Contact pages", "Location pages"]
+  },
+  {
+    "id": "stats_strip",
+    "name": "Stats Strip",
+    "category": "trust",
+    "intentTags": ["TRUST", "INFORM"],
+    "requiredFields": ["stats"],
+    "optionalFields": ["statLabels", "statIcons"],
+    "layoutComponentPath": "modules/page_modules/StatsStrip.tsx",
+    "recommendedUseCases": ["Home pages", "About pages", "Landing pages"]
+  },
+  {
+    "id": "cta_basic",
+    "name": "CTA Basic",
+    "category": "content",
+    "intentTags": ["CONVERT"],
+    "requiredFields": ["ctaText", "ctaLink"],
+    "optionalFields": ["ctaSubtext", "ctaStyle"],
+    "layoutComponentPath": "modules/page_modules/CTABasic.tsx",
+    "recommendedUseCases": ["Section breaks", "Page endings", "Service pages"]
+  },
+  {
+    "id": "content_two_column",
+    "name": "Content Two Column",
+    "category": "content",
+    "intentTags": ["INFORM"],
+    "requiredFields": ["content.left", "content.right"],
+    "optionalFields": ["content.image", "content.heading"],
+    "layoutComponentPath": "modules/page_modules/ContentTwoColumn.tsx",
+    "recommendedUseCases": ["About pages", "Service detail pages"]
+  },
+  {
+    "id": "benefits_strip",
+    "name": "Benefits Strip",
+    "category": "content",
+    "intentTags": ["INFORM", "CONVERT"],
+    "requiredFields": ["benefits"],
+    "optionalFields": ["benefitIcons", "benefitImages"],
+    "layoutComponentPath": "modules/page_modules/BenefitsStrip.tsx",
+    "recommendedUseCases": ["Landing pages", "Sales pages", "Service pages"]
+  }
+]
+

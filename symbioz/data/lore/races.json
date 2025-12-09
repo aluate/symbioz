@@ -1,0 +1,102 @@
+[
+  {
+    "id": "human",
+    "name": "Human",
+    "description": "Versatile and adaptable, humans excel in any role.",
+    "baseAttributes": {
+      "STR": 10,
+      "DEX": 10,
+      "CON": 10,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 10
+    },
+    "racialTraits": {},
+    "culturalTraits": [
+      "Adaptability",
+      "Versatility",
+      "No specialization bias"
+    ],
+    "honeyAffinity": [],
+    "honeyCompatibility": "Universal",
+    "amberPsychologyRisk": 5,
+    "factionBaseAttitude": {
+      "Combine": 0,
+      "Wardens": 0,
+      "Freeworlds": 0,
+      "Cartel": 0
+    },
+    "homeworld": null,
+    "knownEnemies": [],
+    "knownAllies": []
+  },
+  {
+    "id": "stonelock",
+    "name": "Stonelock",
+    "description": "Sturdy and resilient, Stonelocks are natural craftsmen and warriors.",
+    "baseAttributes": {
+      "STR": 12,
+      "DEX": 8,
+      "CON": 14,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 8
+    },
+    "racialTraits": {
+      "naturalArmor": 1
+    },
+    "culturalTraits": [
+      "Mining expertise",
+      "Craftsmanship",
+      "Physical resilience",
+      "Precision training"
+    ],
+    "honeyAffinity": ["Crag-Nectar"],
+    "honeyCompatibility": "High with mining/environmental honeys",
+    "amberPsychologyRisk": 4,
+    "factionBaseAttitude": {
+      "Combine": -1,
+      "Wardens": 0,
+      "Freeworlds": 1,
+      "Cartel": 0
+    },
+    "homeworld": "Deepstone",
+    "knownEnemies": [],
+    "knownAllies": ["Freeworlds"]
+  },
+  {
+    "id": "aeshura",
+    "name": "Aeshura",
+    "description": "Graceful and precise, Aeshura excel at ranged combat and precision work.",
+    "baseAttributes": {
+      "STR": 8,
+      "DEX": 14,
+      "CON": 8,
+      "INT": 12,
+      "WIS": 10,
+      "CHA": 10
+    },
+    "racialTraits": {
+      "precisionBonus": 1
+    },
+    "culturalTraits": [
+      "Honor-bound combat",
+      "Precision obsession",
+      "Ranged combat preference",
+      "Reject infiltration as dishonorable"
+    ],
+    "honeyAffinity": ["Luminescent Pollen"],
+    "honeyCompatibility": "High with sensory/perception honeys",
+    "amberPsychologyRisk": 6,
+    "factionBaseAttitude": {
+      "Combine": -1,
+      "Wardens": 1,
+      "Freeworlds": 1,
+      "Cartel": 0
+    },
+    "homeworld": "Veil-Spire",
+    "knownEnemies": [],
+    "knownAllies": ["Wardens", "Freeworlds"]
+  }
+]
+

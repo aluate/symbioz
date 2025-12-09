@@ -1,0 +1,67 @@
+{
+  "Kaelen_Voss": {
+    "connections": [
+      {
+        "character": "Mara_Deep-Current",
+        "relationship": "Colleague",
+        "trust": 2,
+        "knowledge": "Gamma-7 event together",
+        "type": "positive"
+      },
+      {
+        "character": "Vex_Three-Stance",
+        "relationship": "Acquaintance",
+        "trust": 1,
+        "knowledge": "Gamma-7 aftermath analysis",
+        "type": "neutral"
+      }
+    ]
+  },
+  "Mara_Deep-Current": {
+    "connections": [
+      {
+        "character": "Kaelen_Voss",
+        "relationship": "Colleague",
+        "trust": 2,
+        "knowledge": "Gamma-7 event together",
+        "type": "positive"
+      }
+    ]
+  },
+  "Lysara_Void-Touch": {
+    "connections": [
+      {
+        "character": "Dr_Zara_Mesh-Bond",
+        "relationship": "Target/Subject",
+        "trust": -1,
+        "knowledge": "Discovered Reth's research data",
+        "type": "negative"
+      }
+    ]
+  },
+  "Dr_Zara_Mesh-Bond": {
+    "connections": [
+      {
+        "character": "Dr_Reth_Hive-Mind",
+        "relationship": "Former Colleague",
+        "trust": 1,
+        "knowledge": "Worked together before exile",
+        "type": "positive"
+      },
+      {
+        "character": "Lysara_Void-Touch",
+        "relationship": "Target/Subject",
+        "trust": -1,
+        "knowledge": "Data exposed by Lysara",
+        "type": "negative"
+      }
+    ]
+  },
+  "metadata": {
+    "version": "1.0",
+    "description": "Character relationship graph from all 10 character stories",
+    "trustScale": "Range -3 to +3",
+    "relationshipTypes": ["Colleague", "Acquaintance", "Enemy", "Target/Subject", "Former Colleague"]
+  }
+}
+

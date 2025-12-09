@@ -1,0 +1,54 @@
+# Vercel Provider Configuration
+
+projects:
+  # Catered By Me
+  catered-by-me:
+    env: prod
+    project_id: "catered-by-me"  # Vercel project name/ID
+    team_id: null  # Optional: set if using team account
+    required_env_vars:
+      - NEXT_PUBLIC_SUPABASE_URL
+      - NEXT_PUBLIC_SUPABASE_ANON_KEY
+      - NEXT_PUBLIC_API_BASE_URL
+    env_vars:
+      NEXT_PUBLIC_SUPABASE_URL: from_env:SUPABASE_URL
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: from_env:SUPABASE_ANON_KEY
+      NEXT_PUBLIC_API_BASE_URL: from_env:NEXT_PUBLIC_API_BASE_URL
+  
+  # Corporate Crashout / Achillies
+  achillies:
+    env: prod
+    project_id: "achillies"  # Vercel project name/ID
+    team_id: null
+    root_directory: "apps/corporate-crashout"  # Required root directory
+    required_env_vars:
+      - NEXTAUTH_SECRET
+      - NEXTAUTH_URL
+    env_vars:
+      NEXTAUTH_SECRET: from_env:NEXTAUTH_SECRET
+      NEXTAUTH_URL: from_env:NEXTAUTH_URL
+  
+  # Wedding Site - Karl & Brit's Solstice of '26
+  wedding:
+    env: prod
+    project_id: "wedding"  # Vercel project name/ID
+    team_id: null
+    required_env_vars:
+      - NEXT_PUBLIC_SITE_URL  # Optional but recommended
+    env_vars:
+      NEXT_PUBLIC_SITE_URL: from_env:NEXT_PUBLIC_SITE_URL
+      # Future backend env vars will be added here:
+      # NEXT_PUBLIC_SUPABASE_URL: from_env:SUPABASE_URL
+      # NEXT_PUBLIC_SUPABASE_ANON_KEY: from_env:SUPABASE_ANON_KEY
+      # EMAIL_API_KEY: from_env:EMAIL_API_KEY
+  
+  # Symbioz / Mellivox Game
+  symbioz:
+    env: prod
+    project_id: "symbioz"  # Vercel project name/ID (or "mellivox")
+    team_id: null
+    required_env_vars:
+      - NEXT_PUBLIC_API_URL
+    env_vars:
+      NEXT_PUBLIC_API_URL: from_env:NEXT_PUBLIC_API_URL
+

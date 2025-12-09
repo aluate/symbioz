@@ -1,0 +1,22 @@
+# Supabase Provider Configuration
+
+projects:
+  # Catered By Me
+  catered-by-me:
+    env: prod
+    project_ref: "hmumvzefougsiejvlxqi"  # Supabase project reference ID
+    db_schema_file: "supabase/schema.sql"  # Path to schema file in catered_by_me repo
+    connection_env_vars:
+      url: "SUPABASE_URL"              # Environment variable name for Supabase URL
+      anon_key: "SUPABASE_ANON_KEY"    # Environment variable name for anon key
+      service_key: "SUPABASE_SERVICE_KEY"  # Environment variable name for service role key
+  
+  # Add more projects as needed
+  # another-project:
+  #   env: prod
+  #   project_ref: "xyz7890"
+  #   connection_env_vars:
+  #     url: "SUPABASE_URL_OTHER"
+  #     anon_key: "SUPABASE_ANON_KEY_OTHER"
+  #     service_key: "SUPABASE_SERVICE_KEY_OTHER"
+

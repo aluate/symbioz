@@ -1,0 +1,48 @@
+# Project Spec: Wedding Site - Karl & Brit's Solstice of '26
+# Next.js wedding website with RSVP system
+
+name: "wedding"
+description: "Karl & Brit's Solstice of '26 wedding website at Coeur d'Alene Casino"
+environment: "prod"
+
+components:
+  web:
+    provider: "vercel"  # Frontend hosted on Vercel
+    template: "nextjs-marketing-site"
+    repo: "aluate/wedding"  # GitHub repo: aluate/wedding
+    root_dir: "apps/wedding"
+    branch: "main"
+    build_command: "npm install && npm run build"
+    start_command: "npm start"
+    env_vars:
+      NEXT_PUBLIC_SITE_URL: from_env:NEXT_PUBLIC_SITE_URL
+      # Future backend env vars:
+      # NEXT_PUBLIC_SUPABASE_URL: from_provider:supabase:wedding:url
+      # NEXT_PUBLIC_SUPABASE_ANON_KEY: from_provider:supabase:wedding:anon_key
+      # EMAIL_API_KEY: from_env:EMAIL_API_KEY
+
+# Future components (when backend is added):
+#  api:
+#    provider: "vercel"  # API routes in Next.js
+#    template: "nextjs-api-routes"
+#    repo: "YOUR_USERNAME/wedding"
+#    root_dir: "apps/wedding"
+#    branch: "main"
+
+# Future data setup:
+# data:
+#   supabase_project: "wedding"
+#   tables:
+#     - households
+#     - guests
+#     - rsvps
+#     - events
+
+health_checks:
+  - name: "web-health"
+    url: "https://britandkarl.com"  # Custom domain
+  - name: "vercel-health"
+    url: "https://wedding.vercel.app"  # Vercel URL (fallback)
+
+custom_domain: "britandkarl.com"
+

@@ -1,0 +1,8 @@
+{
+  "timestamp": "2025-11-30T12-57-38",
+  "environment": "prod",
+  "overall_status": "OK",
+  "providers": [
+    "{\n  \"provider\": \"stripe\",\n  \"status\": \"ok\",\n  \"human_summary\": \"\\u2705 All 1 project(s) healthy\",\n  \"details\": {\n    \"projects\": [\n      {\n        \"project\": \"catered-by-me\",\n        \"status\": \"ok\",\n        \"webhook\": {\n          \"id\": \"we_1SZHTGK3XMzVSHTY3u7a4pvv\",\n          \"url\": \"https://catered-by-me-api.onrender.com/billing/webhook\",\n          \"status\": \"enabled\",\n          \"enabled_events_count\": 4\n        }\n      }\n    ],\n    \"total_projects\": 1\n  }\n}"
+  ]
+}

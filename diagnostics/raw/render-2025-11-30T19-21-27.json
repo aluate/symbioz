@@ -1,0 +1,8 @@
+{
+  "provider": "render",
+  "status": "ok",
+  "human_summary": "[DRY RUN] Would check Render services",
+  "details": {
+    "dry_run": true
+  }
+}

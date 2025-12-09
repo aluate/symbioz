@@ -1,0 +1,15 @@
+# GitHub Provider Configuration
+
+repos:
+  # Catered By Me
+  catered-by-me:
+    path: "aluate/catered_by_me"  # GitHub repo: aluate/catered_by_me
+    default_branch: "main"
+    ci_provider: "github-actions"  # Options: github-actions, none
+  
+  # Add more repos as needed
+  # another-repo:
+  #   path: "owner/repo-name"
+  #   default_branch: "main"
+  #   ci_provider: "github-actions"
+

@@ -1,0 +1,22 @@
+project_name,building_id,sheet_name,category,part_id,part_name,unit,qty,length_in,unit_price,ext_price,notes
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Insulation,insulation,INS_R19_SQFT,R-19 Insulation,sqft,8835.601779450426,,0.83,7333.549476943853,E61 bag coverage
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Framing,framing,LBR_2X6_LF,2x6 Lumber,lf,308.0,192.0,1.16,357.28,"Price derived from 2x6x12; Length: 16.0ft (192"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,29.0,192.0,65.16,1889.6399999999999,"12' panel covers 36 sqft; Length: 16.0ft (192"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,203,65.16,195.48,"12' panel covers 36 sqft; Length: 16.9ft (203"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,212,65.16,195.48,"12' panel covers 36 sqft; Length: 17.7ft (212"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,221,65.16,195.48,"12' panel covers 36 sqft; Length: 18.4ft (221"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,230,65.16,195.48,"12' panel covers 36 sqft; Length: 19.2ft (230"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,239,65.16,195.48,"12' panel covers 36 sqft; Length: 19.9ft (239"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,248,65.16,195.48,"12' panel covers 36 sqft; Length: 20.7ft (248"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,257,65.16,195.48,"12' panel covers 36 sqft; Length: 21.4ft (257"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,3.0,266,65.16,195.48,"12' panel covers 36 sqft; Length: 22.2ft (266"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Metal,skin,METAL_PANEL_26_SQFT,Metal Panel 26ga,ea,29.0,309.23292192132453,65.16,1889.6399999999999,"12' panel covers 36 sqft; Length: 25.8ft (309"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Framing,framing,POST_6X6_PT,6x6 PT Post,ea,18.0,,75.0,1350.0,Avg of 8-12 ft PT posts
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Misc,trim,TRIM_BASE,Base Trim,lf,286.0,,3.13,895.18,-
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Misc,trim,TRIM_CORNER,Corner Trim,lf,70.4,,3.13,220.352,-
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Doors_Windows,trim,TRIM_DOOR,Door Trim,lf,56.1,,3.13,175.593,-
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Misc,trim,TRIM_EAVE,Eave Trim,lf,176.0,,3.13,550.88,-
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Doors_Windows,trim,TRIM_J_CHANNEL_29,J-Channel 29ga,ea,18.0,120.0,12.5,225.0,"10 ft sticks; Length: 10.0ft (120"")"
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Misc,trim,TRIM_RAKE,Rake Trim,lf,110.00000000000001,,3.13,344.3,-
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Doors_Windows,trim,TRIM_WINDOW,Window Trim,lf,79.2,,3.13,247.896,-
+Test_C_50x80_Commercial,Test_C_50x80_Commercial,Framing,framing,TRUSS_STD,Standard Truss,ea,9.0,,312.5,2812.5,Typical 30-40 ft span truss

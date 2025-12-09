@@ -1,0 +1,74 @@
+{
+  "timestamp": "2025-11-30T19-21-27",
+  "overall_status": "warn",
+  "dry_run": true,
+  "providers": [
+    {
+      "provider": "github",
+      "status": "ok",
+      "summary": "[DRY RUN] Would check GitHub repos"
+    },
+    {
+      "provider": "render",
+      "status": "ok",
+      "summary": "[DRY RUN] Would check Render services"
+    },
+    {
+      "provider": "stripe",
+      "status": "ok",
+      "summary": "[DRY RUN] Would check Stripe webhooks"
+    },
+    {
+      "provider": "supabase",
+      "status": "ok",
+      "summary": "[DRY RUN] Would check Supabase projects"
+    },
+    {
+      "provider": "vercel",
+      "status": "warn",
+      "summary": "\u26a0\ufe0f Vercel provider not yet implemented"
+    }
+  ],
+  "provider_details": [
+    {
+      "provider": "github",
+      "status": "ok",
+      "human_summary": "[DRY RUN] Would check GitHub repos",
+      "details": {
+        "dry_run": true
+      }
+    },
+    {
+      "provider": "render",
+      "status": "ok",
+      "human_summary": "[DRY RUN] Would check Render services",
+      "details": {
+        "dry_run": true
+      }
+    },
+    {
+      "provider": "stripe",
+      "status": "ok",
+      "human_summary": "[DRY RUN] Would check Stripe webhooks",
+      "details": {
+        "dry_run": true
+      }
+    },
+    {
+      "provider": "supabase",
+      "status": "ok",
+      "human_summary": "[DRY RUN] Would check Supabase projects",
+      "details": {
+        "dry_run": true
+      }
+    },
+    {
+      "provider": "vercel",
+      "status": "warn",
+      "human_summary": "\u26a0\ufe0f Vercel provider not yet implemented",
+      "details": {
+        "note": "Vercel integration is planned for future release"
+      }
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+id,side,group,category_detail,household_id,first_name,last_name,suffix,invite_label,email,phone,address_line1,address_line2,city,state,postal_code,country,invited_to,rsvp_status,rsvp_count,notes,website_rsvp_token
+1,Karl,Immediate Family,Mom's side,H001,Example,Mom,,Example Mom,,,,,,,USA,Ceremony + Reception,Not Sent,1,,
+2,Karl,Immediate Family,Dad's side,H002,Example,Dad,,,,,,,USA,,,,,,
+3,Karl,Extended Family,Mom's side,H003,TODO,Mom's Sibling,,,,,,,,,USA,,,,,"Mom has 4 siblings - add one row per sibling household",
+4,Karl,Extended Family,Dad's side,H004,TODO,Dad's Sibling,,,,,,,,,USA,,,,,"Dad has 5 siblings - add one row per sibling household",
+5,Brit,College Friends,Brit's college,H005,Example,Friend,,Example Friend,,,,,,,USA,,,,,,

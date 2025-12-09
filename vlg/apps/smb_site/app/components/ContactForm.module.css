@@ -1,0 +1,80 @@
+.form {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.formGroup {
+  margin-bottom: var(--spacing-md);
+}
+
+.formGroup label {
+  display: block;
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-black);
+}
+
+.formGroup input,
+.formGroup select,
+.formGroup textarea {
+  width: 100%;
+  padding: 0.875rem;
+  font-family: var(--font-inter);
+  font-size: 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background-color: white;
+  color: var(--color-black);
+  transition: border-color 0.2s ease;
+}
+
+.formGroup input:focus,
+.formGroup select:focus,
+.formGroup textarea:focus {
+  outline: none;
+  border-color: var(--color-tiffany-blue);
+}
+
+.formGroup textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.formActions {
+  margin-top: var(--spacing-lg);
+  display: flex;
+  justify-content: center;
+}
+
+.successMessage {
+  text-align: center;
+  padding: var(--spacing-lg);
+  background-color: var(--color-tiffany-blue);
+  border-radius: 4px;
+  color: var(--color-black);
+}
+
+.successMessage h3 {
+  font-family: var(--font-playfair);
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-xs);
+}
+
+.successMessage p {
+  font-family: var(--font-inter);
+  font-size: 1rem;
+}

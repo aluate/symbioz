@@ -1,0 +1,184 @@
+{
+  "timestamp": "2025-11-30T19-33-04",
+  "overall_status": "error",
+  "dry_run": false,
+  "providers": [
+    {
+      "provider": "github",
+      "status": "error",
+      "summary": "\u274c 1 repo(s) have errors"
+    },
+    {
+      "provider": "github",
+      "status": "error",
+      "summary": "Error: 'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>"
+    },
+    {
+      "provider": "render",
+      "status": "error",
+      "summary": "\u274c 1 service(s) have errors"
+    },
+    {
+      "provider": "render",
+      "status": "error",
+      "summary": "Error: 'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>"
+    },
+    {
+      "provider": "stripe",
+      "status": "warn",
+      "summary": "\u26a0\ufe0f 1 project(s) have warnings"
+    },
+    {
+      "provider": "stripe",
+      "status": "error",
+      "summary": "Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>"
+    },
+    {
+      "provider": "supabase",
+      "status": "warn",
+      "summary": "\u26a0\ufe0f 1 project(s) have warnings"
+    },
+    {
+      "provider": "supabase",
+      "status": "error",
+      "summary": "Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>"
+    },
+    {
+      "provider": "vercel",
+      "status": "warn",
+      "summary": "\u26a0\ufe0f Vercel provider not yet implemented"
+    },
+    {
+      "provider": "vercel",
+      "status": "error",
+      "summary": "Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>"
+    }
+  ],
+  "provider_details": [
+    {
+      "provider": "github",
+      "status": "error",
+      "human_summary": "\u274c 1 repo(s) have errors",
+      "details": {
+        "repos": [
+          {
+            "repo": "catered-by-me",
+            "status": "error",
+            "repo_path": "aluate/catered_by_me",
+            "private": false,
+            "default_branch": "main",
+            "branch": {
+              "name": "main",
+              "sha": "***",
+              "commit_message": "Add Vercel deployment troubleshooting checklist"
+            },
+            "failing_checks": [
+              {
+                "context": "Vercel",
+                "description": "Deployment has failed"
+              }
+            ]
+          }
+        ],
+        "total_repos": 1
+      }
+    },
+    {
+      "provider": "github",
+      "status": "error",
+      "human_summary": "Error: 'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>",
+      "details": {
+        "error": "'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>"
+      }
+    },
+    {
+      "provider": "render",
+      "status": "error",
+      "human_summary": "\u274c 1 service(s) have errors",
+      "details": {
+        "services": [
+          {
+            "service": "catered-by-me-api",
+            "service_id": "TODO_FILL_RENDER_SERVICE_ID",
+            "status": "error",
+            "error": "Failed to get service info: Client error '404 Not Found' for url 'https://api.render.com/v1/services/TODO_FILL_RENDER_SERVICE_ID'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+          }
+        ],
+        "total_services": 1
+      }
+    },
+    {
+      "provider": "render",
+      "status": "error",
+      "human_summary": "Error: 'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>",
+      "details": {
+        "error": "'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>"
+      }
+    },
+    {
+      "provider": "stripe",
+      "status": "warn",
+      "human_summary": "\u26a0\ufe0f 1 project(s) have warnings",
+      "details": {
+        "projects": [
+          {
+            "project": "catered-by-me",
+            "status": "warn",
+            "warning": "Could not check webhook: Invalid API Key provided: sk_test_*********************here"
+          }
+        ],
+        "total_projects": 1
+      }
+    },
+    {
+      "provider": "stripe",
+      "status": "error",
+      "human_summary": "Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>",
+      "details": {
+        "error": "'charmap' codec can't encode characters in position 0-1: character maps to <undefined>"
+      }
+    },
+    {
+      "provider": "supabase",
+      "status": "warn",
+      "human_summary": "\u26a0\ufe0f 1 project(s) have warnings",
+      "details": {
+        "projects": [
+          {
+            "project": "catered-by-me",
+            "status": "warn",
+            "url_set": true,
+            "key_set": true,
+            "connection": "ok",
+            "warning": "Schema file not found: supabase/schema.sql"
+          }
+        ],
+        "total_projects": 1
+      }
+    },
+    {
+      "provider": "supabase",
+      "status": "error",
+      "human_summary": "Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>",
+      "details": {
+        "error": "'charmap' codec can't encode characters in position 0-1: character maps to <undefined>"
+      }
+    },
+    {
+      "provider": "vercel",
+      "status": "warn",
+      "human_summary": "\u26a0\ufe0f Vercel provider not yet implemented",
+      "details": {
+        "note": "Vercel integration is planned for future release"
+      }
+    },
+    {
+      "provider": "vercel",
+      "status": "error",
+      "human_summary": "Error: 'charmap' codec can't encode characters in position 0-1: character maps to <undefined>",
+      "details": {
+        "error": "'charmap' codec can't encode characters in position 0-1: character maps to <undefined>"
+      }
+    }
+  ]
+}

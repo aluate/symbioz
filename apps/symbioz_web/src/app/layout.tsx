@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Symbioz - Sci-Fi RPG',
-  description: 'A KOTOR-inspired text-based RPG',
+  title: 'Mellivox - Honeyvoice of the Pact',
+  description: 'Symbiosis produces consequence. Every connection changes reality.',
 }
 
 export default function RootLayout({

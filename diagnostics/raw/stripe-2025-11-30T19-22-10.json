@@ -1,0 +1,15 @@
+{
+  "provider": "stripe",
+  "status": "warn",
+  "human_summary": "\u26a0\ufe0f 1 project(s) have warnings",
+  "details": {
+    "projects": [
+      {
+        "project": "catered-by-me",
+        "status": "warn",
+        "warning": "Could not check webhook: Invalid API Key provided: sk_test_*********************here"
+      }
+    ],
+    "total_projects": 1
+  }
+}

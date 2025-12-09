@@ -1,0 +1,8 @@
+{
+  "provider": "vercel",
+  "status": "warn",
+  "human_summary": "\u26a0\ufe0f Vercel provider not yet implemented",
+  "details": {
+    "note": "Vercel integration is planned for future release"
+  }
+}

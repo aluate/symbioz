@@ -1,0 +1,769 @@
+{
+  "timestamp": "2025-12-04T21:59:10.436944",
+  "summary": {
+    "total": 30,
+    "passed": 27,
+    "failed": 3,
+    "pass_rate": 90.0,
+    "phase3": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "pass_rate": 100.0
+    },
+    "phase4": {
+      "total": 18,
+      "passed": 15,
+      "failed": 3,
+      "pass_rate": 83.33333333333334
+    }
+  },
+  "categories": {
+    "API Operations": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Create memory via API",
+          "passed": true,
+          "message": "Created memory ID 4",
+          "phase": "Phase 3",
+          "category": "API Operations"
+        },
+        {
+          "name": "Retrieve memory by ID",
+          "passed": true,
+          "message": "Retrieved memory: Default reminder pattern is 7 days before, 1 day b...",
+          "phase": "Phase 3",
+          "category": "API Operations"
+        },
+        {
+          "name": "Update memory (version increment)",
+          "passed": true,
+          "message": "Version incremented: 1 \u2192 2",
+          "phase": "Phase 3",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory skill - update",
+          "passed": true,
+          "message": "Created memory.update action",
+          "phase": "Phase 3",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory skill - delete",
+          "passed": true,
+          "message": "Created memory.delete action",
+          "phase": "Phase 3",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory History - Create",
+          "passed": true,
+          "message": "Created memory 5 (v1)",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory History - Retrieve",
+          "passed": true,
+          "message": "Found 2 history entry(ies)",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory Expiration - Create",
+          "passed": true,
+          "message": "Created memory 5",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory Links - Create Memory",
+          "passed": true,
+          "message": "Created memory 6",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory Links - Create Link",
+          "passed": true,
+          "message": "Created link 1",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory Links - Delete Link",
+          "passed": true,
+          "message": "Link deleted",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "API Operations"
+        },
+        {
+          "name": "Memory Search - Create Test Data",
+          "passed": true,
+          "message": "Created 3 test memories",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "API Operations"
+        }
+      ]
+    },
+    "Other": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "List memories by category",
+          "passed": true,
+          "message": "Found 3 memory(ies)",
+          "phase": "Phase 3",
+          "category": "Other"
+        },
+        {
+          "name": "List memories by tag",
+          "passed": true,
+          "message": "Found 0 memory(ies)",
+          "phase": "Phase 3",
+          "category": "Other"
+        }
+      ]
+    },
+    "Usage Tracking": {
+      "total": 2,
+      "passed": 2,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Usage tracking (count increment)",
+          "passed": true,
+          "message": "Usage count: 0 \u2192 1",
+          "phase": "Phase 3",
+          "category": "Usage Tracking"
+        },
+        {
+          "name": "Usage tracking (last_used_at)",
+          "passed": true,
+          "message": "last_used_at set: 2025-12-04T21:58:37.980849",
+          "phase": "Phase 3",
+          "category": "Usage Tracking"
+        }
+      ]
+    },
+    "Skill Integration": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Memory skill - remember",
+          "passed": true,
+          "message": "Created memory.create action",
+          "phase": "Phase 3",
+          "category": "Skill Integration"
+        },
+        {
+          "name": "Memory skill - recall",
+          "passed": true,
+          "message": "Recalled memory: Updated: Default reminder pattern is 7 days before...",
+          "phase": "Phase 3",
+          "category": "Skill Integration"
+        },
+        {
+          "name": "Memory skill - lookup",
+          "passed": true,
+          "message": "Found 0 memory(ies)",
+          "phase": "Phase 3",
+          "category": "Skill Integration"
+        }
+      ]
+    },
+    "Memory History": {
+      "total": 3,
+      "passed": 2,
+      "failed": 1,
+      "tests": [
+        {
+          "name": "Memory History - Version Increment",
+          "passed": true,
+          "message": "Version incremented to 2",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Memory History"
+        },
+        {
+          "name": "Memory History - Original Preserved",
+          "passed": true,
+          "message": "Original version found in history",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Memory History"
+        },
+        {
+          "name": "Memory History - Get Version",
+          "passed": false,
+          "message": "Incorrect version content",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Memory History"
+        }
+      ]
+    },
+    "Expiration & Maintenance": {
+      "total": 3,
+      "passed": 1,
+      "failed": 2,
+      "tests": [
+        {
+          "name": "Memory Expiration - Set Expiration",
+          "passed": false,
+          "message": "Failed to set expiration: 500",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Expiration & Maintenance"
+        },
+        {
+          "name": "Memory Expiration - Exception",
+          "passed": false,
+          "message": "Error: [WinError 10054] An existing connection was forcibly closed by the remote host",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Expiration & Maintenance"
+        },
+        {
+          "name": "Memory Search - Stale Filter",
+          "passed": true,
+          "message": "Found 8 non-stale result(s)",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Expiration & Maintenance"
+        }
+      ]
+    },
+    "Memory Links": {
+      "total": 1,
+      "passed": 1,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Memory Links - Get Links",
+          "passed": true,
+          "message": "Found 1 link(s)",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Memory Links"
+        }
+      ]
+    },
+    "Search": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "tests": [
+        {
+          "name": "Memory Search - Text Search",
+          "passed": true,
+          "message": "Found 1 result(s)",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Search"
+        },
+        {
+          "name": "Memory Search - Category Filter",
+          "passed": true,
+          "message": "Found 5 result(s)",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Search"
+        },
+        {
+          "name": "Memory Search Action - Call",
+          "passed": true,
+          "message": "Search action succeeded",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Search"
+        },
+        {
+          "name": "Memory Search Action - Results",
+          "passed": true,
+          "message": "Search returned results",
+          "details": {},
+          "phase": "Phase 4",
+          "category": "Search"
+        }
+      ]
+    }
+  },
+  "failed_tests": [
+    {
+      "name": "Memory History - Get Version",
+      "passed": false,
+      "message": "Incorrect version content",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory History"
+    },
+    {
+      "name": "Memory Expiration - Set Expiration",
+      "passed": false,
+      "message": "Failed to set expiration: 500",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Expiration & Maintenance"
+    },
+    {
+      "name": "Memory Expiration - Exception",
+      "passed": false,
+      "message": "Error: [WinError 10054] An existing connection was forcibly closed by the remote host",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Expiration & Maintenance"
+    }
+  ],
+  "passed_tests": [
+    {
+      "name": "Create memory via API",
+      "passed": true,
+      "message": "Created memory ID 4",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Retrieve memory by ID",
+      "passed": true,
+      "message": "Retrieved memory: Default reminder pattern is 7 days before, 1 day b...",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "List memories by category",
+      "passed": true,
+      "message": "Found 3 memory(ies)",
+      "phase": "Phase 3",
+      "category": "Other"
+    },
+    {
+      "name": "List memories by tag",
+      "passed": true,
+      "message": "Found 0 memory(ies)",
+      "phase": "Phase 3",
+      "category": "Other"
+    },
+    {
+      "name": "Update memory (version increment)",
+      "passed": true,
+      "message": "Version incremented: 1 \u2192 2",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Usage tracking (count increment)",
+      "passed": true,
+      "message": "Usage count: 0 \u2192 1",
+      "phase": "Phase 3",
+      "category": "Usage Tracking"
+    },
+    {
+      "name": "Usage tracking (last_used_at)",
+      "passed": true,
+      "message": "last_used_at set: 2025-12-04T21:58:37.980849",
+      "phase": "Phase 3",
+      "category": "Usage Tracking"
+    },
+    {
+      "name": "Memory skill - remember",
+      "passed": true,
+      "message": "Created memory.create action",
+      "phase": "Phase 3",
+      "category": "Skill Integration"
+    },
+    {
+      "name": "Memory skill - recall",
+      "passed": true,
+      "message": "Recalled memory: Updated: Default reminder pattern is 7 days before...",
+      "phase": "Phase 3",
+      "category": "Skill Integration"
+    },
+    {
+      "name": "Memory skill - lookup",
+      "passed": true,
+      "message": "Found 0 memory(ies)",
+      "phase": "Phase 3",
+      "category": "Skill Integration"
+    },
+    {
+      "name": "Memory skill - update",
+      "passed": true,
+      "message": "Created memory.update action",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory skill - delete",
+      "passed": true,
+      "message": "Created memory.delete action",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory History - Create",
+      "passed": true,
+      "message": "Created memory 5 (v1)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory History - Version Increment",
+      "passed": true,
+      "message": "Version incremented to 2",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory History"
+    },
+    {
+      "name": "Memory History - Retrieve",
+      "passed": true,
+      "message": "Found 2 history entry(ies)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory History - Original Preserved",
+      "passed": true,
+      "message": "Original version found in history",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory History"
+    },
+    {
+      "name": "Memory Expiration - Create",
+      "passed": true,
+      "message": "Created memory 5",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Links - Create Memory",
+      "passed": true,
+      "message": "Created memory 6",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Links - Create Link",
+      "passed": true,
+      "message": "Created link 1",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Links - Get Links",
+      "passed": true,
+      "message": "Found 1 link(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory Links"
+    },
+    {
+      "name": "Memory Links - Delete Link",
+      "passed": true,
+      "message": "Link deleted",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Search - Create Test Data",
+      "passed": true,
+      "message": "Created 3 test memories",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Search - Text Search",
+      "passed": true,
+      "message": "Found 1 result(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    },
+    {
+      "name": "Memory Search - Category Filter",
+      "passed": true,
+      "message": "Found 5 result(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    },
+    {
+      "name": "Memory Search - Stale Filter",
+      "passed": true,
+      "message": "Found 8 non-stale result(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Expiration & Maintenance"
+    },
+    {
+      "name": "Memory Search Action - Call",
+      "passed": true,
+      "message": "Search action succeeded",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    },
+    {
+      "name": "Memory Search Action - Results",
+      "passed": true,
+      "message": "Search returned results",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    }
+  ],
+  "all_results": [
+    {
+      "name": "Create memory via API",
+      "passed": true,
+      "message": "Created memory ID 4",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Retrieve memory by ID",
+      "passed": true,
+      "message": "Retrieved memory: Default reminder pattern is 7 days before, 1 day b...",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "List memories by category",
+      "passed": true,
+      "message": "Found 3 memory(ies)",
+      "phase": "Phase 3",
+      "category": "Other"
+    },
+    {
+      "name": "List memories by tag",
+      "passed": true,
+      "message": "Found 0 memory(ies)",
+      "phase": "Phase 3",
+      "category": "Other"
+    },
+    {
+      "name": "Update memory (version increment)",
+      "passed": true,
+      "message": "Version incremented: 1 \u2192 2",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Usage tracking (count increment)",
+      "passed": true,
+      "message": "Usage count: 0 \u2192 1",
+      "phase": "Phase 3",
+      "category": "Usage Tracking"
+    },
+    {
+      "name": "Usage tracking (last_used_at)",
+      "passed": true,
+      "message": "last_used_at set: 2025-12-04T21:58:37.980849",
+      "phase": "Phase 3",
+      "category": "Usage Tracking"
+    },
+    {
+      "name": "Memory skill - remember",
+      "passed": true,
+      "message": "Created memory.create action",
+      "phase": "Phase 3",
+      "category": "Skill Integration"
+    },
+    {
+      "name": "Memory skill - recall",
+      "passed": true,
+      "message": "Recalled memory: Updated: Default reminder pattern is 7 days before...",
+      "phase": "Phase 3",
+      "category": "Skill Integration"
+    },
+    {
+      "name": "Memory skill - lookup",
+      "passed": true,
+      "message": "Found 0 memory(ies)",
+      "phase": "Phase 3",
+      "category": "Skill Integration"
+    },
+    {
+      "name": "Memory skill - update",
+      "passed": true,
+      "message": "Created memory.update action",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory skill - delete",
+      "passed": true,
+      "message": "Created memory.delete action",
+      "phase": "Phase 3",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory History - Create",
+      "passed": true,
+      "message": "Created memory 5 (v1)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory History - Version Increment",
+      "passed": true,
+      "message": "Version incremented to 2",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory History"
+    },
+    {
+      "name": "Memory History - Retrieve",
+      "passed": true,
+      "message": "Found 2 history entry(ies)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory History - Original Preserved",
+      "passed": true,
+      "message": "Original version found in history",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory History"
+    },
+    {
+      "name": "Memory History - Get Version",
+      "passed": false,
+      "message": "Incorrect version content",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory History"
+    },
+    {
+      "name": "Memory Expiration - Create",
+      "passed": true,
+      "message": "Created memory 5",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Expiration - Set Expiration",
+      "passed": false,
+      "message": "Failed to set expiration: 500",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Expiration & Maintenance"
+    },
+    {
+      "name": "Memory Expiration - Exception",
+      "passed": false,
+      "message": "Error: [WinError 10054] An existing connection was forcibly closed by the remote host",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Expiration & Maintenance"
+    },
+    {
+      "name": "Memory Links - Create Memory",
+      "passed": true,
+      "message": "Created memory 6",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Links - Create Link",
+      "passed": true,
+      "message": "Created link 1",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Links - Get Links",
+      "passed": true,
+      "message": "Found 1 link(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Memory Links"
+    },
+    {
+      "name": "Memory Links - Delete Link",
+      "passed": true,
+      "message": "Link deleted",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Search - Create Test Data",
+      "passed": true,
+      "message": "Created 3 test memories",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "API Operations"
+    },
+    {
+      "name": "Memory Search - Text Search",
+      "passed": true,
+      "message": "Found 1 result(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    },
+    {
+      "name": "Memory Search - Category Filter",
+      "passed": true,
+      "message": "Found 5 result(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    },
+    {
+      "name": "Memory Search - Stale Filter",
+      "passed": true,
+      "message": "Found 8 non-stale result(s)",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Expiration & Maintenance"
+    },
+    {
+      "name": "Memory Search Action - Call",
+      "passed": true,
+      "message": "Search action succeeded",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    },
+    {
+      "name": "Memory Search Action - Results",
+      "passed": true,
+      "message": "Search returned results",
+      "details": {},
+      "phase": "Phase 4",
+      "category": "Search"
+    }
+  ]
+}

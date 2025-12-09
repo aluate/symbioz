@@ -1,0 +1,54 @@
+# Project Spec: {{project_display_name}}
+# Generated from template: saas-starter
+# 
+# Replace {{variables}} with actual values when using this template
+
+name: "{{project_name}}"
+description: "{{project_display_name}} - Full-stack SaaS application"
+environment: "prod"
+
+components:
+  web:
+    provider: "vercel"
+    template: "nextjs-marketing-site"
+    repo: "{{github_repo}}"
+    root_dir: "apps/web"
+    branch: "main"
+    build_command: "npm install && npm run build"
+    env_vars:
+      NEXT_PUBLIC_SUPABASE_URL: from_provider:supabase:{{project_name}}:url
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: from_provider:supabase:{{project_name}}:anon_key
+      NEXT_PUBLIC_API_BASE_URL: from_env:NEXT_PUBLIC_API_BASE_URL
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: from_env:STRIPE_PUBLISHABLE_KEY
+      {{#if frontend_domain}}
+      NEXT_PUBLIC_SITE_URL: "https://{{frontend_domain}}"
+      {{/if}}
+  
+  api:
+    provider: "render"
+    template: "fastapi-api"
+    repo: "{{github_repo}}"
+    root_dir: "apps/api"
+    branch: "main"
+    build_command: "pip install -r requirements.txt"
+    start_command: "uvicorn main:app --host 0.0.0.0 --port $PORT"
+    env_vars:
+      SUPABASE_URL: from_provider:supabase:{{project_name}}:url
+      SUPABASE_SERVICE_KEY: from_env:SUPABASE_SERVICE_KEY
+      SUPABASE_JWT_SECRET: from_env:SUPABASE_JWT_SECRET
+      STRIPE_SECRET_KEY: from_env:STRIPE_SECRET_KEY
+      STRIPE_WEBHOOK_SECRET: from_env:STRIPE_WEBHOOK_SECRET
+      FRONTEND_URL: from_env:FRONTEND_URL
+
+data:
+  supabase_project: "{{project_name}}"
+
+payments:
+  stripe_project: "{{project_name}}"
+
+health_checks:
+  - name: "api-health"
+    url: "https://{{project_name}}-api.onrender.com/health"
+  - name: "web-health"
+    url: "{{#if frontend_domain}}https://{{frontend_domain}}/health{{else}}https://{{project_name}}.vercel.app/health{{/if}}"
+

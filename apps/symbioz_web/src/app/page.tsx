@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import MellivoxLanding from '@/components/MellivoxLanding'
 import CharacterCreation from '@/components/CharacterCreation'
 import HubScreen from '@/components/HubScreen'
 import CombatScreen from '@/components/CombatScreen'
@@ -8,10 +9,10 @@ import SkillMissionScreen from '@/components/SkillMissionScreen'
 import { ErrorBoundary } from '@/components/ErrorBoundary'
 import { api } from '@/lib/api'
 
-type Screen = 'character_creation' | 'hub' | 'combat' | 'skill_mission'
+type Screen = 'landing' | 'character_creation' | 'hub' | 'combat' | 'skill_mission'
 
 export default function Home() {
-  const [screen, setScreen] = useState<Screen>('character_creation')
+  const [screen, setScreen] = useState<Screen>('landing')
   const [hasCharacter, setHasCharacter] = useState(false)
   const [currentMission, setCurrentMission] = useState<any>(null)
 
@@ -85,22 +86,36 @@ export default function Home() {
 
   return (
     <ErrorBoundary>
-      <main style={{ minHeight: '100vh', padding: '20px' }}>
+      <main style={{ minHeight: '100vh' }}>
+        {screen === 'landing' && (
+          <MellivoxLanding onEnter={() => {
+            // Check if character exists, otherwise go to character creation
+            checkCharacter()
+          }} />
+        )}
         {screen === 'character_creation' && (
-          <CharacterCreation onCharacterCreated={handleCharacterCreated} />
+          <div style={{ minHeight: '100vh', padding: '20px' }}>
+            <CharacterCreation onCharacterCreated={handleCharacterCreated} />
+          </div>
         )}
         {screen === 'hub' && (
-          <HubScreen onStartMission={handleStartMission} />
+          <div style={{ minHeight: '100vh', padding: '20px' }}>
+            <HubScreen onStartMission={handleStartMission} />
+          </div>
         )}
         {screen === 'combat' && (
-          <CombatScreen onCombatEnd={handleCombatEnd} />
+          <div style={{ minHeight: '100vh', padding: '20px' }}>
+            <CombatScreen onCombatEnd={handleCombatEnd} />
+          </div>
         )}
         {screen === 'skill_mission' && currentMission && (
-          <SkillMissionScreen
-            mission={currentMission.mission}
-            skillChecks={currentMission.skill_checks}
-            onComplete={handleSkillMissionComplete}
-          />
+          <div style={{ minHeight: '100vh', padding: '20px' }}>
+            <SkillMissionScreen
+              mission={currentMission.mission}
+              skillChecks={currentMission.skill_checks}
+              onComplete={handleSkillMissionComplete}
+            />
+          </div>
         )}
       </main>
     </ErrorBoundary>

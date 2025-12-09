@@ -1,0 +1,8 @@
+{
+  "provider": "stripe",
+  "status": "ok",
+  "human_summary": "[DRY RUN] Would check Stripe webhooks",
+  "details": {
+    "dry_run": true
+  }
+}

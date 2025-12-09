@@ -1,0 +1,41 @@
+# Portfolio Site Template
+# Simple portfolio/landing page with Next.js
+
+name: "portfolio-site"
+description: "Simple portfolio or landing page with Next.js frontend"
+version: "1.0.0"
+
+components:
+  - web          # Next.js frontend only
+
+providers:
+  - vercel       # Frontend hosting
+
+variables:
+  - name: "project_name"
+    description: "Name of your project (kebab-case)"
+    required: true
+    example: "my-portfolio"
+  
+  - name: "project_display_name"
+    description: "Display name for your project"
+    required: true
+    example: "My Portfolio"
+  
+  - name: "github_repo"
+    description: "GitHub repository (owner/repo format)"
+    required: true
+    example: "username/my-portfolio"
+  
+  - name: "frontend_domain"
+    description: "Custom domain for frontend (optional)"
+    required: false
+    example: "myname.com"
+
+features:
+  - "Modern Next.js frontend"
+  - "Vercel deployment"
+  - "Optional contact form (via API routes)"
+  - "Responsive design"
+  - "Fast static generation"
+

@@ -1,0 +1,9 @@
+ppak_phase,canonical_phase,innergy_phase,notes
+Design,design,design,Planning phase
+Ordering,ordering,ordering,Materials ordering
+Fab,fabrication,fabrication,Manufacturing
+Assembly,assembly,assembly,Assembly
+Install,installation,installation,On-site install
+Punch,punch_list,punch_list,Final items
+Complete,completed,completed,All done
+

@@ -1,0 +1,2 @@
+# Auto cabinet placement
+

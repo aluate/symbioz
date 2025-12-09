@@ -1,0 +1,73 @@
+# Audio Control Configuration
+# Maps roles to voice models and defines default behaviors
+
+roles:
+  NARRATOR:
+    voice_model_id: "narrator_voice_001"  # Replace with actual voice ID from TTS API
+    default_tone: "neutral"
+    default_pacing: "normal"
+    description: "Main narrator voice (Karl's voice)"
+  
+  DAD:
+    voice_model_id: "dad_voice_001"  # Replace with actual voice ID
+    default_tone: "calm"
+    default_pacing: "slower"
+    description: "Father character voice"
+  
+  BAD_GUY:
+    voice_model_id: "bad_guy_voice_001"  # Replace with actual voice ID
+    default_tone: "low"
+    default_pacing: "normal"
+    description: "Antagonist voice"
+  
+  MOM:
+    voice_model_id: "mom_voice_001"  # Replace with actual voice ID
+    default_tone: "warm"
+    default_pacing: "normal"
+    description: "Mother character voice (referenced, may not appear in this book)"
+  
+  LITTLE_GIRL:
+    voice_model_id: "little_girl_voice_001"  # Replace with actual voice ID
+    default_tone: "bright"
+    default_pacing: "faster"
+    description: "Young girl character voice"
+
+# Modifier mappings (how to interpret stage directions)
+modifiers:
+  calm:
+    tone_adjustment: -0.2
+    pacing_multiplier: 0.9
+  
+  slower:
+    pacing_multiplier: 0.8
+  
+  low:
+    pitch_adjustment: -0.3
+    tone_adjustment: -0.2
+  
+  cold:
+    tone_adjustment: -0.4
+    emotion: "neutral"
+  
+  warm:
+    tone_adjustment: 0.2
+    emotion: "positive"
+  
+  bright:
+    tone_adjustment: 0.3
+    pacing_multiplier: 1.1
+  
+  faster:
+    pacing_multiplier: 1.2
+
+# Default settings
+defaults:
+  output_format: "mp3"
+  sample_rate: 44100
+  bitrate: "192k"
+  output_directory: "renders"
+
+# TTS API configuration (to be set via environment variables)
+# api_base_url: "${AUDIO_API_BASE_URL}"
+# api_key: "${AUDIO_API_KEY}"
+

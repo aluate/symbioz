@@ -1,0 +1,32 @@
+# Infra/SRE Bot - Main Configuration
+# Copy this file and customize for your setup
+
+default_env: prod
+
+environments:
+  dev:
+    vercel_team_id: "team_xxx"  # Replace with your Vercel team ID
+    render_owner_id: "user_xxx"  # Replace with your Render owner ID
+    github_default_branch: "dev"
+  
+  staging:
+    vercel_team_id: "team_xxx"
+    render_owner_id: "user_xxx"
+    github_default_branch: "main"
+  
+  prod:
+    vercel_team_id: "team_xxx"  # Replace with your Vercel team ID
+    render_owner_id: "user_xxx"  # Replace with your Render owner ID
+    github_default_branch: "main"
+
+secrets:
+  # Names of ENVIRONMENT VARIABLES that must be present when running tools/infra.py
+  # These should be set in your shell or .env file (never commit .env!)
+  required_env_vars:
+    - RENDER_API_KEY         # Required for Render operations
+    - STRIPE_SECRET_KEY      # Required for Stripe operations (can be placeholder for dry-run)
+    - GITHUB_TOKEN           # Required for GitHub operations
+  # Optional env vars (checked separately if needed):
+  # - VERCEL_TOKEN           # Optional if not using Vercel
+  # - SUPABASE_ACCESS_TOKEN  # Optional - can use SUPABASE_URL + SUPABASE_SERVICE_KEY instead
+

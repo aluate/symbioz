@@ -1,0 +1,41 @@
+{
+  "businessName": "Precision Cabinet Works",
+  "ownerName": "Mike Rodriguez",
+  "tradeType": "cabinet_shop",
+  "serviceArea": "Portland Metro, Oregon",
+  "services": [
+    "Custom Kitchen Cabinets",
+    "Bathroom Vanities",
+    "Built-in Storage Solutions",
+    "Cabinet Refacing",
+    "Hardware Installation"
+  ],
+  "typicalJobSize": "$25,000 - $75,000",
+  "idealClientDescription": "Homeowners and contractors seeking high-quality custom cabinetry",
+  "differentiators": [
+    "Handcrafted quality",
+    "Local materials when possible",
+    "15+ years in business",
+    "Full-service design and installation"
+  ],
+  "testimonials": [
+    {
+      "name": "Jennifer Chen",
+      "quote": "The cabinets are absolutely stunning. The attention to detail is incredible.",
+      "projectType": "Kitchen Remodel"
+    },
+    {
+      "name": "Tom Wilson",
+      "quote": "On time, on budget, and the quality exceeded our expectations.",
+      "projectType": "Custom Storage"
+    }
+  ],
+  "brandVoice": "premium",
+  "mainGoal": "showcase_projects",
+  "contact": {
+    "phone": "(555) 987-6543",
+    "email": "info@precisioncabinetworks.com",
+    "address": "456 Craft Ave, Portland, OR 97201"
+  },
+  "packageLevel": "premium"
+}

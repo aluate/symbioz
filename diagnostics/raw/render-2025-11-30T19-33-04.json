@@ -1,0 +1,8 @@
+{
+  "provider": "render",
+  "status": "error",
+  "human_summary": "Error: 'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>",
+  "details": {
+    "error": "'charmap' codec can't encode character '\\u274c' in position 0: character maps to <undefined>"
+  }
+}

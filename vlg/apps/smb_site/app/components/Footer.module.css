@@ -1,0 +1,113 @@
+.footer {
+  background-color: var(--color-black);
+  color: white;
+  padding: var(--section-padding-mobile) 0 var(--spacing-md);
+}
+
+.container {
+  max-width: var(--max-content-width);
+  margin: 0 auto;
+  padding: 0 var(--spacing-sm);
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+  
+  .footer {
+    padding: var(--section-padding-desktop) 0 var(--spacing-md);
+  }
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+@media (min-width: 768px) {
+  .content {
+    grid-template-columns: 1fr 2fr;
+    gap: var(--spacing-lg);
+  }
+}
+
+.brand {
+  margin-bottom: var(--spacing-md);
+}
+
+.logo {
+  font-family: var(--font-playfair);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing-xs);
+  color: white;
+}
+
+.tagline {
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  color: var(--color-tiffany-blue);
+}
+
+.links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--spacing-md);
+}
+
+.columnTitle {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-sm);
+  color: var(--color-tiffany-blue);
+}
+
+.column ul {
+  list-style: none;
+}
+
+.column ul li {
+  margin-bottom: var(--spacing-xs);
+}
+
+.column a {
+  font-family: var(--font-inter);
+  font-size: 0.9375rem;
+  color: rgba(255, 255, 255, 0.8);
+  transition: color 0.2s ease;
+}
+
+.column a:hover {
+  color: var(--color-tiffany-blue);
+}
+
+.bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--spacing-md);
+  text-align: center;
+}
+
+.serviceArea {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: var(--spacing-xs);
+}
+
+.copyright {
+  font-family: var(--font-inter);
+  font-size: 0.875rem;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media (max-width: 768px) {
+  .links {
+    grid-template-columns: 1fr;
+  }
+}

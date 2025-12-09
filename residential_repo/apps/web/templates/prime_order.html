@@ -1,0 +1,2498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACC Express Order</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-slate-100 flex justify-center py-8">
+    <div class="w-full max-w-5xl bg-white shadow-md rounded-xl p-6 space-y-6">
+        <!-- Header -->
+        <header class="flex items-center justify-between border-b pb-4 mb-4">
+            <div class="flex items-center gap-3">
+                <img src="/static/advanced_logo.png" alt="Advanced Custom Cabinets" class="h-10 w-auto rounded">
+                <div>
+                    <h1 class="text-xl font-semibold text-slate-800">ACC Express</h1>
+                    <p class="text-sm text-slate-500">Quick-turn cabinet ordering from a curated Express catalog</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-100 text-emerald-700">EXPRESS PROGRAM</span>
+                <span class="text-xs text-slate-400">v0.2 ACC Express</span>
+            </div>
+        </header>
+        
+        <!-- Step Navigation Indicator -->
+        <div class="mb-6 flex items-center justify-center gap-2">
+            <div id="step-indicator-1" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-sky-600 text-white flex items-center justify-center text-sm font-medium">1</div>
+                <span class="text-sm font-medium text-slate-700">Job Info</span>
+            </div>
+            <div class="w-12 h-0.5 bg-slate-300"></div>
+            <div id="step-indicator-2" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-sm font-medium">2</div>
+                <span class="text-sm text-slate-500">Finishes</span>
+            </div>
+            <div class="w-12 h-0.5 bg-slate-300"></div>
+            <div id="step-indicator-3" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-sm font-medium">3</div>
+                <span class="text-sm text-slate-500">Rooms</span>
+            </div>
+            <div class="w-12 h-0.5 bg-slate-300"></div>
+            <div id="step-indicator-4" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-sm font-medium">4</div>
+                <span class="text-sm text-slate-500">Cabinets</span>
+            </div>
+            <div class="w-12 h-0.5 bg-slate-300"></div>
+            <div id="step-indicator-5" class="flex items-center gap-2">
+                <div class="w-8 h-8 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-sm font-medium">5</div>
+                <span class="text-sm text-slate-500">Review</span>
+            </div>
+        </div>
+        
+        <form id="expressOrderForm" class="space-y-6">
+            <!-- STEP 1: Job Info -->
+            <section id="step-1-job-info" class="space-y-4">
+                <div class="border rounded-lg p-4 space-y-3 bg-slate-50/60">
+                <div class="flex items-center justify-between mb-2">
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-700">Job Information</h2>
+                        <p class="text-xs text-slate-500 mt-1">Enter the basic project details for this Express order.</p>
+                    </div>
+                    <span class="text-xs uppercase tracking-wide text-slate-400">Step 1</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Job Name *</label>
+                        <input type="text" id="jobName" required 
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                               placeholder="Enter job name">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Job Number</label>
+                        <input type="text" id="jobNumber" 
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                               placeholder="Optional">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Client Name *</label>
+                        <input type="text" id="clientName" required 
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                               placeholder="Client name">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Client Email</label>
+                        <input type="email" id="clientEmail" 
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                               placeholder="email@example.com">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Site Address</label>
+                        <input type="text" id="siteAddress" 
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                               placeholder="Job site address">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Designer/Salesperson</label>
+                        <input type="text" id="designer" 
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                               placeholder="Name">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Delivery or Pickup</label>
+                        <select id="deliveryOrPickup" 
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="">Select...</option>
+                            <option value="Delivery">Delivery</option>
+                            <option value="Pickup">Pickup</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Requested Delivery Date</label>
+                        <input type="date" id="requestedDeliveryDate" 
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Notes</label>
+                        <textarea id="notes" rows="2" 
+                                  class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                  placeholder="Additional notes..."></textarea>
+                    </div>
+                </div>
+                </div>
+                <!-- Step 1 Navigation -->
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="goToStep(2)" id="step1-next" 
+                            class="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed">
+                        Next → Finishes
+                    </button>
+                </div>
+            </section>
+            
+            <!-- STEP 2: Finishes -->
+            <section id="step-2-finishes" class="hidden space-y-4">
+                <div class="border rounded-lg p-4 space-y-3 bg-slate-50/60">
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h2 class="text-lg font-semibold text-slate-700">Finishes</h2>
+                            <p class="text-xs text-slate-500 mt-1">Define the finishes available for this job. Rooms will choose from these finishes.</p>
+                        </div>
+                        <span class="text-xs uppercase tracking-wide text-slate-400">Step 2</span>
+                    </div>
+                    
+                    <!-- Dynamic Finish Rows Container -->
+                    <div id="finishRowsContainer" class="space-y-3">
+                        <!-- Finish rows will be dynamically added here -->
+                    </div>
+                    
+                    <!-- Add Another Finish Button -->
+                    <div class="pt-2">
+                        <button type="button" onclick="addFinishRow()" id="addFinishButton"
+                                class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50">
+                            + Add Another Finish
+                        </button>
+                        <span id="finishLimitMessage" class="ml-3 text-xs text-slate-500 hidden">Maximum 6 finishes allowed</span>
+                    </div>
+                </div>
+                <!-- Step 2 Navigation -->
+                <div class="flex justify-between gap-3 pt-4">
+                    <button type="button" onclick="goToStep(1)" 
+                            class="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50">
+                        ← Back to Job Info
+                    </button>
+                    <button type="button" onclick="goToStep(3)" id="step2-next"
+                            class="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed">
+                        Next → Rooms
+                    </button>
+                </div>
+            </section>
+            
+            <!-- STEP 3: Rooms -->
+            <section id="step-3-rooms" class="hidden space-y-4">
+                <div class="border rounded-lg p-4 space-y-3 bg-slate-50/60">
+                <div class="flex items-center justify-between mb-2">
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-700">Rooms</h2>
+                        <p class="text-xs text-slate-500 mt-1">Add rooms and configure their finish, door style, pull, and options. Each room can have different finishes.</p>
+                    </div>
+                    <span class="text-xs uppercase tracking-wide text-slate-400">Step 3</span>
+                </div>
+                <div class="bg-white rounded-lg p-4 border border-slate-200">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Room Name *</label>
+                            <input type="text" id="roomNameInput" required
+                                   class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                   placeholder="e.g., Kitchen Perimeter">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Room Number</label>
+                            <input type="text" id="roomNumberInput" 
+                                   class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                   placeholder="e.g., 102">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Finish Type *</label>
+                            <select id="roomFinishType" required
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select...</option>
+                                <option value="Paint">Paint</option>
+                                <option value="Stain">Stain</option>
+                                <option value="Melamine">Melamine</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Finish Number *</label>
+                            <select id="roomFinishNumber" required
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select finish type first</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Pull *</label>
+                            <select id="roomPull" required
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="None">None</option>
+                                <option value="Black">Black</option>
+                                <option value="Satin Nickel">Satin Nickel</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Has Crown?</label>
+                            <select id="roomHasCrown" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Has Light Valance?</label>
+                            <select id="roomHasLightValance" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="false">No</option>
+                                <option value="true">Yes</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Door Style *</label>
+                            <select id="roomDoorStyle" required
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select finish type first</option>
+                            </select>
+                        </div>
+                        <div id="grainDirectionWrapper" class="hidden">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Grain Direction *</label>
+                            <select id="roomGrainDirection" required
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select...</option>
+                                <option value="Vertical Grain">Vertical Grain</option>
+                                <option value="Horizontal Grain">Horizontal Grain</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-2 mt-2">
+                            <input type="checkbox" id="roomBoxMaterial" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-slate-300 rounded">
+                            <label for="roomBoxMaterial" class="text-sm text-slate-700">
+                                Upgrade to Plywood Boxes (replaces melamine carcass)
+                            </label>
+                        </div>
+                        <div class="flex items-end">
+                            <button type="button" onclick="addRoom()" 
+                                    class="inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50 w-full justify-center">
+                                Add Room
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="roomsList" class="overflow-x-auto rounded-md border bg-white">
+                    <p class="text-slate-500 text-center py-4 text-sm">No rooms added yet. Add rooms above.</p>
+                </div>
+                </div>
+                <!-- Step 3 Navigation -->
+                <div class="flex justify-between gap-3 pt-4">
+                    <button type="button" onclick="goToStep(2)" 
+                            class="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50">
+                        ← Back to Finishes
+                    </button>
+                    <button type="button" onclick="goToStep(4)" id="step3-next"
+                            class="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed">
+                        Next → Cabinets
+                    </button>
+                </div>
+            </section>
+            
+            <!-- STEP 4: Cabinets -->
+            <section id="step-4-cabinets" class="hidden space-y-4">
+                <!-- Presets Panel -->
+                <div class="border rounded-lg p-4 space-y-3 bg-emerald-50/60">
+                    <div class="flex items-center justify-between mb-2">
+                        <div>
+                            <h2 class="text-lg font-semibold text-slate-700">Quick Presets</h2>
+                            <p class="text-xs text-slate-500 mt-1">Load standard cabinet configurations quickly.</p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Preset</label>
+                            <select id="presetSelector" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select preset...</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Apply to Room</label>
+                            <select id="presetRoom" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select room...</option>
+                            </select>
+                        </div>
+                        <div class="flex items-end">
+                            <button type="button" onclick="applyPreset()" 
+                                    class="w-full inline-flex items-center justify-center rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-medium text-white shadow-sm hover:bg-emerald-700">
+                                Apply Preset to Room
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="border rounded-lg p-4 space-y-3 bg-slate-50/60">
+                <div class="flex items-center justify-between mb-2">
+                    <div>
+                        <h2 class="text-lg font-semibold text-slate-700">Add Cabinet</h2>
+                        <p class="text-xs text-slate-500 mt-1">Choose a room and cabinet family, then specify size and options.</p>
+                    </div>
+                    <span class="text-xs uppercase tracking-wide text-slate-400">Step 4</span>
+                </div>
+                <div id="cabinetForm" class="bg-white rounded-lg p-4 border border-slate-200">
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Room *</label>
+                            <select id="cabinetRoom" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select room first</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Category</label>
+                            <select id="cabinetCategory" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">All Categories</option>
+                                <option value="Base">Base</option>
+                                <option value="Wall">Wall</option>
+                                <option value="Tall">Tall</option>
+                                <option value="Vanity">Vanity</option>
+                                <option value="Accessory">Accessory</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Cabinet Family *</label>
+                            <select id="cabinetFamily" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select category first</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Width (in) *</label>
+                            <select id="cabinetWidth" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select family first</option>
+                            </select>
+                        </div>
+                        <div id="cabinetHeightContainer" class="hidden">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Height (in) *</label>
+                            <select id="cabinetHeight" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select family first</option>
+                            </select>
+                        </div>
+                        <div id="cabinetDepthContainer" class="hidden">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Depth (in) *</label>
+                            <select id="cabinetDepth" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">Select family first</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Quantity</label>
+                            <input type="number" id="cabinetQuantity" min="1" value="1" 
+                                   class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                        </div>
+                        <div id="cabinetHingeSideContainer">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Hinge Side</label>
+                            <select id="cabinetHingeSide" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">N/A</option>
+                                <option value="L">Left</option>
+                                <option value="R">Right</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Dynamic Options Section -->
+                    <div id="cabinetOptions" class="mt-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 hidden">
+                        <div id="rolloutOption" class="hidden">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Rollout Trays (qty)</label>
+                            <input type="number" id="cabinetRollouts" min="0" value="0" 
+                                   class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                        </div>
+                        <div id="trashKitOption" class="hidden">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Trash Kit</label>
+                            <select id="cabinetTrashKit" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="">None</option>
+                            </select>
+                        </div>
+                        <div id="appliedPanelsOption" class="hidden">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Applied Panels</label>
+                            <select id="cabinetAppliedPanels" 
+                                    class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                                <option value="0">None</option>
+                                <option value="1">1 side</option>
+                                <option value="2">2 sides</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Special Instructions</label>
+                            <input type="text" id="cabinetSpecialInstructions" 
+                                   class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                   placeholder="Optional notes">
+                        </div>
+                    </div>
+                    
+                    <button type="button" onclick="addCabinetToOrder()" 
+                            class="mt-4 inline-flex items-center rounded-md border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-50">
+                        Add Cabinet to Order
+                    </button>
+                </div>
+            </section>
+            
+                <!-- Order List Section -->
+                <div class="border rounded-lg p-4 space-y-3 bg-slate-50/60">
+                    <h2 class="text-lg font-semibold text-slate-700">Order List</h2>
+                    <div id="orderList" class="overflow-x-auto rounded-md border bg-white">
+                        <p class="text-slate-500 text-center py-4 text-sm">No cabinets added yet. Use the form above to add cabinets.</p>
+                    </div>
+                </div>
+                </div>
+                <!-- Step 4 Navigation -->
+                <div class="flex justify-between gap-3 pt-4">
+                    <button type="button" onclick="goToStep(3)" 
+                            class="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50">
+                        ← Back to Rooms
+                    </button>
+                    <button type="button" onclick="goToStep(5)" id="step4-next"
+                            class="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed">
+                        Next → Review
+                    </button>
+                </div>
+            </section>
+            
+            <!-- STEP 5: Review & Export -->
+            <section id="step-5-review" class="hidden space-y-4">
+                <div class="border rounded-lg p-4 space-y-3 bg-slate-50/60">
+                    <div class="flex items-center justify-between">
+                        <h2 class="text-lg font-semibold text-slate-700">Review & Export</h2>
+                        <span class="text-xs uppercase tracking-wide text-slate-400">Step 5</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mb-4">
+                        Review your order details below. Click "Download ZIP" to generate the order files.
+                    </p>
+                    
+                    <!-- Job Info Summary -->
+                    <div class="bg-white rounded-lg p-4 border border-slate-200 mb-4">
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3">Job Information</h3>
+                        <div id="reviewJobInfo" class="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Finishes Summary -->
+                    <div class="bg-white rounded-lg p-4 border border-slate-200 mb-4">
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3">Selected Finishes</h3>
+                        <div id="reviewFinishes" class="text-sm">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Rooms Summary -->
+                    <div class="bg-white rounded-lg p-4 border border-slate-200 mb-4">
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3">Rooms</h3>
+                        <div id="reviewRooms" class="overflow-x-auto">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Cabinets Summary -->
+                    <div class="bg-white rounded-lg p-4 border border-slate-200 mb-4">
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3">Cabinets</h3>
+                        <div id="reviewCabinets" class="overflow-x-auto">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                    
+                    <!-- Pricing Summary (if pricing enabled) -->
+                    <div id="pricingSummary" class="bg-emerald-50 rounded-lg p-4 border border-emerald-200 mb-4 hidden">
+                        <h3 class="text-sm font-semibold text-slate-800 mb-3">Pricing Summary</h3>
+                        <p class="text-xs text-slate-600 mb-3 italic">Express Estimate Only — Not a final quote</p>
+                        <div id="pricingDetails" class="text-sm space-y-2">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Step 5 Navigation -->
+                <div class="flex justify-between gap-3 pt-4">
+                    <button type="button" onclick="goToStep(4)" 
+                            class="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50">
+                        ← Back to Cabinets
+                    </button>
+                    <button type="button" onclick="submitOrder()" id="step5-submit"
+                            class="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700 disabled:bg-slate-300 disabled:cursor-not-allowed">
+                        Download Express Order Packet
+                    </button>
+                </div>
+            </section>
+        </form>
+        
+        <!-- Error Section -->
+        <div id="errorSection" class="bg-red-50 border border-red-200 rounded-lg p-4 hidden">
+            <p id="errorMessage" class="text-red-800 text-sm"></p>
+        </div>
+        
+        <!-- Edit Room Modal -->
+        <div id="edit-room-modal" class="hidden fixed inset-0 bg-black/30 flex justify-center items-center z-50">
+            <div class="bg-white rounded-lg p-6 w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-lg font-semibold text-slate-800">Edit Room</h3>
+                    <button type="button" onclick="closeEditRoomModal()" 
+                            class="text-slate-400 hover:text-slate-600">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Room Name *</label>
+                        <input type="text" id="editRoomName" required
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Room Number</label>
+                        <input type="text" id="editRoomNumber"
+                               class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Finish Type *</label>
+                        <select id="editRoomFinishType" required
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="">Select...</option>
+                            <option value="Paint">Paint</option>
+                            <option value="Stain">Stain</option>
+                            <option value="Melamine">Melamine</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Finish Number *</label>
+                        <select id="editRoomFinishNumber" required
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="">Select finish type first</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Pull *</label>
+                        <select id="editRoomPull" required
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="None">None</option>
+                            <option value="Black">Black</option>
+                            <option value="Satin Nickel">Satin Nickel</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Has Crown?</label>
+                        <select id="editRoomHasCrown"
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Has Light Valance?</label>
+                        <select id="editRoomHasLightValance"
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="false">No</option>
+                            <option value="true">Yes</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Door Style *</label>
+                        <select id="editRoomDoorStyle" required
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="">Select finish type first</option>
+                        </select>
+                    </div>
+                    <div id="editGrainDirectionWrapper" class="hidden">
+                        <label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Grain Direction *</label>
+                        <select id="editRoomGrainDirection" required
+                                class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">
+                            <option value="">Select...</option>
+                            <option value="Vertical Grain">Vertical Grain</option>
+                            <option value="Horizontal Grain">Horizontal Grain</option>
+                        </select>
+                    </div>
+                    <div class="flex items-center gap-2 mt-2">
+                        <input type="checkbox" id="editRoomBoxMaterial" class="h-4 w-4 text-sky-600 focus:ring-sky-500 border-slate-300 rounded">
+                        <label for="editRoomBoxMaterial" class="text-sm text-slate-700">
+                            Upgrade to Plywood Boxes (replaces melamine carcass)
+                        </label>
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 mt-6">
+                    <button type="button" onclick="closeEditRoomModal()"
+                            class="inline-flex items-center rounded-md border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm hover:bg-slate-50">
+                        Cancel
+                    </button>
+                    <button type="button" onclick="saveEditedRoom()"
+                            class="inline-flex items-center rounded-md bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-sky-700">
+                        Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let catalog = {};
+        let finishLibrary = {
+            Paint: [],
+            Stain: [],
+            Melamine: []
+        };
+        let rooms = [];
+        let cabinets = [];
+        let lineIdCounter = 1;
+        let currentStep = 1;
+        let editingRoomIndex = -1;
+        let jobFinishes = []; // Dynamic finish rows: [{ id, finish_type, finish_id, label }]
+        let finishRowCounter = 1;
+        let presets = {}; // Preset configurations from API
+        
+        const stepNames = {
+            1: "job-info",
+            2: "finishes",
+            3: "rooms",
+            4: "cabinets",
+            5: "review"
+        };
+        
+        // Step navigation
+        function goToStep(step) {
+            // Hide all steps
+            document.querySelectorAll("[id^='step-']").forEach(s => s.classList.add('hidden'));
+            
+            // Show target step
+            const stepId = `step-${step}-${stepNames[step]}`;
+            const stepElement = document.getElementById(stepId);
+            if (stepElement) {
+                stepElement.classList.remove('hidden');
+            }
+            
+            currentStep = step;
+            updateStepIndicator();
+            updateStepValidation();
+            
+            // If going to step 2, ensure finish library is loaded and rows are rendered
+            if (step === 2) {
+                // Ensure library is loaded
+                if (!finishLibrary || (finishLibrary.Paint.length === 0 && finishLibrary.Stain.length === 0 && finishLibrary.Melamine.length === 0)) {
+                    loadFinishLibrary().then(() => {
+                        if (jobFinishes.length === 0) {
+                            addFinishRow();
+                        } else {
+                            renderFinishRows();
+                        }
+                    });
+                } else {
+                    if (jobFinishes.length === 0) {
+                        addFinishRow();
+                    } else {
+                        renderFinishRows();
+                    }
+                }
+            }
+            
+            // If going to step 4, ensure catalog is loaded and populate family dropdown
+            if (step === 4) {
+                // Ensure catalog is loaded
+                if (!catalog || typeof catalog !== 'object' || Object.keys(catalog).length === 0) {
+                    loadCatalog().then(() => {
+                        populateCabinetFamilyDropdown();
+                        // Also set up listeners in case they weren't set up yet
+                        setupCabinetFormListeners();
+                    });
+                } else {
+                    populateCabinetFamilyDropdown();
+                    // Ensure listeners are set up
+                    setupCabinetFormListeners();
+                }
+            }
+            
+            // If going to review step, populate it
+            if (step === 5) {
+                populateReviewPage();
+            }
+        }
+        
+        // Update step indicator visual state
+        // Update step indicator breadcrumb
+        function updateStepIndicator() {
+            for (let i = 1; i <= 5; i++) {
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                if (!indicator) continue;
+                
+                const circle = indicator.querySelector('div');
+                const label = indicator.querySelector('span');
+                
+                if (i === currentStep) {
+                    // Active step
+                    if (circle) {
+                        circle.className = 'w-8 h-8 rounded-full bg-sky-600 text-white flex items-center justify-center text-sm font-medium';
+                    }
+                    if (label) {
+                        label.className = 'text-sm font-medium text-slate-700';
+                    }
+                } else if (i < currentStep) {
+                    // Completed step
+                    if (circle) {
+                        circle.className = 'w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center text-sm font-medium';
+                    }
+                    if (label) {
+                        label.className = 'text-sm font-medium text-slate-600';
+                    }
+                } else {
+                    // Future step
+                    if (circle) {
+                        circle.className = 'w-8 h-8 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-sm font-medium';
+                    }
+                    if (label) {
+                        label.className = 'text-sm text-slate-500';
+                    }
+                }
+            }
+        }
+        
+        // Old updateStepIndicator function (if it exists, replace it)
+        function updateStepIndicator_OLD() {
+            for (let i = 1; i <= 5; i++) {
+                const indicator = document.getElementById(`step-indicator-${i}`);
+                if (indicator) {
+                    const circle = indicator.querySelector('div');
+                    const label = indicator.querySelector('span');
+                    if (i < currentStep) {
+                        // Completed step
+                        circle.className = 'w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center text-sm font-medium';
+                        label.className = 'text-sm font-medium text-slate-700';
+                    } else if (i === currentStep) {
+                        // Current step
+                        circle.className = 'w-8 h-8 rounded-full bg-sky-600 text-white flex items-center justify-center text-sm font-medium';
+                        label.className = 'text-sm font-medium text-slate-700';
+                    } else {
+                        // Future step
+                        circle.className = 'w-8 h-8 rounded-full bg-slate-300 text-slate-600 flex items-center justify-center text-sm font-medium';
+                        label.className = 'text-sm text-slate-500';
+                    }
+                }
+            }
+        }
+        
+        // Validate steps and enable/disable Next buttons
+        function updateStepValidation() {
+            // Step 1: Job Info
+            const step1Next = document.getElementById('step1-next');
+            if (step1Next) {
+                const jobName = document.getElementById('jobName')?.value.trim();
+                const clientName = document.getElementById('clientName')?.value.trim();
+                step1Next.disabled = !(jobName && clientName);
+            }
+            
+            // Step 2: Finishes - at least one finish must be defined
+            const step2Next = document.getElementById('step2-next');
+            if (step2Next) {
+                const hasValidFinish = jobFinishes.some(f => {
+                    if (f.finish_type === 'Other') {
+                        // "Other" requires medium, brand, and name
+                        return f.other_medium && f.other_brand && f.other_name;
+                    } else {
+                        // Library finish requires type, finish_id, and label
+                        return f.finish_type && f.finish_id && f.label;
+                    }
+                });
+                step2Next.disabled = !hasValidFinish;
+            }
+            
+            // Step 3: Rooms - at least one room must be added
+            const step3Next = document.getElementById('step3-next');
+            if (step3Next) {
+                step3Next.disabled = rooms.length === 0;
+            }
+            
+            // Step 4: Cabinets - at least one cabinet must be added
+            const step4Next = document.getElementById('step4-next');
+            if (step4Next) {
+                step4Next.disabled = cabinets.length === 0;
+            }
+        }
+        
+        // Populate review page
+        function populateReviewPage() {
+            // Job Info
+            const jobInfoDiv = document.getElementById('reviewJobInfo');
+            if (jobInfoDiv) {
+                jobInfoDiv.innerHTML = `
+                    <div><strong>Job Name:</strong> ${document.getElementById('jobName')?.value || 'N/A'}</div>
+                    <div><strong>Job Number:</strong> ${document.getElementById('jobNumber')?.value || 'N/A'}</div>
+                    <div><strong>Client:</strong> ${document.getElementById('clientName')?.value || 'N/A'}</div>
+                    <div><strong>Email:</strong> ${document.getElementById('clientEmail')?.value || 'N/A'}</div>
+                    <div><strong>Site Address:</strong> ${document.getElementById('siteAddress')?.value || 'N/A'}</div>
+                    <div><strong>Designer:</strong> ${document.getElementById('designer')?.value || 'N/A'}</div>
+                    <div><strong>Delivery/Pickup:</strong> ${document.getElementById('deliveryOrPickup')?.value || 'N/A'}</div>
+                    <div><strong>Requested Date:</strong> ${document.getElementById('requestedDeliveryDate')?.value || 'N/A'}</div>
+                `;
+            }
+            
+            // Finishes
+            const finishesDiv = document.getElementById('reviewFinishes');
+            if (finishesDiv) {
+                const definedFinishes = getDefinedFinishes();
+                let html = '<div class="space-y-2">';
+                if (definedFinishes.paint?.length > 0) {
+                    html += '<div><strong>Paint:</strong><ul class="ml-4 list-disc">';
+                    definedFinishes.paint.forEach(f => {
+                        html += `<li>Paint ${f.index}: ${f.label}</li>`;
+                    });
+                    html += '</ul></div>';
+                }
+                if (definedFinishes.stain?.length > 0) {
+                    html += '<div><strong>Stain:</strong><ul class="ml-4 list-disc">';
+                    definedFinishes.stain.forEach(f => {
+                        html += `<li>Stain ${f.index}: ${f.label}</li>`;
+                    });
+                    html += '</ul></div>';
+                }
+                if (definedFinishes.melamine?.length > 0) {
+                    html += '<div><strong>Melamine:</strong><ul class="ml-4 list-disc">';
+                    definedFinishes.melamine.forEach(f => {
+                        html += `<li>Mel ${f.index}: ${f.label}</li>`;
+                    });
+                    html += '</ul></div>';
+                }
+                html += '</div>';
+                finishesDiv.innerHTML = html;
+            }
+            
+            // Rooms
+            const roomsDiv = document.getElementById('reviewRooms');
+            if (roomsDiv) {
+                if (rooms.length === 0) {
+                    roomsDiv.innerHTML = '<p class="text-slate-500 text-center py-4 text-sm">No rooms added.</p>';
+                } else {
+                    let html = '<table class="min-w-full divide-y divide-slate-200"><thead class="bg-slate-50"><tr>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Room</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Number</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Finish</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Door Style</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Grain</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Pull</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Box Material</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Crown</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Light Valance</th>';
+                    html += '<th class="px-3 py-2 text-left text-xs font-medium text-slate-700 uppercase">Actions</th>';
+                    html += '</tr></thead><tbody class="bg-white divide-y divide-slate-200">';
+                    rooms.forEach((room, idx) => {
+                        const finishLabel = getFinishLabelForRoom(room.finish_type, room.finish_number);
+                        html += `<tr>
+                            <td class="px-3 py-2 text-sm text-slate-800">${room.name}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${room.number || '—'}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${finishLabel}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${room.door_style || '—'}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${room.grain_direction || '—'}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${room.pull}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${room.box_material || 'Melamine'}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${room.has_crown ? 'Yes' : 'No'}</td>
+                            <td class="px-3 py-2 text-sm text-slate-600">${room.has_light_valance ? 'Yes' : 'No'}</td>
+                            <td class="px-3 py-2 text-sm">
+                                <button type="button" onclick="openEditRoomModal(${idx})" class="text-sky-600 hover:text-sky-700 text-xs font-medium mr-2">Edit</button>
+                                <button type="button" onclick="duplicateRoom(${idx})" class="text-emerald-600 hover:text-emerald-700 text-xs font-medium mr-2">Duplicate</button>
+                                <button type="button" onclick="removeRoom(${idx})" class="text-red-500 hover:text-red-700 text-xs font-medium">Remove</button>
+                            </td>
+                        </tr>`;
+                    });
+                    html += '</tbody></table>';
+                    roomsDiv.innerHTML = html;
+                }
+            }
+            
+            // Cabinets
+            const cabinetsDiv = document.getElementById('reviewCabinets');
+            if (cabinetsDiv) {
+                if (cabinets.length === 0) {
+                    cabinetsDiv.innerHTML = '<p class="text-slate-500 text-center py-4 text-sm">No cabinets added.</p>';
+                } else {
+                    updateOrderList(); // Reuse existing function
+                    const orderListContent = document.getElementById('orderList').innerHTML;
+                    cabinetsDiv.innerHTML = orderListContent;
+                }
+            }
+        }
+        
+        // Helper to get finish label for room
+        function getFinishLabelForRoom(finishType, finishNumber) {
+            const definedFinishes = getDefinedFinishes();
+            let slotList = [];
+            if (finishType === 'Paint') {
+                slotList = definedFinishes.paint || [];
+            } else if (finishType === 'Stain') {
+                slotList = definedFinishes.stain || [];
+            } else if (finishType === 'Melamine') {
+                slotList = definedFinishes.melamine || [];
+            }
+            const slot = slotList.find(s => s.index === finishNumber);
+            return slot ? slot.label : `${finishType} ${finishNumber}`;
+        }
+        
+        // Edit Room Modal Functions
+        function openEditRoomModal(roomIndex) {
+            editingRoomIndex = roomIndex;
+            const room = rooms[roomIndex];
+            if (!room) return;
+            
+            document.getElementById('editRoomName').value = room.name;
+            document.getElementById('editRoomNumber').value = room.number || '';
+            document.getElementById('editRoomFinishType').value = room.finish_type;
+            document.getElementById('editRoomPull').value = room.pull;
+            document.getElementById('editRoomHasCrown').value = room.has_crown.toString();
+            document.getElementById('editRoomHasLightValance').value = room.has_light_valance.toString();
+            
+            // Update finish number dropdown and door style
+            updateEditRoomFinishNumberDropdown();
+            updateEditRoomDoorStyleDropdown();
+            
+            // Set door style and grain direction after dropdowns are populated
+            setTimeout(() => {
+                if (room.door_style) {
+                    const doorStyleSelect = document.getElementById('editRoomDoorStyle');
+                    if (doorStyleSelect) doorStyleSelect.value = room.door_style;
+                }
+                if (room.grain_direction) {
+                    const grainSelect = document.getElementById('editRoomGrainDirection');
+                    if (grainSelect) grainSelect.value = room.grain_direction;
+                }
+            }, 10);
+            
+            document.getElementById('edit-room-modal').classList.remove('hidden');
+        }
+        
+        function closeEditRoomModal() {
+            document.getElementById('edit-room-modal').classList.add('hidden');
+            editingRoomIndex = -1;
+        }
+        
+        function updateEditRoomFinishNumberDropdown() {
+            const finishType = document.getElementById('editRoomFinishType').value;
+            const finishNumberSelect = document.getElementById('editRoomFinishNumber');
+            finishNumberSelect.innerHTML = '<option value="">Select number...</option>';
+            
+            if (!finishType) {
+                finishNumberSelect.innerHTML = '<option value="" disabled>Select finish type first</option>';
+                return;
+            }
+            
+            const definedFinishes = getDefinedFinishes();
+            let availableFinishes = [];
+            if (finishType === 'Paint') {
+                availableFinishes = definedFinishes.paint || [];
+            } else if (finishType === 'Stain') {
+                availableFinishes = definedFinishes.stain || [];
+            } else if (finishType === 'Melamine') {
+                availableFinishes = definedFinishes.melamine || [];
+            }
+            
+            if (availableFinishes.length === 0) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.disabled = true;
+                option.textContent = 'Define finishes in Step 2 above';
+                finishNumberSelect.appendChild(option);
+                return;
+            }
+            
+            availableFinishes.forEach(finish => {
+                const option = document.createElement('option');
+                option.value = finish.index;
+                const finishName = finishType === 'Paint' ? 'Paint' : (finishType === 'Stain' ? 'Stain' : 'Mel');
+                option.textContent = `${finishName} ${finish.index} – ${finish.label}`;
+                finishNumberSelect.appendChild(option);
+            });
+            
+            // Set current value if editing
+            if (editingRoomIndex >= 0 && rooms[editingRoomIndex]) {
+                finishNumberSelect.value = rooms[editingRoomIndex].finish_number;
+            }
+        }
+        
+        function saveEditedRoom() {
+            if (editingRoomIndex < 0) return;
+            
+            const oldRoomName = rooms[editingRoomIndex].name;
+            const newRoomName = document.getElementById('editRoomName').value.trim();
+            const roomNumber = document.getElementById('editRoomNumber').value.trim() || null;
+            const finishType = document.getElementById('editRoomFinishType').value;
+            const finishNumber = parseInt(document.getElementById('editRoomFinishNumber').value);
+            const pull = document.getElementById('editRoomPull').value;
+            const doorStyle = document.getElementById('editRoomDoorStyle').value;
+            const grainDirection = document.getElementById('editRoomGrainDirection').value || null;
+            const hasCrown = document.getElementById('editRoomHasCrown').value === 'true';
+            const hasLightValance = document.getElementById('editRoomHasLightValance').value === 'true';
+            const boxMaterial = document.getElementById('editRoomBoxMaterial').checked ? 'Plywood' : 'Melamine';
+            
+            if (!newRoomName || !finishType || !finishNumber || !doorStyle) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            // Validate grain direction for Melamine
+            if (finishType === 'Melamine' && !grainDirection) {
+                alert('Please select a grain direction for Melamine');
+                return;
+            }
+            
+            // Check if room name already exists (and it's not the current room)
+            if (newRoomName !== oldRoomName && rooms.some(r => r.name === newRoomName)) {
+                alert('A room with this name already exists');
+                return;
+            }
+            
+            // Update room
+            rooms[editingRoomIndex] = {
+                name: newRoomName,
+                number: roomNumber,
+                has_crown: hasCrown,
+                has_light_valance: hasLightValance,
+                finish_type: finishType,
+                finish_number: finishNumber,
+                pull: pull,
+                door_style: doorStyle,
+                grain_direction: grainDirection,
+                box_material: boxMaterial
+            };
+            
+            // Update all cabinets that reference this room
+            if (oldRoomName !== newRoomName) {
+                cabinets.forEach(cab => {
+                    if (cab.room === oldRoomName) {
+                        cab.room = newRoomName;
+                    }
+                });
+            }
+            
+            updateRoomsList();
+            updateRoomDropdown();
+            updateOrderList();
+            closeEditRoomModal();
+        }
+        
+        // Add event listener for edit room finish type change
+        document.addEventListener('DOMContentLoaded', function() {
+            const editFinishType = document.getElementById('editRoomFinishType');
+            if (editFinishType) {
+                editFinishType.addEventListener('change', function() {
+                    updateEditRoomFinishNumberDropdown();
+                    updateEditRoomDoorStyleDropdown();
+                });
+            }
+        });
+        
+        // Load catalog on page load
+        async function loadCatalog() {
+            try {
+                const response = await fetch('/express-order/catalog');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                catalog = await response.json();
+                
+                // Debug logging
+                const familyCount = catalog && typeof catalog === 'object' ? Object.keys(catalog).length : 0;
+                console.log('Catalog loaded:', {
+                    familyCount: familyCount,
+                    sampleFamilies: Object.keys(catalog).slice(0, 5)
+                });
+                
+                if (familyCount === 0) {
+                    console.warn('Catalog is empty - check JSON file and endpoint');
+                }
+                
+                updateRoomDropdown();
+            } catch (error) {
+                console.error('Failed to load catalog:', error);
+                showError('Failed to load catalog: ' + error.message);
+            }
+        }
+        
+        // Populate cabinet family dropdown based on selected category
+        function populateCabinetFamilyDropdown() {
+            const categorySelect = document.getElementById('cabinetCategory');
+            const familySelect = document.getElementById('cabinetFamily');
+            
+            if (!categorySelect || !familySelect) {
+                console.warn('Cabinet category or family select elements not found');
+                return;
+            }
+            
+            const category = categorySelect.value;
+            familySelect.innerHTML = '<option value="">Select family...</option>';
+            
+            if (!catalog || typeof catalog !== 'object' || Object.keys(catalog).length === 0) {
+                console.warn('Catalog is empty or not loaded');
+                familySelect.innerHTML = '<option value="" disabled>Catalog not loaded</option>';
+                return;
+            }
+            
+            let familyCount = 0;
+            Object.entries(catalog).forEach(([code, family]) => {
+                if (!category || family.category === category) {
+                    const option = document.createElement('option');
+                    option.value = code;
+                    option.textContent = family.display_name || code;
+                    familySelect.appendChild(option);
+                    familyCount++;
+                }
+            });
+            
+            console.log(`Populated cabinet family dropdown: ${familyCount} families for category "${category || 'All'}"`);
+            
+            if (familyCount === 0) {
+                familySelect.innerHTML = '<option value="" disabled>No families available</option>';
+            }
+        }
+        
+        // Load presets on page load
+        async function loadPresets() {
+            try {
+                const response = await fetch('/express-order/presets');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                presets = await response.json();
+                
+                // Populate preset dropdown
+                const presetSelect = document.getElementById('presetSelector');
+                if (presetSelect) {
+                    presetSelect.innerHTML = '<option value="">Select preset...</option>';
+                    Object.entries(presets).forEach(([code, preset]) => {
+                        const option = document.createElement('option');
+                        option.value = code;
+                        option.textContent = preset.label;
+                        presetSelect.appendChild(option);
+                    });
+                }
+                
+                console.log('Presets loaded:', Object.keys(presets).length);
+            } catch (error) {
+                console.error('Failed to load presets:', error);
+                // Don't show error - presets are optional
+            }
+        }
+        
+        // Apply preset to room
+        function applyPreset() {
+            const presetCode = document.getElementById('presetSelector').value;
+            const roomName = document.getElementById('presetRoom').value;
+            
+            if (!presetCode) {
+                alert('Please select a preset');
+                return;
+            }
+            
+            if (!roomName) {
+                alert('Please select a room');
+                return;
+            }
+            
+            const preset = presets[presetCode];
+            if (!preset || !preset.items) {
+                alert('Preset not found or invalid');
+                return;
+            }
+            
+            // Add each cabinet from preset
+            preset.items.forEach(item => {
+                const family = catalog[item.family_code];
+                if (!family) {
+                    console.warn(`Family ${item.family_code} not found in catalog, skipping`);
+                    return;
+                }
+                
+                const cabinet = {
+                    line_id: lineIdCounter++,
+                    room: roomName,
+                    family_code: item.family_code,
+                    width_in: item.width_in,
+                    height_in: family.default_height_in || 34.5,
+                    depth_in: family.default_depth_in || 24.0,
+                    quantity: 1,
+                    hinge_side: null,
+                    rollout_trays_qty: 0,
+                    trash_kit: null,
+                    applied_panels: 0,
+                    special_instructions: null
+                };
+                
+                cabinets.push(cabinet);
+            });
+            
+            updateOrderList();
+            updateRoomDropdown();
+            
+            // Clear preset selection
+            document.getElementById('presetSelector').value = '';
+            document.getElementById('presetRoom').value = '';
+            
+            alert(`Added ${preset.items.length} cabinets from "${preset.label}" to ${roomName}`);
+        }
+        
+        // Duplicate room
+        function duplicateRoom(index) {
+            if (index < 0 || index >= rooms.length) return;
+            
+            const originalRoom = rooms[index];
+            const newRoom = {
+                name: originalRoom.name + ' (Copy)',
+                number: originalRoom.number,
+                has_crown: originalRoom.has_crown,
+                has_light_valance: originalRoom.has_light_valance,
+                finish_type: originalRoom.finish_type,
+                finish_number: originalRoom.finish_number,
+                pull: originalRoom.pull,
+                door_style: originalRoom.door_style,
+                grain_direction: originalRoom.grain_direction,
+                box_material: originalRoom.box_material || 'Melamine'
+            };
+            
+            // Ensure unique name
+            let counter = 1;
+            while (rooms.some(r => r.name === newRoom.name)) {
+                newRoom.name = originalRoom.name + ` (Copy ${counter})`;
+                counter++;
+            }
+            
+            rooms.push(newRoom);
+            updateRoomsList();
+            updateRoomDropdown();
+        }
+        
+        // Duplicate cabinet
+        function duplicateCabinet(index) {
+            if (index < 0 || index >= cabinets.length) return;
+            
+            const originalCab = cabinets[index];
+            const newCab = {
+                line_id: lineIdCounter++,
+                room: originalCab.room,
+                family_code: originalCab.family_code,
+                width_in: originalCab.width_in,
+                height_in: originalCab.height_in,
+                depth_in: originalCab.depth_in,
+                quantity: originalCab.quantity,
+                hinge_side: originalCab.hinge_side,
+                rollout_trays_qty: originalCab.rollout_trays_qty,
+                trash_kit: originalCab.trash_kit,
+                applied_panels: originalCab.applied_panels,
+                special_instructions: originalCab.special_instructions
+            };
+            
+            cabinets.push(newCab);
+            updateOrderList();
+        }
+        
+        // Load finish library on page load
+        async function loadFinishLibrary() {
+            try {
+                const response = await fetch('/express-order/finish-library');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const data = await response.json();
+                
+                // Ensure we have the correct structure
+                finishLibrary = {
+                    Paint: data.Paint || [],
+                    Stain: data.Stain || [],
+                    Melamine: data.Melamine || []
+                };
+                
+                // Debug logging
+                console.log('Finish library loaded:', {
+                    Paint: finishLibrary.Paint.length,
+                    Stain: finishLibrary.Stain.length,
+                    Melamine: finishLibrary.Melamine.length,
+                    total: finishLibrary.Paint.length + finishLibrary.Stain.length + finishLibrary.Melamine.length
+                });
+                
+                if (finishLibrary.Paint.length === 0 && finishLibrary.Stain.length === 0 && finishLibrary.Melamine.length === 0) {
+                    console.warn('Finish library is empty - check CSV file and endpoint');
+                }
+                
+                // Initialize with one empty finish row if none exist
+                if (jobFinishes.length === 0) {
+                    addFinishRow();
+                } else {
+                    renderFinishRows();
+                }
+            } catch (error) {
+                console.error('Failed to load finish library:', error);
+                alert('Failed to load finish library. Please refresh the page. Error: ' + error.message);
+            }
+        }
+        
+        // Add a new finish row
+        function addFinishRow() {
+            if (jobFinishes.length >= 6) {
+                document.getElementById('finishLimitMessage').classList.remove('hidden');
+                return;
+            }
+            
+            const rowId = `finish-row-${finishRowCounter++}`;
+            jobFinishes.push({
+                id: rowId,
+                finish_type: '',
+                finish_id: '',
+                label: ''
+            });
+            
+            renderFinishRows();
+            updateStepValidation();
+        }
+        
+        // Remove a finish row
+        function removeFinishRow(rowId) {
+            const index = jobFinishes.findIndex(f => f.id === rowId);
+            if (index >= 0) {
+                jobFinishes.splice(index, 1);
+                renderFinishRows();
+                updateStepValidation();
+            }
+        }
+        
+        // Render all finish rows
+        function renderFinishRows() {
+            const container = document.getElementById('finishRowsContainer');
+            if (!container) return;
+            
+            if (jobFinishes.length === 0) {
+                container.innerHTML = '<p class="text-slate-500 text-sm text-center py-4">No finishes added yet. Click "Add Another Finish" to get started.</p>';
+                return;
+            }
+            
+            let html = '';
+            jobFinishes.forEach((finish, idx) => {
+                const finishType = finish.finish_type || '';
+                const availableFinishes = finishType ? finishLibrary[finishType] || [] : [];
+                
+                html += `<div id="${finish.id}" class="bg-white rounded-lg p-4 border border-slate-200 space-y-3">`;
+                html += `<div class="flex items-center justify-between mb-2">`;
+                html += `<span class="text-sm font-medium text-slate-700">Finish ${idx + 1}</span>`;
+                if (jobFinishes.length > 1) {
+                    html += `<button type="button" onclick="removeFinishRow('${finish.id}')" class="text-red-500 hover:text-red-700 text-xs font-medium">Remove</button>`;
+                }
+                html += `</div>`;
+                
+                html += `<div class="grid grid-cols-1 md:grid-cols-2 gap-4">`;
+                
+                // Finish Type dropdown
+                html += `<div>`;
+                html += `<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Finish Type *</label>`;
+                html += `<select id="${finish.id}_type" onchange="updateFinishRowType('${finish.id}')"`;
+                html += `        class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">`;
+                html += `    <option value="">Select type...</option>`;
+                html += `    <option value="Paint" ${finishType === 'Paint' ? 'selected' : ''}>Paint</option>`;
+                html += `    <option value="Stain" ${finishType === 'Stain' ? 'selected' : ''}>Stain</option>`;
+                html += `    <option value="Melamine" ${finishType === 'Melamine' ? 'selected' : ''}>Melamine</option>`;
+                html += `    <option value="Other" ${finishType === 'Other' ? 'selected' : ''}>Other (Manual Entry)</option>`;
+                html += `</select>`;
+                html += `</div>`;
+                
+                // Library Color dropdown (shown for Paint/Stain/Melamine)
+                const isOther = finishType === 'Other';
+                html += `<div id="${finish.id}_library_wrapper" ${isOther ? 'class="hidden"' : ''}>`;
+                html += `<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Color *</label>`;
+                html += `<select id="${finish.id}_color" onchange="updateFinishRowColor('${finish.id}')"`;
+                html += `        class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"`;
+                if (!finishType || isOther) {
+                    html += ` disabled`;
+                }
+                html += `>`;
+                html += `    <option value="">${finishType && !isOther ? 'Select color...' : 'Select type first'}</option>`;
+                
+                if (finishType && !isOther && availableFinishes.length > 0) {
+                    availableFinishes.forEach(f => {
+                        html += `    <option value="${f.finish_id}" ${finish.finish_id === f.finish_id ? 'selected' : ''}>${f.label}</option>`;
+                    });
+                } else if (finishType && !isOther && availableFinishes.length === 0) {
+                    html += `    <option value="" disabled>No colors available for ${finishType}</option>`;
+                }
+                
+                html += `</select>`;
+                html += `</div>`;
+                
+                // Manual entry fields (shown for "Other")
+                html += `<div id="${finish.id}_other_wrapper" ${!isOther ? 'class="hidden"' : ''} class="space-y-3">`;
+                html += `<div>`;
+                html += `<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Medium *</label>`;
+                html += `<select id="${finish.id}_other_medium" onchange="updateFinishRowOther('${finish.id}')"`;
+                html += `        class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">`;
+                html += `    <option value="">Select...</option>`;
+                html += `    <option value="Paint" ${finish.other_medium === 'Paint' ? 'selected' : ''}>Paint</option>`;
+                html += `    <option value="Stain" ${finish.other_medium === 'Stain' ? 'selected' : ''}>Stain</option>`;
+                html += `    <option value="Melamine" ${finish.other_medium === 'Melamine' ? 'selected' : ''}>Melamine</option>`;
+                html += `</select>`;
+                html += `</div>`;
+                html += `<div>`;
+                html += `<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Brand *</label>`;
+                html += `<input type="text" id="${finish.id}_other_brand" onchange="updateFinishRowOther('${finish.id}')"`;
+                html += `       value="${finish.other_brand || ''}"`;
+                html += `       placeholder="e.g., Sherwin-Williams"`;
+                html += `       class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">`;
+                html += `</div>`;
+                html += `<div>`;
+                html += `<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Color Name *</label>`;
+                html += `<input type="text" id="${finish.id}_other_name" onchange="updateFinishRowOther('${finish.id}')"`;
+                html += `       value="${finish.other_name || ''}"`;
+                html += `       placeholder="e.g., Custom Mix 1"`;
+                html += `       class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">`;
+                html += `</div>`;
+                html += `<div>`;
+                html += `<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Color Code</label>`;
+                html += `<input type="text" id="${finish.id}_other_code" onchange="updateFinishRowOther('${finish.id}')"`;
+                html += `       value="${finish.other_code || ''}"`;
+                html += `       placeholder="Optional (e.g., SW 7008)"`;
+                html += `       class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500">`;
+                html += `</div>`;
+                html += `</div>`;
+                html += `</div>`;
+                
+                // Summary display
+                if (finish.label) {
+                    html += `<p class="text-xs text-slate-500 mt-1">${finish.label}</p>`;
+                }
+                
+                html += `</div>`;
+            });
+            
+            container.innerHTML = html;
+            
+            // Update add button state
+            const addButton = document.getElementById('addFinishButton');
+            const limitMessage = document.getElementById('finishLimitMessage');
+            if (jobFinishes.length >= 6) {
+                if (addButton) addButton.disabled = true;
+                if (limitMessage) limitMessage.classList.remove('hidden');
+            } else {
+                if (addButton) addButton.disabled = false;
+                if (limitMessage) limitMessage.classList.add('hidden');
+            }
+        }
+        
+        // Update finish row when type changes
+        function updateFinishRowType(rowId) {
+            const row = jobFinishes.find(f => f.id === rowId);
+            if (!row) return;
+            
+            const typeSelect = document.getElementById(`${rowId}_type`);
+            if (!typeSelect) return;
+            
+            row.finish_type = typeSelect.value;
+            
+            // Show/hide library vs manual entry based on type
+            const libraryWrapper = document.getElementById(`${rowId}_library_wrapper`);
+            const otherWrapper = document.getElementById(`${rowId}_other_wrapper`);
+            const colorSelect = document.getElementById(`${rowId}_color`);
+            
+            if (row.finish_type === 'Other') {
+                // Show manual entry, hide library dropdown
+                if (libraryWrapper) libraryWrapper.classList.add('hidden');
+                if (otherWrapper) otherWrapper.classList.remove('hidden');
+                if (colorSelect) colorSelect.disabled = true;
+                
+                // Clear library fields
+                row.finish_id = '';
+                row.label = '';
+            } else {
+                // Show library dropdown, hide manual entry
+                if (libraryWrapper) libraryWrapper.classList.remove('hidden');
+                if (otherWrapper) otherWrapper.classList.add('hidden');
+                
+                // Repopulate color dropdown from library
+                if (colorSelect) {
+                    colorSelect.innerHTML = '<option value="">Select color...</option>';
+                    if (row.finish_type && finishLibrary[row.finish_type]) {
+                        const libraryFinishes = finishLibrary[row.finish_type];
+                        console.log(`Populating ${row.finish_type} dropdown with ${libraryFinishes.length} options`);
+                        libraryFinishes.forEach(finish => {
+                            const option = document.createElement('option');
+                            option.value = finish.finish_id;
+                            option.textContent = finish.label;
+                            colorSelect.appendChild(option);
+                        });
+                        colorSelect.disabled = false;
+                    } else {
+                        console.warn(`No library entries for finish_type: ${row.finish_type}`);
+                        colorSelect.innerHTML = '<option value="" disabled>No colors available for ' + row.finish_type + '</option>';
+                        colorSelect.disabled = true;
+                    }
+                }
+                
+                // Clear manual entry fields
+                row.finish_id = '';
+                row.label = '';
+                row.is_other = false;
+                row.other_medium = '';
+                row.other_brand = '';
+                row.other_name = '';
+                row.other_code = '';
+            }
+            
+            renderFinishRows();
+            updateStepValidation();
+        }
+        
+        // Update finish row when "Other" manual fields change
+        function updateFinishRowOther(rowId) {
+            const row = jobFinishes.find(f => f.id === rowId);
+            if (!row || row.finish_type !== 'Other') return;
+            
+            const mediumSelect = document.getElementById(`${rowId}_other_medium`);
+            const brandInput = document.getElementById(`${rowId}_other_brand`);
+            const nameInput = document.getElementById(`${rowId}_other_name`);
+            const codeInput = document.getElementById(`${rowId}_other_code`);
+            
+            if (!mediumSelect || !brandInput || !nameInput) return;
+            
+            row.is_other = true;
+            row.other_medium = mediumSelect.value || '';
+            row.other_brand = brandInput.value.trim() || '';
+            row.other_name = nameInput.value.trim() || '';
+            row.other_code = codeInput ? codeInput.value.trim() : '';
+            
+            // Build label for "Other" finish
+            if (row.other_medium && row.other_brand && row.other_name) {
+                const codePart = row.other_code ? ` ${row.other_code}` : '';
+                row.label = `Other – ${row.other_brand}${codePart} – ${row.other_name} (${row.other_medium})`;
+                row.finish_id = null; // No library ID for "Other"
+            } else {
+                row.label = '';
+            }
+            
+            renderFinishRows();
+            updateStepValidation();
+        }
+        
+        // Update finish row when color changes
+        function updateFinishRowColor(rowId) {
+            const row = jobFinishes.find(f => f.id === rowId);
+            if (!row) return;
+            
+            const colorSelect = document.getElementById(`${rowId}_color`);
+            if (!colorSelect) return;
+            
+            row.finish_id = colorSelect.value;
+            
+            if (row.finish_id && row.finish_type && finishLibrary[row.finish_type]) {
+                const finish = finishLibrary[row.finish_type].find(f => f.finish_id === row.finish_id);
+                if (finish) {
+                    row.label = finish.label;
+                }
+            } else {
+                row.label = '';
+            }
+            
+            renderFinishRows();
+            updateStepValidation();
+        }
+        
+        // Add room
+        function addRoom() {
+            const roomName = document.getElementById('roomNameInput').value.trim();
+            if (!roomName) {
+                alert('Please enter a room name');
+                return;
+            }
+            
+            // Check if room already exists
+            if (rooms.some(r => r.name === roomName)) {
+                alert('Room already exists');
+                return;
+            }
+            
+            const roomNumber = document.getElementById('roomNumberInput').value.trim() || null;
+            const finishType = document.getElementById('roomFinishType').value;
+            const finishNumber = document.getElementById('roomFinishNumber').value;
+            const pull = document.getElementById('roomPull').value;
+            const doorStyle = document.getElementById('roomDoorStyle').value;
+            const grainDirection = document.getElementById('roomGrainDirection').value || null;
+            
+            if (!finishType) {
+                alert('Please select a finish type');
+                return;
+            }
+            
+            if (!finishNumber) {
+                const definedFinishes = getDefinedFinishes();
+                let availableFinishes = [];
+                if (finishType === 'Paint') {
+                    availableFinishes = definedFinishes.paint || [];
+                } else if (finishType === 'Stain') {
+                    availableFinishes = definedFinishes.stain || [];
+                } else if (finishType === 'Melamine') {
+                    availableFinishes = definedFinishes.melamine || [];
+                }
+                
+                if (availableFinishes.length === 0) {
+                    alert(`Please define at least one ${finishType.toLowerCase()} finish in the Finishes section (Step 2) before adding this room.`);
+                    return;
+                }
+                alert('Please select a finish number');
+                return;
+            }
+            
+            if (!doorStyle) {
+                alert('Please select a door style');
+                return;
+            }
+            
+            // Validate grain direction for Melamine
+            if (finishType === 'Melamine' && !grainDirection) {
+                alert('Please select a grain direction for Melamine');
+                return;
+            }
+            
+            const hasCrown = document.getElementById('roomHasCrown').value === 'true';
+            const hasLightValance = document.getElementById('roomHasLightValance').value === 'true';
+            const boxMaterial = document.getElementById('roomBoxMaterial').checked ? 'Plywood' : 'Melamine';
+            
+            rooms.push({
+                name: roomName,
+                number: roomNumber,
+                has_crown: hasCrown,
+                has_light_valance: hasLightValance,
+                finish_type: finishType,
+                finish_number: parseInt(finishNumber),
+                pull: pull,
+                box_material: boxMaterial,
+                door_style: doorStyle,
+                grain_direction: grainDirection
+            });
+            updateRoomsList();
+            updateRoomDropdown();
+            updateStepValidation();
+            
+            // Clear room inputs
+            document.getElementById('roomNameInput').value = '';
+            document.getElementById('roomNumberInput').value = '';
+            document.getElementById('roomFinishType').value = '';
+            document.getElementById('roomFinishNumber').innerHTML = '<option value="">Select finish type first</option>';
+            document.getElementById('roomDoorStyle').innerHTML = '<option value="">Select finish type first</option>';
+            document.getElementById('roomPull').value = 'None';
+            document.getElementById('roomHasCrown').value = 'false';
+            document.getElementById('roomHasLightValance').value = 'false';
+            document.getElementById('grainDirectionWrapper').classList.add('hidden');
+            document.getElementById('roomGrainDirection').value = '';
+            document.getElementById('roomGrainDirection').required = false;
+            updateRoomDoorStyleDropdown(); // Reset door style dropdown
+        }
+        
+        // Remove room
+        function removeRoom(index) {
+            const roomName = rooms[index].name;
+            const cabinetsInRoom = cabinets.filter(cab => cab.room === roomName);
+            
+            if (cabinetsInRoom.length > 0) {
+                const confirmMsg = `This room has ${cabinetsInRoom.length} cabinet(s). Removing it will delete all cabinets in this room. Continue?`;
+                if (!confirm(confirmMsg)) {
+                    return;
+                }
+            }
+            
+            rooms.splice(index, 1);
+            cabinets = cabinets.filter(cab => cab.room !== roomName);
+            
+            updateRoomsList();
+            updateRoomDropdown();
+            updateOrderList();
+            updateStepValidation();
+        }
+        
+        // Update rooms list display
+        function updateRoomsList() {
+            const listDiv = document.getElementById('roomsList');
+            if (rooms.length === 0) {
+                listDiv.innerHTML = '<p class="text-slate-500 text-center py-4 text-sm">No rooms added yet. Add rooms above.</p>';
+                return;
+            }
+            
+            let html = '<table class="min-w-full text-sm"><thead class="bg-slate-50 text-slate-600"><tr>';
+            html += '<th class="px-3 py-2 text-left font-medium">Room</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Number</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Finish</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Door Style</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Grain</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Pull</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Box Material</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Options</th>';
+            html += '<th class="px-3 py-2 text-left font-medium">Actions</th>';
+            html += '</tr></thead><tbody class="divide-y divide-slate-100">';
+            
+            rooms.forEach((room, idx) => {
+                let finishCode = '';
+                if (room.finish_type === 'Paint') {
+                    finishCode = `PAINT ${room.finish_number}`;
+                } else if (room.finish_type === 'Melamine') {
+                    finishCode = `MEL ${room.finish_number}`;
+                } else {
+                    finishCode = `STAIN ${room.finish_number}`;
+                }
+                html += '<tr class="hover:bg-slate-50">';
+                html += `<td class="px-3 py-2"><span class="font-semibold text-slate-800">${room.name}</span></td>`;
+                html += `<td class="px-3 py-2 text-slate-600">${room.number || '-'}</td>`;
+                html += `<td class="px-3 py-2"><span class="text-sky-600 font-medium">${finishCode}</span></td>`;
+                html += `<td class="px-3 py-2 text-slate-600">${room.door_style || '-'}</td>`;
+                html += `<td class="px-3 py-2 text-slate-600">${room.grain_direction || '-'}</td>`;
+                html += `<td class="px-3 py-2 text-slate-600">${room.pull}</td>`;
+                html += `<td class="px-3 py-2 text-slate-600">${room.box_material || 'Melamine'}</td>`;
+                html += '<td class="px-3 py-2">';
+                if (room.has_crown) {
+                    html += '<span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-0.5 text-[10px] font-medium text-emerald-700 mr-1">Crown</span>';
+                }
+                if (room.has_light_valance) {
+                    html += '<span class="inline-flex items-center rounded-full bg-blue-50 px-2 py-0.5 text-[10px] font-medium text-blue-700">Light Valance</span>';
+                }
+                if (!room.has_crown && !room.has_light_valance) {
+                    html += '<span class="text-slate-400 text-xs">-</span>';
+                }
+                html += '</td>';
+                html += `<td class="px-3 py-2">
+                    <button type="button" onclick="openEditRoomModal(${idx})" class="text-sky-600 hover:text-sky-700 text-xs font-medium mr-2">Edit</button>
+                    <button type="button" onclick="duplicateRoom(${idx})" class="text-emerald-600 hover:text-emerald-700 text-xs font-medium mr-2">Duplicate</button>
+                    <button type="button" onclick="removeRoom(${idx})" class="text-red-500 hover:text-red-700 text-xs font-medium">Remove</button>
+                </td>`;
+                html += '</tr>';
+            });
+            html += '</tbody></table>';
+            listDiv.innerHTML = html;
+        }
+        
+        // Update room dropdown in cabinet form
+        function updateRoomDropdown() {
+            const roomSelect = document.getElementById('cabinetRoom');
+            if (roomSelect) {
+                roomSelect.innerHTML = '<option value="">Select room...</option>';
+                rooms.forEach(room => {
+                    const option = document.createElement('option');
+                    option.value = room.name;
+                    option.textContent = room.name + (room.number ? ` (#${room.number})` : '');
+                    roomSelect.appendChild(option);
+                });
+            }
+            
+            // Also update preset room dropdown
+            const presetRoomSelect = document.getElementById('presetRoom');
+            if (presetRoomSelect) {
+                presetRoomSelect.innerHTML = '<option value="">Select room...</option>';
+                rooms.forEach(room => {
+                    const option = document.createElement('option');
+                    option.value = room.name;
+                    option.textContent = room.name + (room.number ? ` (#${room.number})` : '');
+                    presetRoomSelect.appendChild(option);
+                });
+            }
+        }
+        
+        // Helper function to get defined finishes from jobFinishes array
+        function getDefinedFinishes() {
+            const finishes = {
+                paint: [],
+                stain: [],
+                melamine: []
+            };
+            
+            // Group jobFinishes by effective medium and assign indices
+            const byMedium = {
+                Paint: [],
+                Stain: [],
+                Melamine: []
+            };
+            
+            jobFinishes.forEach(finish => {
+                // Determine effective medium
+                let effectiveMedium = null;
+                
+                if (finish.finish_type === 'Other') {
+                    // For "Other", use other_medium
+                    effectiveMedium = finish.other_medium;
+                    // Validate "Other" finish has required fields
+                    if (!finish.other_medium || !finish.other_brand || !finish.other_name) {
+                        return; // Skip incomplete "Other" finishes
+                    }
+                } else if (finish.finish_type && (finish.finish_id || finish.label)) {
+                    // For library finishes, use finish_type as medium
+                    effectiveMedium = finish.finish_type;
+                }
+                
+                if (effectiveMedium && (effectiveMedium === 'Paint' || effectiveMedium === 'Stain' || effectiveMedium === 'Melamine')) {
+                    byMedium[effectiveMedium].push(finish);
+                }
+            });
+            
+            // Assign indices (1, 2, 3...) to each medium group
+            Object.keys(byMedium).forEach(medium => {
+                byMedium[medium].forEach((finish, idx) => {
+                    const finishObj = {
+                        index: idx + 1,
+                        finish_id: finish.is_other ? null : (finish.finish_id || null),
+                        label: finish.label || ''
+                    };
+                    
+                    // For "Other" finishes, include additional metadata if needed
+                    if (finish.is_other) {
+                        finishObj.other_brand = finish.other_brand || '';
+                        finishObj.other_name = finish.other_name || '';
+                        finishObj.other_code = finish.other_code || '';
+                    }
+                    
+                    if (medium === 'Paint') {
+                        finishes.paint.push(finishObj);
+                    } else if (medium === 'Stain') {
+                        finishes.stain.push(finishObj);
+                    } else if (medium === 'Melamine') {
+                        finishes.melamine.push(finishObj);
+                    }
+                });
+            });
+            
+            return finishes;
+        }
+        
+        // Update finish number dropdown for room form based on finish type
+        function updateRoomFinishNumberDropdown() {
+            const finishType = document.getElementById('roomFinishType').value;
+            const finishNumberSelect = document.getElementById('roomFinishNumber');
+            finishNumberSelect.innerHTML = '<option value="">Select number...</option>';
+            
+            if (!finishType) {
+                finishNumberSelect.innerHTML = '<option value="" disabled>Select finish type first</option>';
+                updateRoomDoorStyleDropdown(); // Also update door style
+                return;
+            }
+            
+            const definedFinishes = getDefinedFinishes();
+            let availableFinishes = [];
+            if (finishType === 'Paint') {
+                availableFinishes = definedFinishes.paint || [];
+            } else if (finishType === 'Stain') {
+                availableFinishes = definedFinishes.stain || [];
+            } else if (finishType === 'Melamine') {
+                availableFinishes = definedFinishes.melamine || [];
+            }
+            
+            if (availableFinishes.length === 0) {
+                const option = document.createElement('option');
+                option.value = '';
+                option.disabled = true;
+                option.textContent = 'Define finishes in Step 2 above';
+                finishNumberSelect.appendChild(option);
+                updateRoomDoorStyleDropdown(); // Also update door style
+                return;
+            }
+            
+            availableFinishes.forEach(finish => {
+                const option = document.createElement('option');
+                option.value = finish.index;
+                const finishName = finishType === 'Paint' ? 'Paint' : (finishType === 'Stain' ? 'Stain' : 'Mel');
+                option.textContent = `${finishName} ${finish.index} – ${finish.label}`;
+                finishNumberSelect.appendChild(option);
+            });
+            
+            // Update door style dropdown when finish type changes
+            updateRoomDoorStyleDropdown();
+        }
+        
+        // Update door style dropdown based on finish type
+        function updateRoomDoorStyleDropdown() {
+            const finishType = document.getElementById('roomFinishType').value;
+            const doorStyleSelect = document.getElementById('roomDoorStyle');
+            const grainWrapper = document.getElementById('grainDirectionWrapper');
+            const grainSelect = document.getElementById('roomGrainDirection');
+            
+            if (!doorStyleSelect) return;
+            
+            doorStyleSelect.innerHTML = '<option value="">Select...</option>';
+            
+            if (!finishType) {
+                doorStyleSelect.innerHTML = '<option value="" disabled>Select finish type first</option>';
+                if (grainWrapper) grainWrapper.classList.add('hidden');
+                if (grainSelect) grainSelect.required = false;
+                return;
+            }
+            
+            if (finishType === 'Melamine') {
+                // Melamine: Only Slab, auto-select it
+                doorStyleSelect.innerHTML = '<option value="Slab" selected>Slab</option>';
+                doorStyleSelect.disabled = true; // Auto-selected, can't change
+                
+                // Show grain direction
+                if (grainWrapper) grainWrapper.classList.remove('hidden');
+                if (grainSelect) {
+                    grainSelect.required = true;
+                    if (!grainSelect.value) {
+                        grainSelect.value = 'Vertical Grain'; // Default
+                    }
+                }
+            } else {
+                // Paint or Stain: Show 3 options
+                const options = ['Shaker', 'Slim Shaker', 'Slab MDF'];
+                options.forEach(opt => {
+                    const option = document.createElement('option');
+                    option.value = opt;
+                    option.textContent = opt;
+                    doorStyleSelect.appendChild(option);
+                });
+                doorStyleSelect.disabled = false;
+                
+                // Hide grain direction
+                if (grainWrapper) grainWrapper.classList.add('hidden');
+                if (grainSelect) {
+                    grainSelect.required = false;
+                    grainSelect.value = '';
+                }
+            }
+        }
+        
+        // When category changes, filter families
+        // Set up category change listener (use event delegation or ensure it's set up after DOM ready)
+        function setupCabinetFormListeners() {
+            const categorySelect = document.getElementById('cabinetCategory');
+            if (!categorySelect) {
+                console.warn('cabinetCategory element not found');
+                return;
+            }
+            
+            // Remove existing listener if any, then add new one
+            const newCategorySelect = categorySelect.cloneNode(true);
+            categorySelect.parentNode.replaceChild(newCategorySelect, categorySelect);
+            
+            newCategorySelect.addEventListener('change', function() {
+                populateCabinetFamilyDropdown();
+                
+                // Reset dependent fields
+                const widthSelect = document.getElementById('cabinetWidth');
+                const heightSelect = document.getElementById('cabinetHeight');
+                const depthSelect = document.getElementById('cabinetDepth');
+                
+                if (widthSelect && widthSelect.tagName === 'SELECT') {
+                    widthSelect.innerHTML = '<option value="">Select family first</option>';
+                }
+                if (heightSelect) {
+                    heightSelect.innerHTML = '<option value="">Select family first</option>';
+                }
+                if (depthSelect) {
+                    depthSelect.innerHTML = '<option value="">Select family first</option>';
+                }
+                
+                const optionsDiv = document.getElementById('cabinetOptions');
+                const heightContainer = document.getElementById('cabinetHeightContainer');
+                const depthContainer = document.getElementById('cabinetDepthContainer');
+                
+                if (optionsDiv) optionsDiv.classList.add('hidden');
+                if (heightContainer) heightContainer.classList.add('hidden');
+                if (depthContainer) depthContainer.classList.add('hidden');
+            });
+        }
+        
+        // When family changes, populate width/height/depth and show options
+        document.getElementById('cabinetFamily').addEventListener('change', function() {
+            const familyCode = this.value;
+            if (!familyCode || !catalog[familyCode]) return;
+            
+            const family = catalog[familyCode];
+            const isAccessory = family.is_accessory || family.category === 'Accessory';
+            const isFloatingShelf = familyCode === 'A_FSHELF';
+            
+            // Populate width dropdown
+            const widthContainer = document.getElementById('cabinetWidth').parentElement;
+            if (isFloatingShelf) {
+                // Floating shelf: free-form width input
+                widthContainer.innerHTML = '<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Width (in) *</label><input type="number" id="cabinetWidth" step="0.1" required class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500" placeholder="Width in inches">';
+            } else {
+                const widthSelect = document.getElementById('cabinetWidth');
+                if (widthSelect && widthSelect.tagName === 'SELECT') {
+                    widthSelect.innerHTML = '<option value="">Select width...</option>';
+                    if (family.allowed_widths_in) {
+                        family.allowed_widths_in.forEach(width => {
+                            const option = document.createElement('option');
+                            option.value = width;
+                            option.textContent = width + '"';
+                            widthSelect.appendChild(option);
+                        });
+                    }
+                } else {
+                    // Replace input with select
+                    widthContainer.innerHTML = '<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Width (in) *</label><select id="cabinetWidth" required class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"><option value="">Select width...</option></select>';
+                    const newSelect = document.getElementById('cabinetWidth');
+                    if (family.allowed_widths_in) {
+                        family.allowed_widths_in.forEach(width => {
+                            const option = document.createElement('option');
+                            option.value = width;
+                            option.textContent = width + '"';
+                            newSelect.appendChild(option);
+                        });
+                    }
+                }
+            }
+            
+            // Handle height
+            const heightContainer = document.getElementById('cabinetHeightContainer');
+            if (family.allowed_heights_in && family.allowed_heights_in.length > 1) {
+                // Multiple heights: show dropdown
+                heightContainer.classList.remove('hidden');
+                const heightSelect = document.getElementById('cabinetHeight');
+                heightSelect.innerHTML = '<option value="">Select height...</option>';
+                family.allowed_heights_in.forEach(height => {
+                    const option = document.createElement('option');
+                    option.value = height;
+                    option.textContent = height + '"';
+                    heightSelect.appendChild(option);
+                });
+            } else {
+                // Single or no height: hide field (will use default)
+                heightContainer.classList.add('hidden');
+            }
+            
+            // Handle depth
+            const depthContainer = document.getElementById('cabinetDepthContainer');
+            if (isFloatingShelf && family.allowed_depths_in) {
+                // Floating shelf: show depth dropdown
+                depthContainer.classList.remove('hidden');
+                const depthSelect = document.getElementById('cabinetDepth');
+                depthSelect.innerHTML = '<option value="">Select depth...</option>';
+                family.allowed_depths_in.forEach(depth => {
+                    const option = document.createElement('option');
+                    option.value = depth;
+                    option.textContent = depth + '"';
+                    depthSelect.appendChild(option);
+                });
+            } else {
+                // Regular cabinet: hide depth (will use default from catalog)
+                depthContainer.classList.add('hidden');
+            }
+            
+            // Show/hide hinge side based on family requires_hinge_side flag
+            const hingeContainer = document.getElementById('cabinetHingeSideContainer');
+            const requiresHingeSide = family.requires_hinge_side === true;
+            if (isAccessory || !requiresHingeSide) {
+                hingeContainer.classList.add('hidden');
+                // Clear hinge side value for families that don't need it
+                document.getElementById('cabinetHingeSide').value = '';
+            } else {
+                hingeContainer.classList.remove('hidden');
+            }
+            
+            // Show/hide options based on family
+            const options = family.options || {};
+            const optionsDiv = document.getElementById('cabinetOptions');
+            const rolloutDiv = document.getElementById('rolloutOption');
+            const trashKitDiv = document.getElementById('trashKitOption');
+            const appliedPanelsDiv = document.getElementById('appliedPanelsOption');
+            const rolloutInput = document.getElementById('cabinetRollouts');
+            const trashKitSelect = document.getElementById('cabinetTrashKit');
+            const appliedPanelsSelect = document.getElementById('cabinetAppliedPanels');
+            
+            if (options.supports_rollouts) {
+                rolloutDiv.classList.remove('hidden');
+                rolloutInput.max = options.max_rollouts || 0;
+            } else {
+                rolloutDiv.classList.add('hidden');
+                rolloutInput.value = 0;
+            }
+            
+            if (options.supports_trash_kit) {
+                trashKitDiv.classList.remove('hidden');
+                trashKitSelect.innerHTML = '<option value="">None</option>';
+                if (options.trash_config) {
+                    options.trash_config.forEach(config => {
+                        const option = document.createElement('option');
+                        option.value = config;
+                        option.textContent = config;
+                        trashKitSelect.appendChild(option);
+                    });
+                }
+            } else {
+                trashKitDiv.classList.add('hidden');
+                trashKitSelect.value = '';
+            }
+            
+            if (options.supports_applied_panels) {
+                appliedPanelsDiv.classList.remove('hidden');
+                appliedPanelsSelect.value = '0';
+            } else {
+                appliedPanelsDiv.classList.add('hidden');
+                appliedPanelsSelect.value = '0';
+            }
+            
+            optionsDiv.classList.remove('hidden');
+        });
+        
+        // When room finish type changes, update finish number dropdown and door style
+        document.getElementById('roomFinishType').addEventListener('change', updateRoomFinishNumberDropdown);
+        
+        // Update finish numbers when labels change
+        ['stain1Label', 'stain2Label', 'stain3Label', 'mel1Label', 'mel2Label', 'mel3Label'].forEach(id => {
+            document.getElementById(id).addEventListener('input', function() {
+                if (document.getElementById('roomFinishType').value) {
+                    updateRoomFinishNumberDropdown();
+                }
+            });
+        });
+        
+        // Add cabinet to order list
+        function addCabinetToOrder() {
+            // Validation - check all required fields
+            const familyCode = document.getElementById('cabinetFamily').value;
+            if (!familyCode) {
+                alert('Please select a cabinet family');
+                return;
+            }
+            
+            const room = document.getElementById('cabinetRoom').value;
+            if (!room) {
+                alert('Please select a room');
+                return;
+            }
+            
+            const family = catalog[familyCode];
+            const widthElement = document.getElementById('cabinetWidth');
+            const width = parseFloat(widthElement.value);
+            
+            if (!width || width <= 0) {
+                alert('Please select or enter a valid width');
+                return;
+            }
+            
+            // Get height (may be hidden, use default if so)
+            let height = null;
+            const heightContainer = document.getElementById('cabinetHeightContainer');
+            if (!heightContainer.classList.contains('hidden')) {
+                const heightSelect = document.getElementById('cabinetHeight');
+                const heightValue = heightSelect.value;
+                if (!heightValue) {
+                    alert('Please select a height');
+                    return;
+                }
+                height = parseFloat(heightValue);
+            } else if (family.allowed_heights_in && family.allowed_heights_in.length === 1) {
+                height = family.allowed_heights_in[0];
+            } else {
+                height = family.default_height_in || 34.5;
+            }
+            
+            // Get depth (may be hidden, use default if so)
+            let depth = null;
+            const depthContainer = document.getElementById('cabinetDepthContainer');
+            if (!depthContainer.classList.contains('hidden')) {
+                const depthSelect = document.getElementById('cabinetDepth');
+                const depthValue = depthSelect.value;
+                if (!depthValue) {
+                    alert('Please select a depth');
+                    return;
+                }
+                depth = parseFloat(depthValue);
+            } else {
+                depth = family.default_depth_in || 24.0;
+            }
+            
+            const quantity = parseInt(document.getElementById('cabinetQuantity').value) || 1;
+            if (quantity < 1) {
+                alert('Quantity must be at least 1');
+                return;
+            }
+            
+            const cabinet = {
+                line_id: lineIdCounter++,
+                room: room,
+                family_code: familyCode,
+                width_in: width,
+                height_in: height,
+                depth_in: depth,
+                quantity: quantity,
+                hinge_side: (family.requires_hinge_side === true) ? (document.getElementById('cabinetHingeSide').value || null) : null,
+                rollout_trays_qty: parseInt(document.getElementById('cabinetRollouts').value) || 0,
+                trash_kit: document.getElementById('cabinetTrashKit').value || null,
+                applied_panels: parseInt(document.getElementById('cabinetAppliedPanels').value) || 0,
+                special_instructions: document.getElementById('cabinetSpecialInstructions').value || null
+            };
+            
+            cabinets.push(cabinet);
+            updateOrderList();
+            clearCabinetForm();
+            updateStepValidation();
+        }
+        
+        // Update the order list display
+        function updateOrderList() {
+            const listDiv = document.getElementById('orderList');
+            if (cabinets.length === 0) {
+                listDiv.innerHTML = '<p class="text-slate-500 text-center py-4 text-sm">No cabinets added yet. Use the form above to add cabinets.</p>';
+                return;
+            }
+            
+            // Group by room
+            const byRoom = {};
+            cabinets.forEach(cab => {
+                if (!byRoom[cab.room]) {
+                    byRoom[cab.room] = [];
+                }
+                byRoom[cab.room].push(cab);
+            });
+            
+            let html = '';
+            Object.entries(byRoom).forEach(([roomName, roomCabs]) => {
+                const room = rooms.find(r => r.name === roomName);
+                const finishCode = room ? (room.finish_type === 'Melamine' ? `MEL ${room.finish_number}` : `STAIN ${room.finish_number}`) : '';
+                
+                html += `<div class="mb-4">`;
+                html += `<h3 class="text-sm font-semibold text-slate-700 mb-2 pb-1 border-b border-slate-200">${roomName}${room && room.number ? ` (#${room.number})` : ''} - ${finishCode}${room ? ` - Pull: ${room.pull}` : ''}</h3>`;
+                html += '<table class="min-w-full text-sm"><thead class="bg-slate-50 text-slate-600"><tr>';
+                html += '<th class="px-3 py-2 text-left font-medium">Cabinet</th>';
+                html += '<th class="px-3 py-2 text-left font-medium">Code</th>';
+                html += '<th class="px-3 py-2 text-left font-medium">Size</th>';
+                html += '<th class="px-3 py-2 text-left font-medium">Qty</th>';
+                html += '<th class="px-3 py-2 text-left font-medium">Options</th>';
+                html += '<th class="px-3 py-2 text-left font-medium">Actions</th>';
+                html += '</tr></thead><tbody class="divide-y divide-slate-100">';
+                
+                roomCabs.forEach((cab, idx) => {
+                    const family = catalog[cab.family_code] || {};
+                    const allCabs = cabinets;
+                    const globalIdx = allCabs.indexOf(cab);
+                    const codePattern = family.code_pattern || '';
+                    let cabinetCode = '';
+                    if (codePattern.includes('{depth}')) {
+                        cabinetCode = codePattern.replace('{width}', Math.floor(cab.width_in)).replace('{depth}', Math.floor(cab.depth_in));
+                    } else if (codePattern.includes('{height}')) {
+                        cabinetCode = codePattern.replace('{width}', Math.floor(cab.width_in)).replace('{height}', Math.floor(cab.height_in));
+                    } else {
+                        cabinetCode = codePattern.replace('{width}', Math.floor(cab.width_in));
+                    }
+                    cabinetCode = cabinetCode.replace('--', '-').replace(/^-|-$/g, '');
+                    
+                    html += '<tr class="hover:bg-slate-50">';
+                    html += `<td class="px-3 py-2"><span class="font-medium text-slate-800">${family.display_name || cab.family_code}</span></td>`;
+                    html += `<td class="px-3 py-2 text-slate-600 text-xs">${cabinetCode || '-'}</td>`;
+                    html += `<td class="px-3 py-2 text-slate-600 text-xs">${cab.width_in}" × ${cab.height_in}" × ${cab.depth_in}"</td>`;
+                    html += `<td class="px-3 py-2 text-slate-600">${cab.quantity}</td>`;
+                    html += '<td class="px-3 py-2 text-xs text-slate-500">';
+                    const options = [];
+                    if (cab.rollout_trays_qty > 0) options.push(`Rollouts: ${cab.rollout_trays_qty}`);
+                    if (cab.trash_kit) options.push(`Trash: ${cab.trash_kit}`);
+                    if (cab.applied_panels > 0) {
+                        const panelText = cab.applied_panels === 1 ? '1 side' : '2 sides';
+                        options.push(`Applied panels: ${panelText}`);
+                    }
+                    html += options.length > 0 ? options.join(', ') : '-';
+                    html += '</td>';
+                    html += `<td class="px-3 py-2">
+                        <button type="button" onclick="duplicateCabinet(${globalIdx})" class="text-emerald-600 hover:text-emerald-700 text-xs font-medium mr-2">Duplicate</button>
+                        <button type="button" onclick="removeCabinet(${globalIdx})" class="text-red-500 hover:text-red-700 text-xs font-medium">Remove</button>
+                    </td>`;
+                    html += '</tr>';
+                });
+                html += '</tbody></table></div>';
+            });
+            listDiv.innerHTML = html;
+        }
+        
+        // Remove cabinet from order
+        function removeCabinet(index) {
+            cabinets.splice(index, 1);
+            updateOrderList();
+        }
+        
+        // Clear cabinet form
+        function clearCabinetForm() {
+            document.getElementById('cabinetRoom').value = '';
+            document.getElementById('cabinetCategory').value = '';
+            document.getElementById('cabinetFamily').value = '';
+            
+            // Reset width (may be select or input)
+            const widthContainer = document.getElementById('cabinetWidth').parentElement;
+            widthContainer.innerHTML = '<label class="block text-xs font-medium text-slate-600 mb-1 uppercase tracking-wide">Width (in) *</label><select id="cabinetWidth" required class="block w-full rounded-md border border-slate-300 bg-white px-2.5 py-1.5 text-sm text-slate-800 shadow-sm focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500"><option value="">Select family first</option></select>';
+            
+            const heightSelect = document.getElementById('cabinetHeight');
+            if (heightSelect) heightSelect.innerHTML = '<option value="">Select family first</option>';
+            const depthSelect = document.getElementById('cabinetDepth');
+            if (depthSelect) depthSelect.innerHTML = '<option value="">Select family first</option>';
+            
+            document.getElementById('cabinetQuantity').value = 1;
+            document.getElementById('cabinetHingeSide').value = '';
+            document.getElementById('cabinetRollouts').value = 0;
+            document.getElementById('cabinetTrashKit').value = '';
+            document.getElementById('cabinetAppliedPanels').value = '0';
+            document.getElementById('cabinetSpecialInstructions').value = '';
+            document.getElementById('cabinetOptions').classList.add('hidden');
+            document.getElementById('cabinetHeightContainer').classList.add('hidden');
+            document.getElementById('cabinetDepthContainer').classList.add('hidden');
+            // Hinge side visibility will be set when family is selected
+            document.getElementById('cabinetHingeSideContainer').classList.add('hidden');
+        }
+        
+        // Form submission
+        // Submit order function (called from review page)
+        async function submitOrder() {
+            if (rooms.length === 0) {
+                alert('Please add at least one room');
+                return;
+            }
+            
+            if (cabinets.length === 0) {
+                alert('Please add at least one cabinet to the order');
+                return;
+            }
+            
+            // Collect finishes using helper function
+            const definedFinishes = getDefinedFinishes();
+            const finishes = {
+                paint: definedFinishes.paint || [],
+                stain: definedFinishes.stain || [],
+                melamine: definedFinishes.melamine || []
+            };
+            
+            // Validate at least one finish is defined
+            const hasPaint = finishes.paint.length > 0;
+            const hasStain = finishes.stain.length > 0;
+            const hasMel = finishes.melamine.length > 0;
+            if (!hasPaint && !hasStain && !hasMel) {
+                alert('Please define at least one finish (Paint, Stain, or Melamine)');
+                return;
+            }
+            
+            const payload = {
+                job: {
+                    job_name: document.getElementById('jobName').value,
+                    job_number: document.getElementById('jobNumber').value || null,
+                    client_name: document.getElementById('clientName').value,
+                    client_email: document.getElementById('clientEmail').value || null,
+                    site_address: document.getElementById('siteAddress').value || null,
+                    designer: document.getElementById('designer').value || null,
+                    delivery_or_pickup: document.getElementById('deliveryOrPickup').value || null,
+                    requested_delivery_date: document.getElementById('requestedDeliveryDate').value || null,
+                    notes: document.getElementById('notes').value || null
+                },
+                finishes: finishes,
+                rooms: rooms.map(r => ({
+                    name: r.name,
+                    number: r.number || null,
+                    has_crown: r.has_crown,
+                    has_light_valance: r.has_light_valance,
+                    finish_type: r.finish_type,
+                    finish_number: r.finish_number,
+                    pull: r.pull,
+                    door_style: r.door_style || null,
+                    grain_direction: r.grain_direction || null,
+                    box_material: r.box_material || 'Melamine'
+                })),
+                cabinets: cabinets
+            };
+            
+            try {
+                const submitButton = document.getElementById('step5-submit');
+                if (submitButton) submitButton.disabled = true;
+                
+                console.log('Submitting order payload:', JSON.stringify(payload, null, 2));
+                
+                const response = await fetch('/express-order/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                // Check content type before parsing
+                const contentType = response.headers.get('content-type') || '';
+                
+                if (!response.ok) {
+                    let errorMessage = `Server error (${response.status}): ${response.statusText}`;
+                    try {
+                        if (contentType.includes('application/json')) {
+                            const errorData = await response.json();
+                            errorMessage = errorData.detail || errorData.message || errorMessage;
+                        } else {
+                            // Try to extract error from HTML/text response
+                            const text = await response.text();
+                            console.error('Non-JSON error response:', text.substring(0, 500));
+                            // Look for common error patterns
+                            const match = text.match(/<title>([^<]+)<\/title>|<h1>([^<]+)<\/h1>|detail["\s:]+([^"<]+)/i);
+                            if (match) {
+                                errorMessage = (match[1] || match[2] || match[3] || errorMessage).trim();
+                            }
+                        }
+                    } catch (parseError) {
+                        console.error('Error parsing error response:', parseError);
+                        errorMessage = `Failed to submit order. Server returned status ${response.status}`;
+                    }
+                    throw new Error(errorMessage);
+                }
+                
+                // Check if response is a ZIP file
+                if (contentType.includes('application/zip')) {
+                    // Trigger ZIP download
+                    const blob = await response.blob();
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = response.headers.get('Content-Disposition')?.split('filename=')[1]?.replace(/"/g, '') || `ACC_Express_Order_${payload.job.job_name.replace(/\s+/g, '_')}.zip`;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    
+                    // Show success message
+                    alert('Order ZIP downloaded successfully!');
+                } else {
+                    // Unexpected response type
+                    const text = await response.text();
+                    console.error('Unexpected response type:', contentType, text.substring(0, 500));
+                    throw new Error('Server returned unexpected response type. Expected ZIP file.');
+                }
+                
+            } catch (error) {
+                console.error('Error submitting order:', error);
+                showError('Error submitting order: ' + error.message);
+            } finally {
+                const submitButton = document.getElementById('step5-submit');
+                if (submitButton) submitButton.disabled = false;
+            }
+        }
+        
+        // Keep form submit handler for backward compatibility (prevent default)
+        document.getElementById('primeOrderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+        });
+        
+        function showError(message) {
+            const errorSection = document.getElementById('errorSection');
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorSection.classList.remove('hidden');
+        }
+        
+        // Load catalog and finish library on page load
+        window.onload = async function() {
+            await loadCatalog();
+            await loadFinishLibrary();
+            await loadPresets();
+            
+            // Set up cabinet form listeners after catalog is loaded
+            setupCabinetFormListeners();
+            
+            goToStep(1); // Start at step 1
+            updateStepValidation();
+            
+            // Add event listeners for step validation
+            ['jobName', 'clientName'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener('input', updateStepValidation);
+                    el.addEventListener('change', updateStepValidation);
+                }
+            });
+            
+            // Add event listeners for finish slot changes
+            for (let i = 1; i <= 3; i++) {
+                ['paint', 'stain', 'mel'].forEach(type => {
+                    const el = document.getElementById(`${type}_slot_${i}`);
+                    if (el) {
+                        el.addEventListener('change', updateStepValidation);
+                    }
+                });
+            }
+        };
+    </script>
+</body>
+</html>
+

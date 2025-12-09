@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Basic Pistol",
+    "weapon_type": "ranged",
+    "base_damage": "1d6",
+    "attack_bonus": 0,
+    "upgrades": {}
+  },
+  {
+    "name": "Basic Sword",
+    "weapon_type": "melee",
+    "base_damage": "1d8",
+    "attack_bonus": 0,
+    "upgrades": {}
+  },
+  {
+    "name": "Improved Pistol",
+    "weapon_type": "ranged",
+    "base_damage": "1d6",
+    "attack_bonus": 1,
+    "upgrades": {
+      "damage_bonus": 1
+    }
+  },
+  {
+    "name": "Improved Sword",
+    "weapon_type": "melee",
+    "base_damage": "1d8",
+    "attack_bonus": 1,
+    "upgrades": {
+      "damage_bonus": 1
+    }
+  }
+]
+

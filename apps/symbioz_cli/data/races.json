@@ -1,0 +1,46 @@
+[
+  {
+    "name": "Human",
+    "description": "Versatile and adaptable, humans excel in any role.",
+    "base_attributes": {
+      "STR": 10,
+      "DEX": 10,
+      "CON": 10,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 10
+    },
+    "racial_traits": {}
+  },
+  {
+    "name": "Stonelock",
+    "description": "Sturdy and resilient, Stonelocks are natural craftsmen and warriors.",
+    "base_attributes": {
+      "STR": 12,
+      "DEX": 8,
+      "CON": 14,
+      "INT": 10,
+      "WIS": 10,
+      "CHA": 8
+    },
+    "racial_traits": {
+      "natural_armor": 1
+    }
+  },
+  {
+    "name": "Aeshura",
+    "description": "Graceful and precise, Aeshura excel at ranged combat and precision work.",
+    "base_attributes": {
+      "STR": 8,
+      "DEX": 14,
+      "CON": 8,
+      "INT": 12,
+      "WIS": 10,
+      "CHA": 10
+    },
+    "racial_traits": {
+      "precision_bonus": 1
+    }
+  }
+]
+

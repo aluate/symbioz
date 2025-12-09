@@ -1,0 +1,35 @@
+{
+  "primary": {
+    "name": "Steel Blue",
+    "hex": "#5D7586",
+    "usage": "accents, primary buttons, key links",
+    "emotion": "calm intelligence, technical clarity"
+  },
+  "background": {
+    "name": "Porcelain",
+    "hex": "#F4F2EC",
+    "usage": "default page background",
+    "emotion": "clean, breathable, comforting space"
+  },
+  "text": {
+    "name": "Graphite",
+    "hex": "#2F3136",
+    "usage": "primary body text",
+    "emotion": "strength, seriousness, competence"
+  },
+  "mutedSurface": {
+    "name": "Lavender Gray",
+    "hex": "#D9DCE0",
+    "usage": "cards, borders, muted UI surfaces",
+    "emotion": "gentle modernity, precision"
+  },
+  "tailwindConfig": {
+    "colors": {
+      "steel-blue": "#5D7586",
+      "porcelain": "#F4F2EC",
+      "graphite": "#2F3136",
+      "lavender-gray": "#D9DCE0"
+    }
+  }
+}
+

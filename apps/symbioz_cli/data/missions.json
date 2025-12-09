@@ -1,0 +1,216 @@
+[
+  {
+    "id": "retrieve_package",
+    "name": "Retrieve the Package",
+    "description": "A client needs you to retrieve a package from a derelict station. Watch out for scavengers.",
+    "type": "combat",
+    "enemies": [
+      {
+        "name": "Scavenger",
+        "level": 1,
+        "attributes": {"STR": 12, "DEX": 10, "CON": 11, "INT": 8, "WIS": 9, "CHA": 8},
+        "max_hp": 12,
+        "weapon": "Basic Pistol",
+        "armor": "Light Armor"
+      }
+    ],
+    "xp_reward": 50,
+    "loot": {
+      "credits": 25,
+      "items": ["Vital Honey"]
+    }
+  },
+  {
+    "id": "hack_terminal",
+    "name": "Hack the Terminal",
+    "description": "Infiltrate a secure facility and hack into their terminal to retrieve data. Stealth and tech skills required.",
+    "type": "skill",
+    "skill_checks": [
+      {"attribute": "DEX", "dc": 12, "description": "Sneak past guards"},
+      {"attribute": "INT", "dc": 15, "description": "Hack the terminal"}
+    ],
+    "xp_reward": 75,
+    "loot": {
+      "credits": 50,
+      "items": ["Stim Honey"]
+    }
+  },
+  {
+    "id": "salvage_run",
+    "name": "Salvage Run",
+    "description": "A salvage hauler broke down near the station. Escort the repair crew and fend off opportunistic threats.",
+    "type": "combat",
+    "enemies": [
+      {
+        "name": "Raider",
+        "level": 1,
+        "attributes": {"STR": 11, "DEX": 11, "CON": 10, "INT": 9, "WIS": 8, "CHA": 7},
+        "max_hp": 10,
+        "weapon": "Basic Pistol",
+        "armor": "Light Armor"
+      },
+      {
+        "name": "Raider",
+        "level": 1,
+        "attributes": {"STR": 11, "DEX": 11, "CON": 10, "INT": 9, "WIS": 8, "CHA": 7},
+        "max_hp": 10,
+        "weapon": "Basic Pistol",
+        "armor": "Light Armor"
+      }
+    ],
+    "xp_reward": 65,
+    "loot": {
+      "credits": 35,
+      "items": ["Vital Honey"]
+    }
+  },
+  {
+    "id": "clear_den",
+    "name": "Clear the Den (Hard - Recommended Level 2+)",
+    "description": "A nest of hostile creatures has taken over an abandoned outpost. Clear them out. WARNING: This mission is dangerous for level 1 characters.",
+    "type": "combat",
+    "enemies": [
+      {
+        "name": "Wild Beast",
+        "level": 2,
+        "attributes": {"STR": 14, "DEX": 12, "CON": 13, "INT": 4, "WIS": 10, "CHA": 6},
+        "max_hp": 15,
+        "weapon": "Basic Sword",
+        "armor": null
+      },
+      {
+        "name": "Wild Beast",
+        "level": 2,
+        "attributes": {"STR": 14, "DEX": 12, "CON": 13, "INT": 4, "WIS": 10, "CHA": 6},
+        "max_hp": 15,
+        "weapon": "Basic Sword",
+        "armor": null
+      }
+    ],
+    "xp_reward": 100,
+    "loot": {
+      "credits": 75,
+      "items": ["Shield Honey", "Improved Pistol"]
+    }
+  },
+  {
+    "id": "security_breach",
+    "name": "Security Breach",
+    "description": "A Combine security outpost has been compromised. Infiltrate and retrieve classified data before they lock it down.",
+    "type": "skill",
+    "skill_checks": [
+      {"attribute": "DEX", "dc": 14, "description": "Avoid security patrols"},
+      {"attribute": "INT", "dc": 16, "description": "Bypass security systems"},
+      {"attribute": "WIS", "dc": 13, "description": "Locate the data terminal"}
+    ],
+    "xp_reward": 90,
+    "loot": {
+      "credits": 60,
+      "items": ["Stim Honey", "Focus Honey"]
+    }
+  },
+  {
+    "id": "raider_ambush",
+    "name": "Raider Ambush",
+    "description": "A merchant convoy was ambushed by raiders. Help defend the convoy and drive off the attackers.",
+    "type": "combat",
+    "enemies": [
+      {
+        "name": "Raider Scout",
+        "level": 1,
+        "attributes": {"STR": 10, "DEX": 13, "CON": 9, "INT": 10, "WIS": 8, "CHA": 7},
+        "max_hp": 9,
+        "weapon": "Basic Pistol",
+        "armor": "Light Armor"
+      },
+      {
+        "name": "Raider Scout",
+        "level": 1,
+        "attributes": {"STR": 10, "DEX": 13, "CON": 9, "INT": 10, "WIS": 8, "CHA": 7},
+        "max_hp": 9,
+        "weapon": "Basic Pistol",
+        "armor": "Light Armor"
+      },
+      {
+        "name": "Raider Leader",
+        "level": 2,
+        "attributes": {"STR": 13, "DEX": 11, "CON": 12, "INT": 9, "WIS": 10, "CHA": 8},
+        "max_hp": 14,
+        "weapon": "Improved Pistol",
+        "armor": "Light Armor"
+      }
+    ],
+    "xp_reward": 85,
+    "loot": {
+      "credits": 50,
+      "items": ["Vital Honey", "Stim Honey"]
+    }
+  },
+  {
+    "id": "data_recovery",
+    "name": "Data Recovery",
+    "description": "Recover critical data from a damaged station. The systems are unstable and require careful navigation.",
+    "type": "skill",
+    "skill_checks": [
+      {"attribute": "INT", "dc": 14, "description": "Diagnose system damage"},
+      {"attribute": "WIS", "dc": 12, "description": "Navigate unstable corridors"},
+      {"attribute": "INT", "dc": 15, "description": "Extract data before system failure"}
+    ],
+    "xp_reward": 80,
+    "loot": {
+      "credits": 45,
+      "items": ["Focus Honey"]
+    }
+  },
+  {
+    "id": "beast_hunt",
+    "name": "Beast Hunt",
+    "description": "A dangerous creature has been spotted near the outpost. Hunt it down before it causes more trouble.",
+    "type": "combat",
+    "enemies": [
+      {
+        "name": "Void Stalker",
+        "level": 2,
+        "attributes": {"STR": 15, "DEX": 14, "CON": 12, "INT": 5, "WIS": 11, "CHA": 4},
+        "max_hp": 18,
+        "weapon": "Basic Sword",
+        "armor": null
+      }
+    ],
+    "xp_reward": 95,
+    "loot": {
+      "credits": 65,
+      "items": ["Shield Honey", "Toxin Honey"]
+    }
+  },
+  {
+    "id": "escort_duty",
+    "name": "Escort Duty",
+    "description": "Escort a VIP through dangerous territory. Protect them from threats along the way.",
+    "type": "combat",
+    "enemies": [
+      {
+        "name": "Marauder",
+        "level": 1,
+        "attributes": {"STR": 12, "DEX": 10, "CON": 11, "INT": 8, "WIS": 9, "CHA": 6},
+        "max_hp": 11,
+        "weapon": "Basic Sword",
+        "armor": "Light Armor"
+      },
+      {
+        "name": "Marauder",
+        "level": 1,
+        "attributes": {"STR": 12, "DEX": 10, "CON": 11, "INT": 8, "WIS": 9, "CHA": 6},
+        "max_hp": 11,
+        "weapon": "Basic Sword",
+        "armor": "Light Armor"
+      }
+    ],
+    "xp_reward": 70,
+    "loot": {
+      "credits": 40,
+      "items": ["Vital Honey"]
+    }
+  }
+]
+

@@ -1,0 +1,16 @@
+{
+  "provider": "render",
+  "status": "error",
+  "human_summary": "\u274c 1 service(s) have errors",
+  "details": {
+    "services": [
+      {
+        "service": "catered-by-me-api",
+        "service_id": "TODO_FILL_RENDER_SERVICE_ID",
+        "status": "error",
+        "error": "Failed to get service info: Client error '404 Not Found' for url 'https://api.render.com/v1/services/TODO_FILL_RENDER_SERVICE_ID'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+      }
+    ],
+    "total_services": 1
+  }
+}

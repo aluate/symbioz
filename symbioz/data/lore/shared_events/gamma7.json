@@ -1,0 +1,89 @@
+{
+  "id": "gamma7",
+  "name": "Outpost Gamma-7 Amber Channeling Event",
+  "date": "5 years ago",
+  "location": "Outpost Gamma-7 (asteroid belt research station)",
+  "type": "Amber Channeling Incident",
+  "severity": "Critical",
+  "timeline": {
+    "preEvent": "Research station studying Amber-reactive materials",
+    "event": "Uncontrolled Amber channeling event, station systems permanently altered",
+    "immediateAftermath": "Researchers frozen in stasis, station evacuated",
+    "longTerm": "Event shaped multiple character paths, ongoing research into Amber"
+  },
+  "participants": [
+    {
+      "name": "Kaelen Voss",
+      "role": "Warden assigned to station",
+      "outcome": "Witnessed event, gained Amber-related knowledge",
+      "mechanicalImpact": "+2 WIS (Amber-related)"
+    },
+    {
+      "name": "Mara Deep-Current",
+      "role": "Warden researcher",
+      "outcome": "Left Wardens 1 month after event",
+      "mechanicalImpact": "+2 WIS (Amber biological understanding)"
+    },
+    {
+      "name": "Vex Three-Stance",
+      "role": "Independent contractor (aftermath)",
+      "outcome": "Analyzed station systems, gained Amber understanding",
+      "mechanicalImpact": "+2 WIS (Amber analysis)"
+    },
+    {
+      "name": "Kresh Four-Arm",
+      "role": "Warden (witnessed aftermath)",
+      "outcome": "Assigned to monitor similar incidents",
+      "mechanicalImpact": "+1 WIS (Amber protection)"
+    },
+    {
+      "name": "Tessa",
+      "role": "Researcher",
+      "outcome": "Frozen in stasis"
+    }
+  ],
+  "consequences": {
+    "immediate": [
+      "Station systems permanently altered",
+      "Researchers frozen in stasis",
+      "Station evacuated and quarantined"
+    ],
+    "longTerm": [
+      "Increased Warden monitoring of Amber research",
+      "Combine Research Division tightened protocols",
+      "Multiple characters shaped by event",
+      "Ongoing scientific interest in Amber channeling"
+    ],
+    "mechanical": [
+      "Quest foundation for Amber-related missions",
+      "Vendor access restrictions for Amber-contaminated characters",
+      "High-level implant/Amber research lines unlocked",
+      "Survival perks available",
+      "Nightmares/visions status effects possible"
+    ]
+  },
+  "factionReactions": {
+    "Wardens": "Increased monitoring, protective protocols",
+    "Combine": "Tightened research protocols, classified data",
+    "Scientific Community": "Ongoing research interest, ethical debates"
+  },
+  "questHooks": [
+    "Investigate what really happened",
+    "Rescue frozen researchers",
+    "Prevent similar incidents",
+    "Study Amber channeling safely",
+    "Expose classified Combine data"
+  ],
+  "scientificData": {
+    "amberReactivity": "Extreme",
+    "channelingMethod": "Uncontrolled",
+    "biologicalEffects": "Stasis, system alteration",
+    "preventionMethods": "Unknown, research ongoing"
+  },
+  "propagandaVersions": {
+    "combine": "Contained incident, protocols improved",
+    "warden": "Tragic accident, ongoing investigation",
+    "conspiracy": "Cover-up, intentional experiment"
+  }
+}
+

@@ -1,0 +1,30 @@
+part_id,part_name,description,category,unit,vendor,source,notes,coverage_width_in,coverage_height_in,waste_factor,export_category
+POST_6X6_PT,6x6 PT Post,6x6 PT post,framing,ea,HomeDepot,real,Avg of 8-12 ft PT posts,,,1.00,Framing
+LBR_2X6_LF,2x6 Lumber,2x6 SPF framing lumber,framing,lf,HomeDepot,real,Price derived from 2x6x12,,,1.05,Framing
+METAL_PANEL_29_SQFT,Metal Panel 29ga,29ga metal roof/wall panel,skin,sqft,HomeDepot,real,12' panel covers 36 sqft,36,,1.05,Metal
+TRIM_EAVE,Eave Trim,Metal eave trim,trim,lf,Assumed,assumed,-,,,1.10,Misc
+TRIM_RAKE,Rake Trim,Metal rake trim,trim,lf,Assumed,assumed,-,,,1.10,Misc
+TRIM_BASE,Base Trim,Metal base trim,trim,lf,Assumed,assumed,-,,,1.10,Misc
+TRIM_CORNER,Corner Trim,Metal corner trim,trim,lf,Assumed,assumed,-,,,1.10,Misc
+RIDGE_CAP,Ridge Cap,Metal ridge cap,trim,lf,Assumed,assumed,-,,,1.10,Misc
+SCREW_METAL,Metal Screw,Metal roofing screw,fasteners,ea,HomeDepot,real,Derived from 100-pack pricing,,,1.05,Misc
+CONCRETE_CY,Concrete,Concrete (bag-equivalent),concrete,cuyd,HomeDepot,real,Derived from 80 lb Sakrete bags,,,1.05,Concrete
+INS_R19_SQFT,R-19 Insulation,R-19 fiberglass batt insulation,insulation,sqft,OwensCorning,real,E61 bag coverage,,,1.00,Insulation
+VENT_RIDGE,Ridge Vent,Continuous ridge vent,ventilation,lf,Assumed,assumed,-,,,1.00,Misc
+VENT_GABLE,Gable Vent,Gable vent,ventilation,ea,Assumed,assumed,-,,,1.00,Misc
+DELIVERY_LUMP,Delivery,Delivery allowance,soft_cost,lump,Assumed,assumed,-,,,1.00,Misc
+PERMIT_LUMP,Permit,Permit allowance,soft_cost,lump,Assumed,assumed,-,,,1.00,Misc
+SITE_PREP_LUMP,Site Prep,Site prep allowance,soft_cost,lump,Assumed,assumed,-,,,1.00,Misc
+TRUSS_STD,Standard Truss,Engineered pole barn truss,framing,ea,Assumed,assumed,Typical 30-40 ft span truss,,,1.00,Framing
+METAL_PANEL_26_SQFT,Metal Panel 26ga,26ga metal roof/wall panel,skin,sqft,HomeDepot,real,12' panel covers 36 sqft,36,,1.05,Metal
+TRIM_DOOR,Door Trim,Metal door trim,trim,lf,Assumed,assumed,-,,,1.10,Doors_Windows
+TRIM_WINDOW,Window Trim,Metal window trim,trim,lf,Assumed,assumed,-,,,1.10,Doors_Windows
+TRIM_J_CHANNEL_29,J-Channel 29ga,J-Channel 29ga (10' sticks),trim,ea,Assumed,assumed,10 ft sticks,0,120,1.00,Doors_Windows
+INS_ROCKWOOL_SQFT,Rock Wool Insulation,Rock wool batt insulation,insulation,sqft,Assumed,assumed,R-19 equivalent,,,1.00,Insulation
+INS_RIGID_SQFT,Rigid Board Insulation,Rigid board insulation,insulation,sqft,Assumed,assumed,R-5 per inch,,,1.05,Insulation
+INS_SPRAYFOAM_SQFT,Spray Foam Insulation,Spray foam insulation,insulation,sqft,Assumed,assumed,R-6 per inch (closed-cell),,,1.00,Insulation
+SHEATHING_OSB_SQFT,OSB Sheathing,OSB sheathing 7/16",sheathing,sqft,HomeDepot,real,4' x 8' sheets,48,96,1.05,Misc
+SHEATHING_PLY_SQFT,Plywood Sheathing,Plywood sheathing 1/2",sheathing,sqft,HomeDepot,real,4' x 8' sheets,48,96,1.05,Misc
+OVERHEAD_DOOR,Overhead Door,Steel roll-up door unit,doors,ea,Assumed,assumed,8' x 7' typical,,,1.00,Doors_Windows
+SLAB_MESH,Wire Mesh,Wire mesh for slab reinforcement,concrete,ea,HomeDepot,real,5x10 or 6x6 sheet ~50 sqft,,,1.05,Concrete
+SLAB_REBAR,Rebar,Rebar for slab reinforcement,concrete,lf,HomeDepot,real,#4 rebar typical,,,1.05,Concrete

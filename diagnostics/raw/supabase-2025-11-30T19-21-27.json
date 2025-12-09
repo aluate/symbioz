@@ -1,0 +1,8 @@
+{
+  "provider": "supabase",
+  "status": "ok",
+  "human_summary": "[DRY RUN] Would check Supabase projects",
+  "details": {
+    "dry_run": true
+  }
+}

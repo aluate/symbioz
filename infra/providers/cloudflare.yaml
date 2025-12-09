@@ -1,0 +1,19 @@
+# Cloudflare Provider Configuration
+
+# Authentication Options:
+# Option 1: API Token (Recommended)
+#   Set CLOUDFLARE_API_TOKEN environment variable
+#   Get from: https://dash.cloudflare.com/profile/api-tokens
+#   Use "Edit zone DNS" template for DNS management
+#
+# Option 2: Email + API Key (Legacy)
+#   Set CLOUDFLARE_EMAIL and CLOUDFLARE_API_KEY environment variables
+#   Get API key from: https://dash.cloudflare.com/profile/api-tokens
+#
+# The client will automatically use API token if available, otherwise fall back to email+key
+
+# Domains managed by Cloudflare
+domains:
+  corporatecrashouttrading.com:
+    zone_id: null  # Auto-detected if null
+    manage_dns: true

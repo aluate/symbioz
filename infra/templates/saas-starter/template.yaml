@@ -1,0 +1,50 @@
+# SaaS Starter Template
+# Full-stack SaaS application with payments and authentication
+
+name: "saas-starter"
+description: "Full-stack SaaS application with Next.js frontend, FastAPI backend, Supabase database, and Stripe payments"
+version: "1.0.0"
+
+components:
+  - web          # Next.js frontend
+  - api          # FastAPI backend
+  - database     # Supabase
+  - payments     # Stripe
+
+providers:
+  - vercel       # Frontend hosting
+  - render       # Backend hosting
+  - supabase     # Database & auth
+  - stripe       # Payments
+
+variables:
+  - name: "project_name"
+    description: "Name of your project (kebab-case, e.g., 'my-awesome-app')"
+    required: true
+    example: "my-awesome-app"
+  
+  - name: "project_display_name"
+    description: "Display name for your project (e.g., 'My Awesome App')"
+    required: true
+    example: "My Awesome App"
+  
+  - name: "github_repo"
+    description: "GitHub repository (owner/repo format, e.g., 'username/my-awesome-app')"
+    required: true
+    example: "username/my-awesome-app"
+  
+  - name: "frontend_domain"
+    description: "Custom domain for frontend (optional)"
+    required: false
+    example: "myawesomeapp.com"
+
+features:
+  - "User authentication (Supabase Auth)"
+  - "Subscription management (Stripe)"
+  - "Database with Row Level Security"
+  - "API with rate limiting"
+  - "Responsive frontend"
+  - "Environment variable management"
+  - "Health checks"
+  - "Auto-deployment"
+

@@ -1,0 +1,10 @@
+✅ INSTALLED! Dependencies are now installed.
+
+For reference, the command was:
+python -m pip install -r infra/requirements.txt
+
+Next steps:
+1. Fill in TODO placeholders in config files (see infra/FINDING_YOUR_KEYS_AND_IDS.md)
+2. Create .env file with your API keys (see infra/.env.example)
+3. Test with dry-run commands (see infra/QUICK_START_COMMANDS.md)
+

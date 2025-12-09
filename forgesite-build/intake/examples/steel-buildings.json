@@ -1,0 +1,36 @@
+{
+  "businessName": "SteelStrong Structures",
+  "ownerName": "Dave Thompson",
+  "tradeType": "steel_buildings",
+  "serviceArea": "Texas, Oklahoma, New Mexico",
+  "services": [
+    "Commercial Steel Buildings",
+    "Agricultural Structures",
+    "Warehouse Construction",
+    "Steel Frame Design",
+    "Installation Services"
+  ],
+  "typicalJobSize": "$50,000 - $500,000",
+  "idealClientDescription": "Business owners, farmers, and developers needing durable steel structures",
+  "differentiators": [
+    "30+ years experience",
+    "Engineered to local codes",
+    "Fast installation",
+    "Competitive pricing"
+  ],
+  "testimonials": [
+    {
+      "name": "Robert Martinez",
+      "quote": "Our new warehouse went up in 3 weeks. Quality construction and great service.",
+      "projectType": "Commercial Warehouse"
+    }
+  ],
+  "brandVoice": "straightforward",
+  "mainGoal": "get_leads",
+  "contact": {
+    "phone": "(555) 456-7890",
+    "email": "info@steelstrongstructures.com",
+    "address": "789 Steel Way, Dallas, TX 75201"
+  },
+  "packageLevel": "pro"
+}

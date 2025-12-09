@@ -1,0 +1,4 @@
+# Base templates directory
+# Templates are defined in data/template_index.json
+# Individual template folders can be created here for custom templates
+

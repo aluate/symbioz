@@ -1,0 +1,82 @@
+.pricing {
+  flex: 1;
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid var(--color-charcoal);
+  border-radius: 4px;
+}
+
+.pricingTitle {
+  font-family: var(--font-playfair);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--color-black);
+  margin: 0 0 1.5rem 0;
+}
+
+.pricingStats {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.statItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.statLabel {
+  font-size: 0.9375rem;
+  color: var(--color-charcoal);
+}
+
+.statValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.pricingBreakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.breakdownItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.breakdownLabel {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-black);
+}
+
+.breakdownValue {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-tiffany-blue);
+  font-family: var(--font-playfair);
+}
+
+.breakdownNote {
+  font-size: 0.75rem;
+  color: var(--color-charcoal);
+  font-style: italic;
+  margin-top: 0.5rem;
+}
+
+.emptyMessage {
+  font-size: 0.9375rem;
+  color: var(--color-charcoal);
+  text-align: center;
+  padding: 2rem;
+  font-style: italic;
+}
+

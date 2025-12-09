@@ -1,0 +1,19 @@
+services:
+  catered-by-me-api:
+    env: prod
+    render_service_id: srv-d4kcjnali9vc73dm82v0
+    repo: aluate/catered_by_me
+    branch: main
+    build_command: pip install -r requirements.txt
+    start_command: uvicorn apps.api.main:app --host 0.0.0.0 --port $PORT
+    health_check_path: /health
+    region: oregon
+  symbioz-api:
+    env: prod
+    render_service_id: srv-d4qdca6uk2gs73fl2arg
+    repo: aluate/symbioz
+    branch: main
+    build_command: pip install -r requirements.txt
+    start_command: uvicorn api_server:app --host 0.0.0.0 --port $PORT
+    health_check_path: /api/health
+    region: oregon

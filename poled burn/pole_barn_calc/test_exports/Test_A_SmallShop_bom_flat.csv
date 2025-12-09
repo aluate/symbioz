@@ -1,0 +1,16 @@
+project_name,building_id,sheet_name,category,part_id,part_name,unit,qty,length_in,unit_price,ext_price,notes
+Test_A_SmallShop,Test_A_SmallShop,Framing,framing,LBR_2X6_LF,2x6 Lumber,lf,65.0,192.0,1.16,75.39999999999999,"Price derived from 2x6x12; Length: 16.0ft (192"")"
+Test_A_SmallShop,Test_A_SmallShop,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,11.0,120.0,52.199999999999996,574.1999999999999,"12' panel covers 36 sqft; Length: 10.0ft (120"")"
+Test_A_SmallShop,Test_A_SmallShop,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,134,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 11.2ft (134"")"
+Test_A_SmallShop,Test_A_SmallShop,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,146,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 12.2ft (146"")"
+Test_A_SmallShop,Test_A_SmallShop,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,11.0,151.7893276880822,52.199999999999996,574.1999999999999,"12' panel covers 36 sqft; Length: 12.6ft (152"")"
+Test_A_SmallShop,Test_A_SmallShop,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,158,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 13.2ft (158"")"
+Test_A_SmallShop,Test_A_SmallShop,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,170,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 14.2ft (170"")"
+Test_A_SmallShop,Test_A_SmallShop,Framing,framing,POST_6X6_PT,6x6 PT Post,ea,8.0,,75.0,600.0,Avg of 8-12 ft PT posts
+Test_A_SmallShop,Test_A_SmallShop,Misc,trim,TRIM_BASE,Base Trim,lf,118.80000000000001,,3.13,371.84400000000005,-
+Test_A_SmallShop,Test_A_SmallShop,Misc,trim,TRIM_CORNER,Corner Trim,lf,44.0,,3.13,137.72,-
+Test_A_SmallShop,Test_A_SmallShop,Doors_Windows,trim,TRIM_DOOR,Door Trim,lf,18.700000000000003,,3.13,58.531000000000006,-
+Test_A_SmallShop,Test_A_SmallShop,Misc,trim,TRIM_EAVE,Eave Trim,lf,66.0,,3.13,206.57999999999998,-
+Test_A_SmallShop,Test_A_SmallShop,Doors_Windows,trim,TRIM_J_CHANNEL_29,J-Channel 29ga,ea,4.0,120.0,12.5,50.0,"10 ft sticks; Length: 10.0ft (120"")"
+Test_A_SmallShop,Test_A_SmallShop,Misc,trim,TRIM_RAKE,Rake Trim,lf,52.800000000000004,,3.13,165.264,-
+Test_A_SmallShop,Test_A_SmallShop,Framing,framing,TRUSS_STD,Standard Truss,ea,4.0,,312.5,1250.0,Typical 30-40 ft span truss

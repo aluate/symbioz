@@ -1,0 +1,24 @@
+# Project Spec: {{project_display_name}}
+# Generated from template: portfolio-site
+
+name: "{{project_name}}"
+description: "{{project_display_name}} - Portfolio/Landing Page"
+environment: "prod"
+
+components:
+  web:
+    provider: "vercel"
+    template: "nextjs-marketing-site"
+    repo: "{{github_repo}}"
+    root_dir: "apps/web"
+    branch: "main"
+    build_command: "npm install && npm run build"
+    env_vars:
+      {{#if frontend_domain}}
+      NEXT_PUBLIC_SITE_URL: "https://{{frontend_domain}}"
+      {{/if}}
+
+health_checks:
+  - name: "web-health"
+    url: "{{#if frontend_domain}}https://{{frontend_domain}}{{else}}https://{{project_name}}.vercel.app{{/if}}"
+

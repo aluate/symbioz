@@ -4,6 +4,21 @@
   margin: 0;
 }
 
+:root {
+  /* Mellivox Brand Colors */
+  /* Primary */
+  --mellivox-hive-black: #0B0B0F;
+  --mellivox-vox-gold: #C69A3E;
+  
+  /* Secondary */
+  --mellivox-pollen-ivory: #EDE8D1;
+  --mellivox-forage-green: #2A4E39;
+  --mellivox-resin-amber: #B86022;
+  
+  /* Accent */
+  --mellivox-obsidian-violet: #3A2F53;
+}
+
 html,
 body {
   max-width: 100vw;

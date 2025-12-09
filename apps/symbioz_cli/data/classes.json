@@ -1,0 +1,48 @@
+[
+  {
+    "name": "Vanguard",
+    "description": "Frontline fighters who excel in melee combat and defense.",
+    "base_hp": 12,
+    "hp_per_level": 6,
+    "attribute_bonuses": {
+      "STR": 2,
+      "CON": 2
+    },
+    "abilities": ["Power Strike", "Brace"]
+  },
+  {
+    "name": "Operative",
+    "description": "Stealthy operatives who specialize in ranged combat and precision strikes.",
+    "base_hp": 8,
+    "hp_per_level": 4,
+    "attribute_bonuses": {
+      "DEX": 2,
+      "INT": 2
+    },
+    "abilities": ["Sneak Attack", "Dodge"]
+  },
+  {
+    "name": "Tech Specialist",
+    "description": "Hackers and engineers who support the team with technology and repairs.",
+    "base_hp": 8,
+    "hp_per_level": 4,
+    "attribute_bonuses": {
+      "INT": 3,
+      "WIS": 1
+    },
+    "abilities": ["Hack", "Repair", "Overload Systems"]
+  },
+  {
+    "name": "Pioneer",
+    "description": "Survivalists who understand the natural world and excel in utility roles.",
+    "base_hp": 10,
+    "hp_per_level": 5,
+    "attribute_bonuses": {
+      "WIS": 2,
+      "CON": 1,
+      "INT": 1
+    },
+    "abilities": ["First Aid", "Survival Instinct"]
+  }
+]
+

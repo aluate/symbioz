@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --steel-blue: #5D7586;
+  --porcelain: #F4F2EC;
+  --graphite: #2F3136;
+  --lavender-gray: #D9DCE0;
+}
+
+body {
+  background-color: var(--porcelain);
+  color: var(--graphite);
+}
+

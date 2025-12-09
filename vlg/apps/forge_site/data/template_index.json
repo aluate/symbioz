@@ -1,0 +1,104 @@
+{
+  "templates": [
+    {
+      "id": "simple-builder-landing",
+      "name": "Simple Builder Landing",
+      "targetIndustries": ["builder", "contractor", "trade", "designer", "architect", "local-service"],
+      "primaryGoal": ["GET_LEADS", "CREDIBILITY", "CLARITY"],
+      "defaultPages": ["home", "services", "projects", "about", "contact"],
+      "pageToModuleIds": {
+        "home": [
+          "hero_basic",
+          "services_grid",
+          "project_gallery_grid",
+          "testimonial_strip",
+          "lead_capture_form"
+        ],
+        "services": [
+          "hero_basic",
+          "services_grid",
+          "cta_basic"
+        ],
+        "projects": [
+          "hero_basic",
+          "project_gallery_grid"
+        ],
+        "about": [
+          "hero_basic",
+          "content_two_column",
+          "testimonial_strip"
+        ],
+        "contact": [
+          "hero_basic",
+          "contact_form_simple",
+          "map_embed"
+        ]
+      },
+      "description": "For builders, trades, local professionals. Showcases work, builds trust, captures leads."
+    },
+    {
+      "id": "lead-capture",
+      "name": "Lead Capture",
+      "targetIndustries": ["roofer", "painter", "hvac", "coach", "realtor", "service-heavy"],
+      "primaryGoal": ["GET_LEADS"],
+      "defaultPages": ["home", "long-form", "contact"],
+      "pageToModuleIds": {
+        "home": [
+          "hero_basic",
+          "benefits_strip",
+          "lead_capture_form",
+          "testimonial_strip",
+          "faq_accordion"
+        ],
+        "long-form": [
+          "hero_basic",
+          "content_two_column",
+          "lead_capture_form",
+          "testimonial_grid",
+          "faq_accordion"
+        ],
+        "contact": [
+          "hero_basic",
+          "contact_form_simple",
+          "map_embed"
+        ]
+      },
+      "description": "For lead-gen heavy services. Optimized for quick conversion and qualified lead capture."
+    },
+    {
+      "id": "commerce-lite",
+      "name": "Commerce Lite",
+      "targetIndustries": ["shop", "boutique", "retail", "product-seller"],
+      "primaryGoal": ["SELL_PRODUCTS"],
+      "defaultPages": ["home", "products", "product", "cart", "checkout", "contact"],
+      "pageToModuleIds": {
+        "home": [
+          "hero_basic",
+          "product_grid_simple",
+          "testimonial_strip",
+          "cta_basic"
+        ],
+        "products": [
+          "hero_basic",
+          "product_grid_simple"
+        ],
+        "product": [
+          "product_detail_basic"
+        ],
+        "cart": [
+          "cart_page"
+        ],
+        "checkout": [
+          "checkout_page"
+        ],
+        "contact": [
+          "hero_basic",
+          "contact_form_simple",
+          "faq_accordion"
+        ]
+      },
+      "description": "For small shops and product sellers. Simple catalog with checkout. Perfect for <50 products."
+    }
+  ]
+}
+

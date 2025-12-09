@@ -1,0 +1,167 @@
+.mellivoxLanding {
+  min-height: 100vh;
+  background: var(--mellivox-hive-black);
+  color: var(--mellivox-pollen-ivory);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.landingContainer {
+  max-width: 800px;
+  width: 100%;
+  text-align: center;
+}
+
+.logoSection {
+  margin-bottom: 3rem;
+}
+
+.logo {
+  filter: drop-shadow(0 0 20px rgba(198, 154, 62, 0.3));
+}
+
+.contentSection {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.brandName {
+  font-size: 3.5rem;
+  font-weight: 300;
+  letter-spacing: 0.3em;
+  color: var(--mellivox-vox-gold);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.tagline {
+  font-size: 1.2rem;
+  color: var(--mellivox-pollen-ivory);
+  font-style: italic;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.divider {
+  width: 100px;
+  height: 1px;
+  background: var(--mellivox-vox-gold);
+  margin: 0 auto;
+  opacity: 0.5;
+}
+
+.coreTheme {
+  font-size: 1.5rem;
+  line-height: 1.8;
+  color: var(--mellivox-pollen-ivory);
+  margin: 0;
+  font-weight: 300;
+}
+
+.mantras {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.mantra {
+  font-size: 1.1rem;
+  color: var(--mellivox-vox-gold);
+  font-style: italic;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.threeTruths {
+  text-align: left;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.truthsTitle {
+  font-size: 1.5rem;
+  color: var(--mellivox-vox-gold);
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+.truthsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: truth-counter;
+}
+
+.truthsList li {
+  counter-increment: truth-counter;
+  padding: 0.8rem 0;
+  padding-left: 2.5rem;
+  position: relative;
+  color: var(--mellivox-pollen-ivory);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.truthsList li::before {
+  content: counter(truth-counter) ".";
+  position: absolute;
+  left: 0;
+  color: var(--mellivox-vox-gold);
+  font-weight: 500;
+}
+
+.ctaSection {
+  margin-top: 2rem;
+}
+
+.ctaButton {
+  background: transparent;
+  border: 2px solid var(--mellivox-vox-gold);
+  color: var(--mellivox-vox-gold);
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 300;
+}
+
+.ctaButton:hover {
+  background: var(--mellivox-vox-gold);
+  color: var(--mellivox-hive-black);
+  box-shadow: 0 0 20px rgba(198, 154, 62, 0.5);
+}
+
+.landingFooter {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(198, 154, 62, 0.2);
+}
+
+.footerText {
+  font-size: 0.9rem;
+  color: var(--mellivox-pollen-ivory);
+  opacity: 0.6;
+  font-style: italic;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .brandName {
+    font-size: 2.5rem;
+  }
+
+  .coreTheme {
+    font-size: 1.2rem;
+  }
+
+  .mantra {
+    font-size: 1rem;
+  }
+}
+

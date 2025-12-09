@@ -1,0 +1,8 @@
+{
+  "provider": "github",
+  "status": "ok",
+  "human_summary": "[DRY RUN] Would check GitHub repos",
+  "details": {
+    "dry_run": true
+  }
+}

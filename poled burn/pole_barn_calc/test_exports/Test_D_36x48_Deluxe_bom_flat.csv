@@ -1,0 +1,24 @@
+project_name,building_id,sheet_name,category,part_id,part_name,unit,qty,length_in,unit_price,ext_price,notes
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Concrete,concrete,CONCRETE_CY,Concrete,cuyd,22.4,,270.0,6048.0,Derived from 80 lb Sakrete bags
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Insulation,insulation,INS_R19_SQFT,R-19 Insulation,sqft,4341.510696599782,,0.83,3603.4538781778188,E61 bag coverage
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Framing,framing,LBR_2X6_LF,2x6 Lumber,lf,147.0,192.0,1.16,170.51999999999998,"Price derived from 2x6x12; Length: 16.0ft (192"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,17.0,144.0,52.199999999999996,887.4,"12' panel covers 36 sqft; Length: 12.0ft (144"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,164,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 13.7ft (164"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,182,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 15.2ft (182"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,200,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 16.7ft (200"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,218,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 18.2ft (218"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,236,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 19.7ft (236"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,17.0,241.4953415699773,52.199999999999996,887.4,"12' panel covers 36 sqft; Length: 20.1ft (241"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Metal,skin,METAL_PANEL_29_SQFT,Metal Panel 29ga,ea,3.0,254,52.199999999999996,156.6,"12' panel covers 36 sqft; Length: 21.2ft (254"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Doors_Windows,doors,OVERHEAD_DOOR,Overhead Door,ea,2.0,,1062.5,2125.0,8' x 7' typical
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Framing,framing,POST_6X6_PT,6x6 PT Post,ea,10.0,,75.0,750.0,Avg of 8-12 ft PT posts
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Misc,sheathing,SHEATHING_PLY_SQFT,Plywood Sheathing,ea,144.0,96.0,1.1,158.4,"4' x 8' sheets; Length: 8.0ft (96"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Concrete,concrete,SLAB_MESH,Wire Mesh,ea,36.75,,45.0,1653.75,5x10 or 6x6 sheet ~50 sqft
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Misc,trim,TRIM_BASE,Base Trim,lf,184.8,,3.13,578.424,-
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Misc,trim,TRIM_CORNER,Corner Trim,lf,52.800000000000004,,3.13,165.264,-
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Doors_Windows,trim,TRIM_DOOR,Door Trim,lf,56.1,,3.13,175.593,-
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Misc,trim,TRIM_EAVE,Eave Trim,lf,105.60000000000001,,3.13,330.528,-
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Doors_Windows,trim,TRIM_J_CHANNEL_29,J-Channel 29ga,ea,12.0,120.0,12.5,150.0,"10 ft sticks; Length: 10.0ft (120"")"
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Misc,trim,TRIM_RAKE,Rake Trim,lf,79.2,,3.13,247.896,-
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Doors_Windows,trim,TRIM_WINDOW,Window Trim,lf,52.800000000000004,,3.13,165.264,-
+Test_D_36x48_Deluxe,Test_D_36x48_Deluxe,Framing,framing,TRUSS_STD,Standard Truss,ea,5.0,,312.5,1562.5,Typical 30-40 ft span truss

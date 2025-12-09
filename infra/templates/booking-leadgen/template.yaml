@@ -1,0 +1,46 @@
+# Booking/Lead Gen Template
+# Booking site with form submissions and lead storage
+
+name: "booking-leadgen"
+description: "Booking or lead generation site with Next.js frontend and API for form submissions"
+version: "1.0.0"
+
+components:
+  - web          # Next.js frontend
+  - api          # FastAPI backend for forms
+  - database     # Supabase for storing leads
+
+providers:
+  - vercel       # Frontend hosting
+  - render       # Backend hosting
+  - supabase     # Database
+
+variables:
+  - name: "project_name"
+    description: "Name of your project (kebab-case)"
+    required: true
+    example: "my-booking-site"
+  
+  - name: "project_display_name"
+    description: "Display name for your project"
+    required: true
+    example: "My Booking Site"
+  
+  - name: "github_repo"
+    description: "GitHub repository (owner/repo format)"
+    required: true
+    example: "username/my-booking-site"
+  
+  - name: "frontend_domain"
+    description: "Custom domain for frontend (optional)"
+    required: false
+    example: "bookings.example.com"
+
+features:
+  - "Next.js frontend with forms"
+  - "FastAPI backend for form submissions"
+  - "Supabase database for storing leads/bookings"
+  - "Email notifications (optional)"
+  - "Responsive design"
+  - "Form validation"
+

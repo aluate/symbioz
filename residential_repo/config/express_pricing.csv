@@ -1,0 +1,33 @@
+key_type,key,description,price_per_unit,unit,active
+family,B_1D,Base 1-Door per inch width,12.50,per_inch_width,TRUE
+family,B_2D,Base 2-Door per inch width,11.00,per_inch_width,TRUE
+family,B_3DR,Base 3-Drawer per inch width,13.50,per_inch_width,TRUE
+family,B_4DR,Base 4-Drawer per inch width,14.00,per_inch_width,TRUE
+family,B_SINK,Sink Base per inch width,15.00,per_inch_width,TRUE
+family,B_TRASH,Trash Pullout Base per inch width,16.00,per_inch_width,TRUE
+family,B_CORNER_BL,Corner Base Lazy Susan per inch width,18.00,per_inch_width,TRUE
+family,B_CORNER_LS,Corner Base Lazy Susan per inch width,18.00,per_inch_width,TRUE
+family,W_1D,Wall 1-Door per inch width,10.00,per_inch_width,TRUE
+family,W_2D,Wall 2-Door per inch width,9.50,per_inch_width,TRUE
+family,W_3DR,Wall 3-Drawer per inch width,11.00,per_inch_width,TRUE
+family,T_PANTRY,Tall Pantry per inch width,16.00,per_inch_width,TRUE
+family,T_UTILITY,Tall Utility per inch width,15.00,per_inch_width,TRUE
+family,T_OVENMIC,Tall Oven/Microwave per inch width,14.00,per_inch_width,TRUE
+family,V_SINK_CENTER,Vanity Sink Center per inch width,13.00,per_inch_width,TRUE
+family,V_SINK_LEFT,Vanity Sink Left per inch width,13.00,per_inch_width,TRUE
+family,V_SINK_RIGHT,Vanity Sink Right per inch width,13.00,per_inch_width,TRUE
+family,V_3DR,Vanity 3-Drawer per inch width,12.00,per_inch_width,TRUE
+finish,PAINT_SW_ALABASTER,Paint finish adder,45.00,per_cabinet,TRUE
+finish,PAINT_SW_URBANEBRONZE,Paint finish adder,48.75,per_cabinet,TRUE
+finish,PAINT_VALSPAR_SNOWBOUND,Paint finish adder,42.00,per_cabinet,TRUE
+finish,STAIN_SW_DRIFTWOOD_ALDER,Stain finish adder,38.25,per_cabinet,TRUE
+finish,STAIN_SW_URBANEBRONZE_ALDER,Stain finish adder,40.00,per_cabinet,TRUE
+finish,STAIN_SW_ESPRESSO_ALDER,Stain finish adder,42.50,per_cabinet,TRUE
+finish,MEL_TAFISA_SNOWWHITE,Melamine finish adder,0.00,per_cabinet,TRUE
+finish,MEL_TAFISA_URBANBRONZE,Melamine finish adder,5.00,per_cabinet,TRUE
+finish,MEL_TAFISA_CHARCOAL,Melamine finish adder,5.00,per_cabinet,TRUE
+option,rollout_tray,Rollout tray option,25.00,per_rollout,TRUE
+option,trash_kit,Trash kit option,35.00,per_trash_kit,TRUE
+option,applied_panel,Applied panel option,15.00,per_applied_panel,TRUE
+option,plywood_upgrade,Plywood box upgrade per cabinet,20.00,per_cabinet,TRUE
+

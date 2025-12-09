@@ -1,0 +1,18 @@
+{
+  "provider": "supabase",
+  "status": "warn",
+  "human_summary": "\u26a0\ufe0f 1 project(s) have warnings",
+  "details": {
+    "projects": [
+      {
+        "project": "catered-by-me",
+        "status": "warn",
+        "url_set": true,
+        "key_set": true,
+        "connection": "ok",
+        "warning": "Schema file not found: supabase/schema.sql"
+      }
+    ],
+    "total_projects": 1
+  }
+}

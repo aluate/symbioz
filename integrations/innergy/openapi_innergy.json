@@ -1,0 +1,37 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "INNERGY API",
+    "version": "1.0.0",
+    "description": "INNERGY API specification. TODO: Replace this placeholder with the actual OpenAPI JSON you uploaded."
+  },
+  "servers": [
+    {
+      "url": "https://api.innergy.example.com",
+      "description": "INNERGY API server (placeholder)"
+    }
+  ],
+  "paths": {
+    "/api/projects": {
+      "get": {
+        "summary": "List projects",
+        "description": "TODO: Update with actual endpoint details from your OpenAPI spec",
+        "responses": {
+          "200": {
+            "description": "List of projects"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
+

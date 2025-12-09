@@ -1,0 +1,94 @@
+---
+# Chapter 16
+---
+
+Taman returned from the east with the taste of balance still fresh in his mouth, with the memory of the eastern fort vivid in his mind—the painted signs of welcome, the healthy animals, the laughing children, the air clear of ash, the sense of rightness, of equilibrium, of burden shared fairly.
+
+He found his family that evening, gathering them in the small cabin they shared, his words urgent, his voice tight with hope and desperation.
+
+"There's a place," he said, his words tumbling over each other in his rush to explain. "An eastern fort. Larger than this. Balanced. The scales are level there. Burden is shared. People work together. The animals are healthy, the children laugh, the air carries no ash. There's balance there. Real balance. We could go there. All of us. We could leave. We could find a way out. We could live whole."
+
+He spoke of the fort, of the council, of the trader who'd offered to help, of Mira and her offer of friendship, of the elder who'd said Sela wouldn't be hunted there, that her gift would be respected, that they could live whole.
+
+"We could go," he said, his voice rising with hope. "We could leave Fort Shadow, leave Arpin, leave the ledgers and the debt and the burden. We could find balance. We could share burden. We could live whole."
+
+But Boone shook his head, his expression troubled, his voice careful. "No, Taman. No. The fort is our home. It's always been our home. And Arpin's grip is strong, I know that. I've seen it. I've felt it. But it's survivable. If we're smart. If we're careful. If we play the game, learn the system, use the ledgers instead of fighting them, then we can survive. We can make it work. We can find a way to live under his thumb without breaking."
+
+Taman felt something sink in his chest, felt hope fading, felt the east slipping away before it had ever been real. "Survivable? Is that what you want? To survive under his thumb? To play his game? To accept the ledgers and the debt and the binding? That's not living, Boone. That's just existing. That's just waiting for him to tighten his grip even more, to bind us tighter, to break us completely."
+
+Boone's expression hardened, and Taman saw something in his eyes—conflict, maybe, or fear. "And leaving is living? Running away? Abandoning our home? What about everyone else? What about the people who can't leave? What about the people who are bound too tight to escape? Do we just abandon them? Do we just leave them to Arpin's mercy?"
+
+"Then we bring them too," Taman said, making another choice. His voice was firm, determined. "We show them the way. We show them that balance exists elsewhere, that burden can be shared, that they don't have to live under Arpin's thumb. And then they'll choose. They'll choose balance over bindings. They'll choose freedom over fear."
+
+Boone's expression shifted, and Taman saw something in his eyes—uncertainty, maybe, or hope. "But how? How do we show them? How do we bring them? How do we convince them that leaving is worth the risk, that balance is worth the cost?"
+
+"I don't know," Taman admitted. "But we have to try. We have to plant the seed. We have to give them hope. And then maybe, just maybe, they'll choose balance. They'll choose to break free."
+
+Boone was silent for a long moment. Then he nodded, his expression troubled but determined. "Then we'll try. Together. We'll plant the seed. We'll show them that balance exists elsewhere. And then maybe they'll choose it. Maybe they'll choose to break free."
+
+Their mother listened in silence, her expression troubled, her eyes shadowed by memories of her tribe's warnings—warnings about burden, about balance, about the cost of choices, about the price of survival.
+
+She'd been warned, long ago, before Arpin's arrival, before the ledgers, before the burden built. Her people had seen the burden coming, had known what Arpin would bring, had tried to warn her, to protect her, to show her a different path.
+
+But she'd chosen the fort, chosen home, chosen the risk of burden over the safety of balance. And now she was bound, weighted, trapped by choices she'd made long ago, by debts she'd never meant to take, by chains she couldn't break.
+
+She looked at Taman, her eyes old and knowing, and Taman saw something in them that made his chest ache—pride and fear and understanding all mixed together.
+
+"You've found balance," she said, her voice soft, her words careful. "You've seen what it looks like. You've tasted what it feels like. That's something. That's real. And maybe, maybe you're right. Maybe leaving is the answer. Maybe balance is worth the risk."
+
+But her silence was heavy, weighted, and Taman felt something shift. She wanted to believe, wanted to hope, wanted to leave. But she was also bound, weighted, trapped by choices and debts and chains she couldn't break.
+
+Sela sat quietly, her expression troubled, her hands steady at her sides, and Taman saw something in her eyes that made his chest tighten.
+
+"I want to believe you," she said, her voice soft, her words careful. "I want to believe that balance exists elsewhere, that burden can be shared, that we can live whole. And maybe we can. Maybe leaving is the answer. Maybe the east fort is the way."
+
+But she looked at Boone, her expression softening, and Taman felt something break in his chest. "But I won't abandon him, Taman. I won't leave him behind. He's family. He's blood. And if he won't go, then I can't go. Not without him. Not without his consent."
+
+Taman felt something sink in his chest, felt hope fading, felt the east slipping away. Sela wouldn't leave without Boone, and Boone wouldn't leave at all. And without them, without his family, the east fort meant nothing. The balance meant nothing. The hope meant nothing.
+
+"Then we convince him together," Taman said, making another choice. His voice was firm, determined. "We show him that balance is worth the risk, that leaving is worth the cost, that survival isn't enough, that we deserve more than just existing under Arpin's thumb."
+
+But Sela shook her head, her expression sad but firm. "It's his choice, Taman. His choice to make. His burden to bear. His scale to tip. And we can't make that choice for him. We can't force him to leave. We can't break his bindings for him. He has to do that himself. He has to choose it himself. And until he does, until he's ready, until he sees that survival isn't enough, we have to stay. We have to wait. We have to bear the burden together."
+
+Isaac found Boone later that day, his hand working the coin in his pocket, the brass warming under his thumb, catching the light like fire.
+
+"I hear your brother's back," Isaac said, his voice smooth, his words careful. "I hear he's been to the east. I hear he's seen things. Heard things. Maybe even tasted things. Things like balance. Things like hope. Things like a way out."
+
+Boone's expression shifted, his eyes wary, and Isaac felt something change in the air, felt the burden shift, felt the scales tip.
+
+"Your brother wants to leave," Isaac continued, his voice low, urgent. "He wants to take your family east. He wants to abandon the fort, abandon your home, abandon everything you've built, everything you've worked for. He wants to run. To escape. To leave it all behind."
+
+He leaned closer, his hand working the coin harder, the brass glowing faintly, the light intensifying. "But you know better, don't you? You know that running doesn't help. You know that leaving doesn't solve anything. You know that the fort is your home, that Arpin's grip is strong but survivable, that if you're smart, if you're careful, if you play the game, then you can survive. You can make it work."
+
+His voice dropped to a whisper, and Boone felt something shift, felt the burden press down, felt the scales tip. "You have a duty here, Boone. A responsibility. An inheritance. This is your home. This is your place. This is where you belong. And your brother wants to take that away. He wants to abandon it. He wants to leave it all behind. But you won't let him, will you? You'll stay. You'll play the game. You'll survive. Because that's your duty. That's your responsibility. That's your inheritance."
+
+Boone felt something break in his chest, felt hope fading, felt the burden of duty and responsibility pressing down. Isaac's words rang true, felt right, felt like truth. The fort was his home. Arpin's grip was strong but survivable. And if he was smart, if he was careful, if he played the game, then he could survive. He could make it work.
+
+But he'd seen the east fort, tasted the balance, felt what it was like when burden was shared, when scales were level. And he wanted that. He wanted it so bad it hurt.
+
+"I don't know," Boone said, his voice tight, troubled. "I don't know what I want. I don't know what's right. I just know that I'm caught. Caught between brothers. Caught between choices. Caught between leaving and staying."
+
+Isaac's expression tightened, and Boone felt something shift, felt the burden press down harder, felt the scales tip further. "Then choose, Boone. Choose your duty. Choose your home. Choose survival. Because that's what matters. That's what keeps you alive. That's what keeps your family alive."
+
+Boone nodded, his voice tight. "I know. I know my duty. I know my responsibility. I know where I belong."
+
+But his words were halting, fragile, uncertain. He knew his duty. He knew his responsibility. But he also knew what balance felt like. He also knew what burden shared meant. And he was caught between them, torn between choices he couldn't make.
+
+Isaac moved away, his expression satisfied, and Boone felt something shift, felt the burden settle, felt the scales tip in Arpin's favor.
+
+But he also felt something else—doubt. Uncertainty. The weight of choices he couldn't make, of bindings he couldn't break, of a duty that felt like chains.
+
+A tremor ran underfoot then, sudden and sharp, knocking apples from a vendor's cart, sending fruit rolling across the square, bouncing and tumbling like coins scattering.
+
+The people jumped, startled, their eyes wide, their expressions frightened. But then they laughed, their voices nervous but relieved, dismissing it as clumsy luck, as a stumble, as nothing to worry about, nothing to fear.
+
+"Just a stumble," someone said, their voice cheerful. "Just clumsy luck. Nothing to worry about. Nothing to fear."
+
+But Taman felt the burden of it, felt the tremor in his bones, felt the scales shifting, felt something dangerous building, something that would break, something that would change everything.
+
+He looked at his family—Boone, still caught between choices, still believing in survival, still playing the game. His mother, still weighted by choices and debts and chains she couldn't break. Sela, still holding burden, still steadying it, still protecting others, still refusing to leave without Boone's consent.
+
+And he felt the burden of it all pressing down, felt the scales shifting, felt something dangerous building, something that would break, something that would change everything.
+
+The burden followed. The burden always followed. And sooner or later, it would all come due.
+

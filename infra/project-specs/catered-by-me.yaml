@@ -1,0 +1,46 @@
+# Project Spec: Catered By Me
+# Configured for the actual catered-by-me meal planning app
+
+name: "catered-by-me"
+description: "Meal planning web app that turns recipes into step-by-step cooking schedules"
+environment: "prod"
+
+components:
+  web:
+    provider: "vercel"  # Frontend hosted on Vercel
+    template: "nextjs-marketing-site"
+    repo: "aluate/catered_by_me"  # GitHub repo: aluate/catered_by_me
+    root_dir: "apps/web"
+    branch: "main"
+    build_command: "npm install && npm run build"
+    env_vars:
+      NEXT_PUBLIC_SUPABASE_URL: from_provider:supabase:catered-by-me:url
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: from_provider:supabase:catered-by-me:anon_key
+      NEXT_PUBLIC_API_BASE_URL: from_env:NEXT_PUBLIC_API_BASE_URL
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: from_env:STRIPE_PUBLISHABLE_KEY
+  
+  api:
+    provider: "render"  # Backend API hosted on Render
+    template: "fastapi-api"
+    repo: "aluate/catered_by_me"  # GitHub repo: aluate/catered_by_me
+    root_dir: "apps/api"
+    branch: "main"
+    build_command: "pip install -r requirements.txt"
+    start_command: "uvicorn apps.api.main:app --host 0.0.0.0 --port $PORT"
+    env_vars:
+      SUPABASE_URL: from_provider:supabase:catered-by-me:url
+      SUPABASE_SERVICE_KEY: from_env:SUPABASE_SERVICE_KEY
+      SUPABASE_JWT_SECRET: from_env:SUPABASE_JWT_SECRET
+      STRIPE_SECRET_KEY: from_env:STRIPE_SECRET_KEY
+
+data:
+  supabase_project: "catered-by-me"
+
+payments:
+  stripe_project: "catered-by-me"
+
+health_checks:
+  - name: "api-health"
+    url: "https://catered-by-me.onrender.com/health"  # Backend API health check
+  - name: "web-health"
+    url: "https://cateredby.me/health"  # Frontend health check (if available)
