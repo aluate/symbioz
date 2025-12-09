@@ -4,6 +4,9 @@ import { join } from 'path';
 import { generateProposal } from '@/factory/proposal/generateProposal';
 import { BusinessIntakeSchema } from '@/factory/schemas/intake';
 
+// Force dynamic rendering for this route
+export const dynamic = 'force-dynamic';
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
