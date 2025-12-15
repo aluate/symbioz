@@ -173,10 +173,16 @@ def parse_render_failure(log_text: str) -> Dict[str, Any]:
         "copy failed",
         "file not found",
         "no such file or directory",
-        "cannot find the file specified"
-    ]) and "dockerfile" in log_lower:
+        "cannot find the file specified",
+        "stat /app/requirements.txt: no such file",
+        "stat /app/otto: no such file"
+    ]):
         # Try to extract the problematic path
-        path_match = re.search(r"copy.*['\"](.+?)['\"]", log_lower)
+        path_match = re.search(r"(?:copy|stat).*['\"](.+?)['\"]", log_lower)
+        missing_file = None
+        if path_match:
+            missing_file = path_match.group(1)
+        
         return {
             "category": "docker_copy_path",
             "confidence": 0.9,
@@ -184,6 +190,7 @@ def parse_render_failure(log_text: str) -> Dict[str, Any]:
                 "type": "dockerfile_fix",
                 "action": "fix_copy_path",
                 "file": "apps/otto/Dockerfile",
+                "missing_file": missing_file,
                 "message": "Dockerfile COPY path may be incorrect. Verify paths are relative to build context."
             },
             "key_errors": key_errors[:5]
@@ -244,8 +251,12 @@ def parse_render_failure(log_text: str) -> Dict[str, Any]:
             "key_errors": key_errors[:5]
         }
     
-    # Classification 5: Build context issues
-    if "workdir" in log_lower and ("not found" in log_lower or "no such" in log_lower):
+    # Classification 5: Build context / WORKDIR issues
+    if any(keyword in log_lower for keyword in [
+        "workdir",
+        "working directory",
+        "cannot change to"
+    ]) and ("not found" in log_lower or "no such" in log_lower):
         return {
             "category": "docker_workdir",
             "confidence": 0.8,
@@ -253,7 +264,24 @@ def parse_render_failure(log_text: str) -> Dict[str, Any]:
                 "type": "dockerfile_fix",
                 "action": "fix_workdir",
                 "file": "apps/otto/Dockerfile",
-                "message": "Dockerfile WORKDIR path may be incorrect."
+                "message": "Dockerfile WORKDIR path may be incorrect or missing."
+            },
+            "key_errors": key_errors[:5]
+        }
+    
+    # Classification 6: Build context wrong (root directory issue)
+    if any(keyword in log_lower for keyword in [
+        "build context",
+        "root directory",
+        "cannot find dockerfile"
+    ]):
+        return {
+            "category": "docker_build_context",
+            "confidence": 0.85,
+            "suggested_patch": {
+                "type": "config_note",
+                "action": "check_render_root_dir",
+                "message": "Render Root Directory may be incorrect. Should be 'apps/otto' for Otto service."
             },
             "key_errors": key_errors[:5]
         }

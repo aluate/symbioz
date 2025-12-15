@@ -152,41 +152,86 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
     
     try:
         if category == "docker_copy_path":
-            # Fix: Verify Dockerfile COPY paths
+            # Fix: Correct Dockerfile COPY paths for Render build context
+            # Render builds from root, so COPY paths need to be relative to repo root
             dockerfile_path = repo_root / "apps" / "otto" / "Dockerfile"
             if dockerfile_path.exists():
                 with open(dockerfile_path, "r") as f:
-                    dockerfile_content = f.read()
+                    lines = f.readlines()
                 
-                # Check if COPY commands use correct paths
-                # For apps/otto, COPY should be relative to apps/otto
-                copy_pattern = r"COPY\s+([^\s]+)\s+"
-                matches = re.findall(copy_pattern, dockerfile_content, re.IGNORECASE)
+                modified = False
+                new_lines = []
                 
-                # If we find issues, we'd fix them, but for now just verify
-                # The Dockerfile should already be correct, so this is mostly a check
-                logger.info(f"Dockerfile COPY paths checked: {matches}")
+                for line in lines:
+                    # Check if this is a COPY command
+                    if line.strip().upper().startswith("COPY"):
+                        # Extract the source path
+                        copy_match = re.match(r"COPY\s+([^\s]+)\s+", line, re.IGNORECASE)
+                        if copy_match:
+                            source_path = copy_match.group(1)
+                            # If source path doesn't start with apps/, it might be wrong
+                            # For Render with root_dir=apps/otto, COPY should reference files relative to apps/otto
+                            # But if build context is repo root, need apps/otto/ prefix
+                            
+                            # Check if path exists relative to Dockerfile location
+                            dockerfile_dir = dockerfile_path.parent
+                            test_path = dockerfile_dir / source_path
+                            
+                            # If file doesn't exist at that path, try with apps/otto/ prefix
+                            if not test_path.exists() and not source_path.startswith("apps/otto/"):
+                                # Try to fix: if requirements.txt, otto/, or otto_config.yaml
+                                if source_path == "requirements.txt":
+                                    new_source = "apps/otto/requirements.txt"
+                                    line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
+                                    modified = True
+                                    logger.info(f"Fixed COPY path: {source_path} -> {new_source}")
+                                elif source_path.startswith("otto/"):
+                                    new_source = f"apps/otto/{source_path}"
+                                    line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
+                                    modified = True
+                                    logger.info(f"Fixed COPY path: {source_path} -> {new_source}")
+                                elif source_path == "otto_config.yaml":
+                                    new_source = "apps/otto/otto_config.yaml"
+                                    line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
+                                    modified = True
+                                    logger.info(f"Fixed COPY path: {source_path} -> {new_source}")
+                    
+                    new_lines.append(line)
                 
-                # Create a note if there are potential issues
-                note_file = repo_root / "docs" / "deploy_failures_latest.md"
-                note_file.parent.mkdir(parents=True, exist_ok=True)
-                
-                with open(note_file, "w") as f:
-                    f.write(f"# Render Deployment Failure - {category}\n\n")
-                    f.write(f"**Classification:** {category}\n")
-                    f.write(f"**Confidence:** {classification.get('confidence', 0)}\n\n")
-                    f.write(f"**Recommended Action:**\n")
-                    f.write(f"{patch_info.get('message', 'Verify Dockerfile paths')}\n\n")
-                    f.write(f"**Key Errors:**\n")
-                    for error in classification.get("key_errors", [])[:5]:
-                        f.write(f"- {error}\n")
-                
-                files_changed.append(str(note_file))
-                return {
-                    "success": True,
-                    "files_changed": files_changed,
-                    "message": "Created Dockerfile path diagnosis"
-                }
+                if modified:
+                    with open(dockerfile_path, "w") as f:
+                        f.writelines(new_lines)
+                    files_changed.append(str(dockerfile_path))
+                    return {
+                        "success": True,
+                        "files_changed": files_changed,
+                        "message": "Fixed Dockerfile COPY paths for Render build context"
+                    }
+                else:
+                    # Paths look correct, but still failing - might be build context issue
+                    # Create a note about checking Render build context setting
+                    note_file = repo_root / "docs" / "deploy_failures_latest.md"
+                    note_file.parent.mkdir(parents=True, exist_ok=True)
+                    
+                    with open(note_file, "w") as f:
+                        f.write(f"# Render Deployment Failure - {category}\n\n")
+                        f.write(f"**Classification:** {category}\n")
+                        f.write(f"**Confidence:** {classification.get('confidence', 0)}\n\n")
+                        f.write(f"**Issue:** Dockerfile COPY paths may be correct, but Render build context may be wrong.\n\n")
+                        f.write(f"**Recommended Action:**\n")
+                        f.write(f"1. Verify Render service Root Directory is set to 'apps/otto'\n")
+                        f.write(f"2. If Root Directory is repo root, COPY paths need 'apps/otto/' prefix\n")
+                        f.write(f"3. Check Render service settings → Root Directory\n\n")
+                        f.write(f"**Key Errors:**\n")
+                        for error in classification.get("key_errors", [])[:5]:
+                            f.write(f"- {error}\n")
+                    
+                    files_changed.append(str(note_file))
+                    return {
+                        "success": True,
+                        "files_changed": files_changed,
+                        "message": "Created Dockerfile context diagnosis (paths appear correct)"
+                    }
             else:
                 return {
                     "success": False,
@@ -194,23 +239,59 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                 }
         
         elif category == "port_binding":
-            # Fix: Ensure Dockerfile uses $PORT
+            # Fix: Ensure Dockerfile CMD uses $PORT env var
             dockerfile_path = repo_root / "apps" / "otto" / "Dockerfile"
             if dockerfile_path.exists():
                 with open(dockerfile_path, "r") as f:
-                    dockerfile_content = f.read()
+                    lines = f.readlines()
                 
-                # Check if CMD uses PORT env var (it should already)
-                if "$PORT" not in dockerfile_content and "PORT" not in dockerfile_content:
-                    # This shouldn't happen if Dockerfile is correct, but check anyway
-                    logger.warning("Dockerfile may not use PORT env var")
+                modified = False
+                new_lines = []
+                in_cmd = False
                 
-                # The Dockerfile should already be correct, so just verify
-                return {
-                    "success": True,
-                    "files_changed": [],
-                    "message": "Dockerfile already uses PORT env var correctly"
-                }
+                for i, line in enumerate(lines):
+                    # Check CMD line
+                    if line.strip().upper().startswith("CMD"):
+                        in_cmd = True
+                        # Check if it uses PORT env var
+                        if "$PORT" not in line and "os.getenv('PORT'" not in line:
+                            # Fix: Replace hardcoded port with PORT env var
+                            # Look for patterns like port=8001 or port 8001
+                            port_pattern = r"port[=\s]+(\d+)"
+                            match = re.search(port_pattern, line, re.IGNORECASE)
+                            if match:
+                                # Replace with PORT env var pattern
+                                old_port = match.group(1)
+                                # Use Python pattern that's already in the Dockerfile
+                                new_cmd = 'CMD python -c "import os; port = int(os.getenv(\'PORT\', 8001)); import uvicorn; uvicorn.run(\'otto.api:app\', host=\'0.0.0.0\', port=port)"\n'
+                                line = new_cmd
+                                modified = True
+                                logger.info(f"Fixed CMD to use PORT env var")
+                        new_lines.append(line)
+                    elif in_cmd and line.strip().startswith("#"):
+                        # Comment after CMD, keep it
+                        new_lines.append(line)
+                        in_cmd = False
+                    else:
+                        new_lines.append(line)
+                        in_cmd = False
+                
+                if modified:
+                    with open(dockerfile_path, "w") as f:
+                        f.writelines(new_lines)
+                    files_changed.append(str(dockerfile_path))
+                    return {
+                        "success": True,
+                        "files_changed": files_changed,
+                        "message": "Fixed Dockerfile to use PORT environment variable"
+                    }
+                else:
+                    # Already correct
+                    return {
+                        "success": True,
+                        "files_changed": [],
+                        "message": "Dockerfile already uses PORT env var correctly"
+                    }
             else:
                 return {
                     "success": False,
@@ -222,21 +303,47 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
             requirements_path = repo_root / "apps" / "otto" / "requirements.txt"
             package_name = patch_info.get("package", "")
             
+            if not package_name:
+                # Try to extract from key_errors
+                key_errors = classification.get("key_errors", [])
+                for error in key_errors:
+                    module_match = re.search(r"no module named ['\"](.+?)['\"]", error.lower())
+                    if module_match:
+                        package_name = module_match.group(1)
+                        break
+            
             if requirements_path.exists() and package_name:
                 with open(requirements_path, "r") as f:
                     requirements = f.read()
+                    existing_packages = [line.strip().split(">=")[0].split("==")[0].split("[")[0].strip() 
+                                       for line in requirements.split("\n") if line.strip() and not line.strip().startswith("#")]
                 
-                # Check if package is already there (maybe with different name)
-                if package_name.lower() not in requirements.lower():
-                    # Add package (conservative - use base name without version)
+                # Normalize package name (handle cases like 'requests' vs 'Requests')
+                package_lower = package_name.lower().strip()
+                package_normalized = package_name.strip()
+                
+                # Check if package is already there (case-insensitive)
+                if not any(pkg.lower() == package_lower for pkg in existing_packages):
+                    # Map common module names to package names
+                    package_mapping = {
+                        "yaml": "pyyaml",
+                        "dotenv": "python-dotenv",
+                        "pydantic_settings": "pydantic-settings",
+                    }
+                    
+                    install_name = package_mapping.get(package_lower, package_normalized)
+                    
+                    # Add package (add at end, with newline)
                     with open(requirements_path, "a") as f:
-                        f.write(f"\n{package_name}\n")
+                        if not requirements.endswith("\n"):
+                            f.write("\n")
+                        f.write(f"{install_name}\n")
                     
                     files_changed.append(str(requirements_path))
                     return {
                         "success": True,
                         "files_changed": files_changed,
-                        "message": f"Added {package_name} to requirements.txt"
+                        "message": f"Added {install_name} to requirements.txt (module: {package_name})"
                     }
                 else:
                     return {
@@ -247,11 +354,65 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
             else:
                 return {
                     "success": False,
-                    "error": f"requirements.txt not found or package name missing"
+                    "error": f"requirements.txt not found at {requirements_path} or could not extract package name"
                 }
         
-        elif category in ["docker_workdir", "python_import_path"]:
-            # These require more context - create diagnosis note
+        elif category == "docker_workdir":
+            # Fix: Ensure WORKDIR is set correctly
+            dockerfile_path = repo_root / "apps" / "otto" / "Dockerfile"
+            if dockerfile_path.exists():
+                with open(dockerfile_path, "r") as f:
+                    lines = f.readlines()
+                
+                modified = False
+                new_lines = []
+                has_workdir = False
+                
+                for i, line in enumerate(lines):
+                    if line.strip().upper().startswith("WORKDIR"):
+                        has_workdir = True
+                        # Verify WORKDIR is /app (standard)
+                        if "/app" not in line:
+                            line = "WORKDIR /app\n"
+                            modified = True
+                            logger.info("Fixed WORKDIR to /app")
+                        new_lines.append(line)
+                    else:
+                        new_lines.append(line)
+                
+                # If no WORKDIR found, add it after FROM
+                if not has_workdir:
+                    for i, line in enumerate(new_lines):
+                        if line.strip().upper().startswith("FROM"):
+                            # Insert WORKDIR after FROM
+                            new_lines.insert(i + 1, "WORKDIR /app\n")
+                            modified = True
+                            logger.info("Added missing WORKDIR /app")
+                            break
+                
+                if modified:
+                    with open(dockerfile_path, "w") as f:
+                        f.writelines(new_lines)
+                    files_changed.append(str(dockerfile_path))
+                    return {
+                        "success": True,
+                        "files_changed": files_changed,
+                        "message": "Fixed Dockerfile WORKDIR"
+                    }
+                else:
+                    return {
+                        "success": True,
+                        "files_changed": [],
+                        "message": "WORKDIR already correct"
+                    }
+            else:
+                return {
+                    "success": False,
+                    "error": f"Dockerfile not found at {dockerfile_path}"
+                }
+        
+        elif category == "python_import_path":
+            # This requires code analysis - create diagnosis note
             note_file = repo_root / "docs" / "deploy_failures_latest.md"
             note_file.parent.mkdir(parents=True, exist_ok=True)
             
@@ -260,16 +421,16 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                 f.write(f"**Classification:** {category}\n")
                 f.write(f"**Confidence:** {classification.get('confidence', 0)}\n\n")
                 f.write(f"**Recommended Action:**\n")
-                f.write(f"{patch_info.get('message', 'Manual review required')}\n\n")
+                f.write(f"{patch_info.get('message', 'Check Python import paths match package structure')}\n\n")
                 f.write(f"**Key Errors:**\n")
-                for error in classification.get("key_errors", [])[:5]:
+                for error in classification.get("key_errors", [])[:10]:
                     f.write(f"- {error}\n")
             
             files_changed.append(str(note_file))
             return {
                 "success": True,
                 "files_changed": files_changed,
-                "message": f"Created failure diagnosis document"
+                "message": f"Created failure diagnosis document (requires code analysis)"
             }
         
         else:
