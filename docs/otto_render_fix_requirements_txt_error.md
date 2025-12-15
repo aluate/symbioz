@@ -10,6 +10,21 @@ ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'r
 
 Render is using **Python runtime** instead of **Docker runtime**, and the **Root Directory** is not set to `apps/otto`.
 
+## 🤖 Auto-Fix Available!
+
+**Otto can now automatically fix this via Render API!**
+
+If you have:
+- ✅ `RENDER_API_KEY` set
+- ✅ `RENDER_SERVICE_ID_OTTO` set (or `RENDER_SERVICE_ID`)
+
+Otto will automatically:
+1. Change runtime from Python to Docker
+2. Set Root Directory to `apps/otto`
+3. Trigger a new deployment
+
+**Just run the monitor loop and Otto will fix it!**
+
 ## ✅ Fix (Choose One)
 
 ### Option 1: Use Docker Runtime (RECOMMENDED)
