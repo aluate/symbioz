@@ -256,7 +256,7 @@ class MonitorRepairRedeploySkill:
         if target == "vercel":
             patch_result = apply_patch_vercel(category, classification, repo_root, dry_run=dry_run)
         elif target == "render":
-            patch_result = apply_patch_render(category, classification, repo_root, dry_run=dry_run)
+            patch_result = apply_patch_render(category, classification, repo_root, dry_run=dry_run, render_client=self.render_client)
         else:
             return {"success": False, "error": f"Unknown target: {target}"}
         

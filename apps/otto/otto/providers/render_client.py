@@ -85,4 +85,78 @@ class RenderClient:
             if any(keyword in line.lower() for keyword in ["error", "failed", "failure", "exception"]):
                 errors.append(line.strip())
         return errors[:20]  # Limit to 20 errors
+    
+    def get_service(self, service_id: str) -> Dict[str, Any]:
+        """Get service details"""
+        try:
+            url = f"{self.API_BASE_URL}/services/{service_id}"
+            
+            with httpx.Client() as client:
+                response = client.get(url, headers=self._get_headers(), timeout=30)
+                response.raise_for_status()
+                return response.json()
+        except Exception as e:
+            logger.error(f"Error getting Render service: {e}")
+            return {}
+    
+    def update_service(self, service_id: str, updates: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Update Render service configuration.
+        
+        Args:
+            service_id: Render service ID
+            updates: Dictionary with serviceDetails to update, e.g.:
+                {
+                    "serviceDetails": {
+                        "runtime": "docker",  # or "python", "node", etc.
+                        "rootDir": "apps/otto",  # root directory for monorepos
+                        "buildCommand": "pip install -r requirements.txt",
+                        "startCommand": "python -m uvicorn otto.api:app --host 0.0.0.0 --port $PORT"
+                    }
+                }
+        
+        Returns:
+            Updated service details or error dict
+        """
+        try:
+            url = f"{self.API_BASE_URL}/services/{service_id}"
+            
+            with httpx.Client() as client:
+                response = client.patch(url, headers=self._get_headers(), json=updates, timeout=30)
+                response.raise_for_status()
+                return response.json()
+        except Exception as e:
+            logger.error(f"Error updating Render service: {e}")
+            return {"error": str(e), "success": False}
+    
+    def update_service_runtime(self, service_id: str, runtime: str, root_dir: Optional[str] = None) -> Dict[str, Any]:
+        """
+        Convenience method to update service runtime and optionally root directory.
+        
+        Args:
+            service_id: Render service ID
+            runtime: "docker", "python", "node", etc.
+            root_dir: Optional root directory (e.g., "apps/otto")
+        
+        Returns:
+            Update result
+        """
+        service_details = {"runtime": runtime}
+        if root_dir:
+            service_details["rootDir"] = root_dir
+        
+        return self.update_service(service_id, {"serviceDetails": service_details})
+    
+    def trigger_manual_deploy(self, service_id: str) -> Dict[str, Any]:
+        """Trigger a manual deploy for a service"""
+        try:
+            url = f"{self.API_BASE_URL}/services/{service_id}/deploys"
+            
+            with httpx.Client() as client:
+                response = client.post(url, headers=self._get_headers(), json={}, timeout=30)
+                response.raise_for_status()
+                return response.json()
+        except Exception as e:
+            logger.error(f"Error triggering Render deploy: {e}")
+            return {"error": str(e), "success": False}
 

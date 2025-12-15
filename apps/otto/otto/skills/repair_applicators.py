@@ -151,7 +151,7 @@ def apply_patch_vercel(category: str, classification: Dict[str, Any], repo_root:
         }
 
 
-def apply_patch_render(category: str, classification: Dict[str, Any], repo_root: Path = None, dry_run: bool = False) -> Dict[str, Any]:
+def apply_patch_render(category: str, classification: Dict[str, Any], repo_root: Path = None, dry_run: bool = False, render_client = None) -> Dict[str, Any]:
     """
     Apply patch for Render failure.
     
@@ -501,7 +501,62 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
         
         elif category == "render_python_root_dir":
             # Render is using Python runtime but Root Directory is not set
-            # This requires Render dashboard configuration - create diagnosis note
+            # Try to fix via Render API if client is available
+            service_id = os.getenv("RENDER_SERVICE_ID_OTTO") or os.getenv("RENDER_SERVICE_ID")
+            
+            if render_client and service_id:
+                # Try to fix via API
+                logger.info(f"Attempting to fix Render service {service_id} via API: set runtime to Docker, rootDir to apps/otto")
+                
+                if dry_run:
+                    return {
+                        "success": True,
+                        "files_changed": [],
+                        "message": f"Would update Render service {service_id}: runtime=docker, rootDir=apps/otto",
+                        "dry_run": True,
+                        "render_update": {
+                            "service_id": service_id,
+                            "runtime": "docker",
+                            "rootDir": "apps/otto"
+                        }
+                    }
+                
+                # Get current service to check runtime
+                current_service = render_client.get_service(service_id)
+                current_runtime = current_service.get("service", {}).get("serviceDetails", {}).get("runtime", "")
+                
+                if current_runtime == "docker":
+                    # Already Docker, just need to set rootDir
+                    logger.info(f"Service already uses Docker runtime, setting rootDir to apps/otto")
+                    result = render_client.update_service_runtime(service_id, "docker", "apps/otto")
+                else:
+                    # Change to Docker and set rootDir
+                    logger.info(f"Changing service from {current_runtime} to Docker runtime with rootDir=apps/otto")
+                    result = render_client.update_service_runtime(service_id, "docker", "apps/otto")
+                
+                if result.get("error"):
+                    logger.warning(f"Failed to update Render service via API: {result.get('error')}")
+                    # Fall through to create diagnosis note
+                else:
+                    logger.info(f"Successfully updated Render service {service_id} via API")
+                    # Trigger a new deploy
+                    deploy_result = render_client.trigger_manual_deploy(service_id)
+                    if deploy_result.get("error"):
+                        logger.warning(f"Failed to trigger deploy: {deploy_result.get('error')}")
+                    
+                    return {
+                        "success": True,
+                        "files_changed": [],
+                        "message": f"Updated Render service {service_id} via API: runtime=docker, rootDir=apps/otto. New deploy triggered.",
+                        "render_update": {
+                            "service_id": service_id,
+                            "runtime": "docker",
+                            "rootDir": "apps/otto",
+                            "deploy_triggered": not bool(deploy_result.get("error"))
+                        }
+                    }
+            
+            # Fallback: create diagnosis note if API fix failed or client not available
             note_file = repo_root / "docs" / "deploy_failures_latest.md"
             note_file.parent.mkdir(parents=True, exist_ok=True)
             
@@ -511,6 +566,12 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                 f.write(f"**Confidence:** {classification.get('confidence', 0)}\n\n")
                 f.write(f"**Issue:** Render is using Python runtime but cannot find `requirements.txt`.\n")
                 f.write(f"This means Root Directory is not set to `apps/otto`.\n\n")
+                
+                if not render_client:
+                    f.write(f"**Note:** Render API client not available. Manual fix required.\n\n")
+                elif not service_id:
+                    f.write(f"**Note:** RENDER_SERVICE_ID_OTTO not set. Set it to enable auto-fix.\n\n")
+                
                 f.write(f"**Recommended Action (Choose One):**\n\n")
                 f.write(f"### Option 1: Use Docker Runtime (RECOMMENDED)\n")
                 f.write(f"1. Go to Render Dashboard → Your Service → Settings\n")
