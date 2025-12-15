@@ -56,8 +56,8 @@ Otto only applies automatic fixes when confidence is **≥ 0.85 (85%)**. Lower c
 - **Category:** `port_binding`
 - **Confidence:** 0.95
 - **Detection:** Errors like "address already in use" or "cannot bind to port"
-- **Action:** Verifies Dockerfile uses `$PORT` environment variable
-- **Auto-fix:** ✅ Verification (Dockerfile should already be correct)
+- **Action:** Automatically fixes CMD to use `$PORT` environment variable with Python pattern
+- **Auto-fix:** ✅ Yes - Modifies Dockerfile CMD to use PORT env var
 
 ### 3. Missing Python Module
 - **Category:** `missing_python_module`
@@ -76,9 +76,16 @@ Otto only applies automatic fixes when confidence is **≥ 0.85 (85%)**. Lower c
 ### 5. Docker WORKDIR Issues
 - **Category:** `docker_workdir`
 - **Confidence:** 0.8
-- **Detection:** WORKDIR path errors in Dockerfile
-- **Action:** Creates diagnosis document
-- **Auto-fix:** ⚠️ Diagnosis only (requires context)
+- **Detection:** WORKDIR path errors or missing WORKDIR in Dockerfile
+- **Action:** Automatically adds or fixes WORKDIR to `/app`
+- **Auto-fix:** ✅ Yes - Modifies Dockerfile WORKDIR
+
+### 6. Docker Build Context Issues
+- **Category:** `docker_build_context`
+- **Confidence:** 0.85
+- **Detection:** Build context or root directory errors
+- **Action:** Creates diagnosis document with Render dashboard instructions
+- **Auto-fix:** No (requires Render dashboard configuration)
 
 ## Safety Features
 
