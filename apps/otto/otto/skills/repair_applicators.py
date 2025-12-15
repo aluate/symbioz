@@ -499,6 +499,42 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                     "error": f"Dockerfile not found at {dockerfile_path}"
                 }
         
+        elif category == "render_python_root_dir":
+            # Render is using Python runtime but Root Directory is not set
+            # This requires Render dashboard configuration - create diagnosis note
+            note_file = repo_root / "docs" / "deploy_failures_latest.md"
+            note_file.parent.mkdir(parents=True, exist_ok=True)
+            
+            with open(note_file, "w") as f:
+                f.write(f"# Render Deployment Failure - {category}\n\n")
+                f.write(f"**Classification:** {category}\n")
+                f.write(f"**Confidence:** {classification.get('confidence', 0)}\n\n")
+                f.write(f"**Issue:** Render is using Python runtime but cannot find `requirements.txt`.\n")
+                f.write(f"This means Root Directory is not set to `apps/otto`.\n\n")
+                f.write(f"**Recommended Action (Choose One):**\n\n")
+                f.write(f"### Option 1: Use Docker Runtime (RECOMMENDED)\n")
+                f.write(f"1. Go to Render Dashboard → Your Service → Settings\n")
+                f.write(f"2. Change Runtime from 'Python' to 'Docker'\n")
+                f.write(f"3. Verify Root Directory is set to `apps/otto`\n")
+                f.write(f"4. Save - Render will automatically redeploy\n\n")
+                f.write(f"### Option 2: Fix Python Runtime\n")
+                f.write(f"1. Go to Render Dashboard → Your Service → Settings\n")
+                f.write(f"2. Set Root Directory to `apps/otto`\n")
+                f.write(f"3. Verify Build Command: `pip install -r requirements.txt`\n")
+                f.write(f"4. Verify Start Command: `python -m uvicorn otto.api:app --host 0.0.0.0 --port $PORT`\n")
+                f.write(f"5. Save - Render will automatically redeploy\n\n")
+                f.write(f"**See:** `docs/otto_render_fix_requirements_txt_error.md` for detailed steps\n\n")
+                f.write(f"**Key Errors:**\n")
+                for error in classification.get("key_errors", [])[:5]:
+                    f.write(f"- {error}\n")
+            
+            files_changed.append(str(note_file))
+            return {
+                "success": True,
+                "files_changed": files_changed,
+                "message": "Created Root Directory diagnosis (requires Render dashboard config - see docs/otto_render_fix_requirements_txt_error.md)"
+            }
+        
         elif category == "python_import_path":
             # This requires code analysis - create diagnosis note
             note_file = repo_root / "docs" / "deploy_failures_latest.md"
