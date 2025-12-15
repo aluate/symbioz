@@ -167,6 +167,102 @@ app.add_middleware(
 )
 ```
 
+## Environment Variables Required
+
+Set these in Render dashboard → Environment tab:
+
+- `GITHUB_TOKEN` - GitHub personal access token (for committing fixes)
+- `VERCEL_TOKEN` - Vercel API token (for monitoring Vercel deployments)
+- `RENDER_API_KEY` - Render API key (for monitoring Render deployments)
+- `RENDER_OTTO_SERVICE_ID` (optional) - Your Otto service ID on Render (for self-monitoring)
+
+**Security Note:** Never commit these tokens to git. Use Render's environment variable management.
+
+## Monitor/Repair/Redeploy Loop
+
+Otto includes a built-in skill that monitors Vercel and Render deployments and automatically fixes failures.
+
+### Capabilities Check
+
+First, verify Otto can access the required APIs:
+
+```bash
+curl https://your-otto-url.onrender.com/capabilities
+```
+
+Response:
+```json
+{
+  "github_token": true,
+  "vercel_token": true,
+  "render_api_key": true
+}
+```
+
+### Trigger Monitor Loop
+
+**Option 1: Full control**
+```bash
+curl -X POST https://your-otto-url.onrender.com/skills/monitor_repair_redeploy \
+  -H "Content-Type: application/json" \
+  -d '{
+    "mode": "pr",
+    "targets": {
+      "vercel": {
+        "projectNameOrId": "symbioz-web",
+        "teamId": null
+      },
+      "render": {
+        "serviceId": "your-render-service-id"
+      }
+    },
+    "maxIterations": 5
+  }'
+```
+
+**Option 2: Quick start (uses defaults)**
+```bash
+curl -X POST https://your-otto-url.onrender.com/actions/run_deploy_monitor \
+  -H "Content-Type: application/json" \
+  -d '{
+    "mode": "pr",
+    "maxIterations": 5
+  }'
+```
+
+### Safety Modes
+
+- **`"mode": "pr"`** (recommended) - Creates a branch and PR for fixes. Safer, requires review.
+- **`"mode": "main"`** - Commits directly to main. Use with caution.
+
+### How It Works
+
+1. Checks Vercel deployment status + fetches build logs
+2. Checks Render deployment status + fetches deploy logs
+3. When failure detected:
+   - Analyzes error logs
+   - Generates minimal fix
+   - Commits changes
+   - Pushes (PR mode creates PR; main mode pushes to main)
+4. Waits for redeploy to trigger
+5. Repeats until both targets are green or max iterations reached
+
+### Response Format
+
+```json
+{
+  "task_id": "uuid",
+  "status": "success",
+  "message": "✅ Both deployments successful after 2 iteration(s)",
+  "data": {
+    "iterations": 2,
+    "results": [...],
+    "vercel": {...},
+    "render": {...}
+  }
+}
+```
+
 ## Next Steps
 
 After deployment:
@@ -181,6 +277,8 @@ After deployment:
    ```powershell
    .\scripts\check_otto.ps1
    ```
-4. **Update Life OS** to point to the new Otto URL (if applicable)
-5. **Monitor logs** in Render dashboard for errors
+4. **Set environment variables** in Render dashboard (see above)
+5. **Test capabilities endpoint** to verify API access
+6. **Update Life OS** to point to the new Otto URL (if applicable)
+7. **Monitor logs** in Render dashboard for errors
 

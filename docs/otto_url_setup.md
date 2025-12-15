@@ -103,6 +103,22 @@ For Next.js apps like `apps/symbioz-web`:
 
 **Note:** `NEXT_PUBLIC_*` variables are exposed to the browser. Only use for public endpoints.
 
+## Monitor/Repair/Redeploy Loop
+
+Otto can automatically monitor and fix deployment failures. See `docs/otto_deploy.md` for full details.
+
+**Quick start:**
+```bash
+curl -X POST $OTTO_BASE_URL/actions/run_deploy_monitor \
+  -H "Content-Type: application/json" \
+  -d '{"mode": "pr", "maxIterations": 5}'
+```
+
+**Required environment variables in Render:**
+- `GITHUB_TOKEN` - For committing fixes
+- `VERCEL_TOKEN` - For monitoring Vercel
+- `RENDER_API_KEY` - For monitoring Render
+
 ## Troubleshooting
 
 ### "Otto URL not configured"
@@ -116,6 +132,12 @@ For Next.js apps like `apps/symbioz-web`:
 - Check that Otto service is deployed and running in Render dashboard
 - Verify network access to the URL
 - Check Render service logs for errors (Dashboard → Service → Logs tab)
+
+### Capabilities check shows false
+
+- Verify environment variables are set in Render dashboard
+- Check that tokens are valid (not expired)
+- Ensure Otto service has access to the environment variables
 
 ### Script can't find config file
 

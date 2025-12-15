@@ -22,6 +22,7 @@ from .deployment_status import DeploymentStatusSkill
 from .deployment_automation import DeploymentAutomationSkill
 from .launcher_diagnostic import LauncherDiagnosticSkill
 from .activity_reporting import ActivityReportingSkill
+from .monitor_repair_redeploy import MonitorRepairRedeploySkill
 
 def get_all_skills():
     """Get all available Otto skills"""
@@ -46,5 +47,6 @@ def get_all_skills():
         DeploymentAutomationSkill(),
         LauncherDiagnosticSkill(),
         ActivityReportingSkill(),
+        MonitorRepairRedeploySkill(),
     ]
 

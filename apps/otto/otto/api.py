@@ -7,6 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional, Dict, Any, List
 import uuid
+import os
 from datetime import datetime
 
 from .config import load_config
@@ -89,6 +90,18 @@ async def root():
 async def health():
     """Health check endpoint"""
     return {"status": "healthy"}
+
+
+@app.get("/capabilities")
+async def capabilities():
+    """Check which API tokens are available (without exposing values)"""
+    import os
+    
+    return {
+        "github_token": bool(os.getenv("GITHUB_TOKEN")),
+        "vercel_token": bool(os.getenv("VERCEL_TOKEN")),
+        "render_api_key": bool(os.getenv("RENDER_API_KEY")),
+    }
 
 
 @app.post("/prompt", response_model=PromptResponse)
@@ -212,6 +225,81 @@ async def list_skills():
             for skill in skills
         ]
     }
+
+
+class MonitorRepairRequest(BaseModel):
+    """Request model for monitor/repair/redeploy"""
+    mode: str = "pr"  # "pr" or "main"
+    targets: Dict[str, Any]
+    maxIterations: int = 5
+
+
+@app.post("/skills/monitor_repair_redeploy")
+async def monitor_repair_redeploy(request: MonitorRepairRequest):
+    """Trigger monitor/repair/redeploy loop"""
+    context, skills = get_context()
+    
+    task_id = str(uuid.uuid4())
+    task = Task(
+        id=task_id,
+        type="monitor_repair_redeploy",
+        payload={
+            "mode": request.mode,
+            "targets": request.targets,
+            "maxIterations": request.maxIterations
+        },
+        source="api",
+        status=TaskStatus.PENDING
+    )
+    
+    # Find the skill
+    skill = None
+    for s in skills:
+        if hasattr(s, "can_handle") and s.can_handle(task):
+            skill = s
+            break
+    
+    if not skill:
+        raise HTTPException(status_code=404, detail="Monitor repair skill not found")
+    
+    # Execute
+    result = skill.run(task, context)
+    
+    return {
+        "task_id": task_id,
+        "status": "success" if result.success else "failed",
+        "message": result.message,
+        "data": result.data
+    }
+
+
+class DeployMonitorRequest(BaseModel):
+    """Request model for deploy monitor with defaults"""
+    mode: str = "pr"
+    maxIterations: int = 5
+
+
+@app.post("/actions/run_deploy_monitor")
+async def run_deploy_monitor(request: DeployMonitorRequest):
+    """Run deploy monitor with saved config defaults"""
+    # Default targets - these should be configurable
+    default_targets = {
+        "vercel": {
+            "projectNameOrId": "symbioz-web",
+            "teamId": None
+        },
+        "render": {
+            "serviceId": os.getenv("RENDER_OTTO_SERVICE_ID")  # Should be set in Render env vars
+        }
+    }
+    
+    monitor_request = MonitorRepairRequest(
+        mode=request.mode,
+        targets=default_targets,
+        maxIterations=request.maxIterations
+    )
+    
+    return await monitor_repair_redeploy(monitor_request)
 
 
 def run_server(host: str = "0.0.0.0", port: int = 8001):
