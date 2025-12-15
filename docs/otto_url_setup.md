@@ -17,12 +17,12 @@ Set the environment variable in your shell:
 
 **PowerShell:**
 ```powershell
-$env:OTTO_BASE_URL = "https://your-otto-url.railway.app"
+$env:OTTO_BASE_URL = "https://your-otto-url.onrender.com"
 ```
 
 **Bash:**
 ```bash
-export OTTO_BASE_URL="https://your-otto-url.railway.app"
+export OTTO_BASE_URL="https://your-otto-url.onrender.com"
 ```
 
 **Windows (Permanent):**
@@ -35,7 +35,7 @@ Edit `config/otto.json`:
 
 ```json
 {
-  "otto_base_url": "https://your-otto-url.railway.app",
+  "otto_base_url": "https://your-otto-url.onrender.com",
   "health_path": "/health"
 }
 ```
@@ -44,16 +44,13 @@ Edit `config/otto.json`:
 
 ## Getting Your Otto URL
 
-After deploying Otto to Railway or Fly.io:
+After deploying Otto to Render:
 
-1. **Railway:**
-   - Go to your project dashboard
-   - Click on the Otto service
-   - Copy the public URL (e.g., `https://otto-production.up.railway.app`)
-
-2. **Fly.io:**
-   - Run: `fly status` or check dashboard
-   - Copy the app URL (e.g., `https://otto-api.fly.dev`)
+1. **Render:**
+   - Go to your Render dashboard
+   - Click on your Otto web service
+   - Copy the public URL from the service overview (e.g., `https://otto-something.onrender.com`)
+   - The URL format is: `https://<service-name>.onrender.com`
 
 ## Verifying Configuration
 
@@ -116,9 +113,9 @@ For Next.js apps like `apps/symbioz-web`:
 ### Health check fails
 
 - Verify the URL is correct (no trailing slash issues)
-- Check that Otto service is deployed and running
+- Check that Otto service is deployed and running in Render dashboard
 - Verify network access to the URL
-- Check Railway/Fly.io logs for service errors
+- Check Render service logs for errors (Dashboard → Service → Logs tab)
 
 ### Script can't find config file
 

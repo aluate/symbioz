@@ -20,7 +20,7 @@ RUN sed 's/uvicorn\[standard\]/uvicorn/g' requirements.txt > requirements_clean.
 COPY otto/ ./otto/
 COPY otto_config.yaml .
 
-# Expose port (Railway/Fly.io will override with PORT env var)
+# Expose port (Render will set PORT env var automatically)
 EXPOSE 8001
 
 # Health check (uses fixed port - platform will map correctly)

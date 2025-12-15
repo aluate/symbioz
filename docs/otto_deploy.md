@@ -1,46 +1,46 @@
 # Otto Deployment Guide
 
-Deploy Otto as a standalone API service to Railway or Fly.io.
+Deploy Otto as a standalone API service to Render.
 
 ## Prerequisites
 
 - Otto code in `apps/otto/`
 - Dockerfile (included)
 - Environment variables configured
+- GitHub repository: `aluate/symbioz`
 
-## Option 1: Railway (Recommended)
+## Deploy to Render
 
-### Step 1: Create Railway Project
+### Step 1: Create Render Web Service
 
-1. Go to [railway.app](https://railway.app)
+1. Go to [render.com](https://render.com)
 2. Sign in with GitHub
-3. Click "New Project"
-4. Select "Deploy from GitHub repo"
-5. Choose repository: `aluate/symbioz`
-6. Select branch: `main`
+3. Click **"New +"** → **"Web Service"**
+4. Connect GitHub → select repository: `aluate/symbioz`
+5. Select branch: `main`
 
 ### Step 2: Configure Service
 
-1. **Add Service:**
-   - Click "+ New" → "GitHub Repo"
-   - Select `aluate/symbioz` again (or create a new service)
+1. **Root Directory:**
+   - Set **Root Directory:** `apps/otto` (CRITICAL for monorepos!)
 
-2. **Set Root Directory:**
-   - Go to Settings → Source
-   - Set **Root Directory:** `apps/otto`
+2. **Runtime:**
+   - **Option A (Recommended):** Runtime: **Docker**
+     - Render will automatically detect and use `apps/otto/Dockerfile`
+     - No additional build/start commands needed
+   - **Option B:** Runtime: **Python**
+     - **Build Command:** `pip install -r requirements.txt`
+     - **Start Command:** `python -m uvicorn otto.api:app --host 0.0.0.0 --port $PORT`
 
-3. **Configure Build:**
-   - Railway auto-detects Dockerfile
-   - If not detected, set:
-     - **Build Command:** (leave empty, Dockerfile handles it)
-     - **Start Command:** (leave empty, Dockerfile handles it)
+3. **Auto-Deploy:**
+   - Enable **Auto-Deploy:** ON (deploys automatically on push to `main`)
 
 4. **Set Environment Variables:**
-   - Go to Variables tab
+   - Go to **Environment** tab
    - Add (optional):
      ```
-     LIFE_OS_API_URL=https://your-life-os-backend.railway.app
-     OTTO_API_URL=https://your-otto-service.railway.app
+     LIFE_OS_API_URL=https://your-life-os-backend.onrender.com
+     OTTO_API_URL=https://your-otto-service.onrender.com
      OTTO_ENV=prod
      ```
    - Add deployment tokens if using deployment skills:
@@ -51,131 +51,22 @@ Deploy Otto as a standalone API service to Railway or Fly.io.
      GITHUB_TOKEN=your_token
      ```
 
-5. **Set Port:**
-   - Railway auto-assigns `PORT` env var
-   - Update Dockerfile CMD to use `$PORT` if needed, or:
-   - Go to Settings → Networking
-   - Set **Port:** `8001`
+5. **Port:**
+   - Render automatically sets `$PORT` environment variable
+   - The Dockerfile already handles `$PORT` with fallback to 8001
+   - No manual port configuration needed
 
 ### Step 3: Deploy
 
-1. Click "Deploy"
-2. Wait for build to complete
-3. Railway provides a public URL (e.g., `https://otto-production.up.railway.app`)
+1. Click **"Create Web Service"**
+2. Wait for build to complete (check logs in Render dashboard)
+3. Render provides a public URL (e.g., `https://otto-something.onrender.com`)
 
 ### Step 4: Verify
 
 ```bash
 # Health check
-curl https://your-otto-url.railway.app/health
-
-# Should return: {"status": "healthy"}
-```
-
-## Option 2: Fly.io
-
-### Step 1: Install Fly CLI
-
-```bash
-# macOS/Linux
-curl -L https://fly.io/install.sh | sh
-
-# Windows (PowerShell)
-iwr https://fly.io/install.ps1 -useb | iex
-```
-
-### Step 2: Login
-
-```bash
-fly auth login
-```
-
-### Step 3: Create Fly App
-
-```bash
-cd apps/otto
-fly launch --name otto-api --region ord
-```
-
-This will:
-- Create `fly.toml` config
-- Ask about Dockerfile (yes)
-- Ask about port (8001)
-- Ask about scaling (choose "no" for now)
-
-### Step 4: Configure fly.toml
-
-Edit `fly.toml`:
-
-```toml
-app = "otto-api"
-primary_region = "ord"
-
-[build]
-  dockerfile = "Dockerfile"
-
-[env]
-  OTTO_ENV = "prod"
-
-[http_service]
-  internal_port = 8001
-  force_https = true
-  auto_stop_machines = true
-  auto_start_machines = true
-  min_machines_running = 0
-  processes = ["app"]
-
-[[services]]
-  http_checks = []
-  internal_port = 8001
-  processes = ["app"]
-  protocol = "tcp"
-  script_checks = []
-
-  [services.concurrency]
-    hard_limit = 25
-    soft_limit = 20
-    type = "connections"
-
-  [[services.ports]]
-    force_https = true
-    handlers = ["http"]
-    port = 80
-
-  [[services.ports]]
-    handlers = ["tls", "http"]
-    port = 443
-
-  [[services.tcp_checks]]
-    grace_period = "1s"
-    interval = "15s"
-    restart_limit = 0
-    timeout = "2s"
-```
-
-### Step 5: Set Secrets
-
-```bash
-fly secrets set LIFE_OS_API_URL=https://your-life-os-backend.fly.dev
-fly secrets set OTTO_API_URL=https://otto-api.fly.dev
-fly secrets set OTTO_ENV=prod
-
-# Optional deployment tokens
-fly secrets set VERCEL_TOKEN=your_token
-fly secrets set RENDER_API_KEY=your_key
-```
-
-### Step 6: Deploy
-
-```bash
-fly deploy
-```
-
-### Step 7: Verify
-
-```bash
-# Health check
-curl https://otto-api.fly.dev/health
+curl https://your-otto-url.onrender.com/health
 
 # Should return: {"status": "healthy"}
 ```
@@ -186,7 +77,7 @@ The Dockerfile uses:
 - Python 3.11 slim base image
 - `uvicorn` without `[standard]` to avoid Rust dependency
 - Health check endpoint at `/health`
-- Port 8001 (configurable via `PORT` env var)
+- Port handling: Uses `$PORT` environment variable (set by Render) with fallback to 8001
 
 ## Environment Variables Reference
 
@@ -254,23 +145,13 @@ curl -X POST https://your-otto-url/task \
 
 ### Port Already in Use
 
-**Solution:** Railway/Fly.io assign ports automatically. The Dockerfile uses port 8001, but Railway may override with `$PORT`. Update Dockerfile CMD if needed:
-
-```dockerfile
-CMD python -m uvicorn otto.api:app --host 0.0.0.0 --port ${PORT:-8001}
-```
+**Solution:** Render automatically sets `$PORT`. The Dockerfile already handles this with a fallback to 8001. No changes needed.
 
 ### Health Check Fails
 
-**Solution:** Ensure the service is running and accessible. Check logs:
-
-```bash
-# Railway
-railway logs
-
-# Fly.io
-fly logs
-```
+**Solution:** Ensure the service is running and accessible. Check logs in Render dashboard:
+- Go to your service → **Logs** tab
+- Look for startup errors or port binding issues
 
 ### CORS Issues
 
@@ -290,8 +171,16 @@ app.add_middleware(
 
 After deployment:
 
-1. **Update Life OS** to point to the new Otto URL
-2. **Update any scripts** that call Otto API
-3. **Monitor logs** for errors
-4. **Set up monitoring** (Railway/Fly.io dashboards)
+1. **Get your Otto URL** from Render dashboard (e.g., `https://otto-something.onrender.com`)
+2. **Configure Otto URL** in your local environment or config:
+   ```powershell
+   $env:OTTO_BASE_URL = "https://otto-something.onrender.com"
+   ```
+   See `docs/otto_url_setup.md` for details.
+3. **Verify health check:**
+   ```powershell
+   .\scripts\check_otto.ps1
+   ```
+4. **Update Life OS** to point to the new Otto URL (if applicable)
+5. **Monitor logs** in Render dashboard for errors
 

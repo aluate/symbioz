@@ -35,7 +35,7 @@ if (-not $ottoUrl) {
     Write-Host "⚠️  Otto URL not configured" -ForegroundColor Yellow
     Write-Host ""
     Write-Host "To configure Otto URL, use one of:" -ForegroundColor Cyan
-    Write-Host "  1. Set environment variable: `$env:OTTO_BASE_URL='https://your-otto-url.railway.app'" -ForegroundColor Gray
+    Write-Host "  1. Set environment variable: `$env:OTTO_BASE_URL='https://your-otto-url.onrender.com'" -ForegroundColor Gray
     Write-Host "  2. Edit config/otto.json and set 'otto_base_url'" -ForegroundColor Gray
     Write-Host ""
     Write-Host "See docs/otto_url_setup.md for details" -ForegroundColor Cyan
