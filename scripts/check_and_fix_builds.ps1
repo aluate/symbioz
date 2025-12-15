@@ -164,7 +164,7 @@ if ($fixesApplied.Count -gt 0) {
         Write-Host "  - $fix" -ForegroundColor Yellow
     }
     Write-Host ""
-    Write-Host "Note: Some fixes may require manual intervention or Otto's auto-repair." -ForegroundColor Cyan
+    Write-Host "Note: Some fixes may require manual intervention or Otto auto-repair." -ForegroundColor Cyan
 } else {
     Write-Host ""
     Write-Host "✅ No obvious issues found in codebase" -ForegroundColor Green
@@ -178,6 +178,6 @@ if ($fixesApplied.Count -gt 0) {
 Write-Host ""
 Write-Host "To enable Otto auto-fix:" -ForegroundColor Cyan
 Write-Host "  1. Deploy Otto on Render" -ForegroundColor Gray
-Write-Host "  2. Set OTTO_BASE_URL environment variable or config/otto.json" -ForegroundColor Gray
-Write-Host "  3. Run: .\scripts\run_otto_fix_and_monitor.ps1" -ForegroundColor Gray
+Write-Host '  2. Set OTTO_BASE_URL environment variable or config/otto.json' -ForegroundColor Gray
+Write-Host '  3. Run: .\scripts\run_otto_fix_and_monitor.ps1' -ForegroundColor Gray
 
