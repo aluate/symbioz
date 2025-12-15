@@ -282,9 +282,66 @@ class DeployMonitorRequest(BaseModel):
     dryRun: bool = False
 
 
-@app.post("/actions/run_deploy_monitor")
-async def run_deploy_monitor(request: DeployMonitorRequest):
-    """Run deploy monitor with saved config defaults"""
+@app.post("/actions/fix_and_monitor")
+async def fix_and_monitor(request: DeployMonitorRequest):
+    """Fix Render runtime if needed, then run monitor loop until both Render and Vercel pass"""
+    from ..providers.render_client import RenderClient
+    
+    # Step 1: Proactively fix Render runtime if needed
+    render_fix_result = {"fixed": False, "message": "No fix needed"}
+    
+    render_api_key = os.getenv("RENDER_API_KEY")
+    render_service_id = os.getenv("RENDER_SERVICE_ID_OTTO") or os.getenv("RENDER_SERVICE_ID")
+    
+    if render_api_key and render_service_id:
+        try:
+            render_client = RenderClient()
+            service = render_client.get_service(render_service_id)
+            
+            if service:
+                service_details = service.get("service", {}).get("serviceDetails", {})
+                current_runtime = service_details.get("runtime", "")
+                current_root_dir = service_details.get("rootDir", "")
+                
+                # Check if fix is needed
+                needs_fix = False
+                if current_runtime != "docker":
+                    needs_fix = True
+                if current_root_dir != "apps/otto":
+                    needs_fix = True
+                
+                if needs_fix and not request.dryRun:
+                    logger.info(f"Fixing Render service {render_service_id}: runtime={current_runtime}->docker, rootDir={current_root_dir}->apps/otto")
+                    result = render_client.update_service_runtime(render_service_id, "docker", "apps/otto")
+                    
+                    if not result.get("error"):
+                        render_fix_result = {
+                            "fixed": True,
+                            "message": f"Updated Render service: runtime=docker, rootDir=apps/otto",
+                            "service_id": render_service_id
+                        }
+                        # Trigger deploy
+                        deploy_result = render_client.trigger_manual_deploy(render_service_id)
+                        if not deploy_result.get("error"):
+                            render_fix_result["deploy_triggered"] = True
+                            logger.info("Triggered new Render deployment after fix")
+                    else:
+                        render_fix_result = {
+                            "fixed": False,
+                            "message": f"Failed to fix Render service: {result.get('error')}",
+                            "error": result.get("error")
+                        }
+                elif needs_fix and request.dryRun:
+                    render_fix_result = {
+                        "fixed": False,
+                        "message": f"Would fix Render service {render_service_id}: runtime={current_runtime}->docker, rootDir={current_root_dir}->apps/otto",
+                        "dry_run": True
+                    }
+        except Exception as e:
+            logger.warning(f"Could not check/fix Render service: {e}")
+            render_fix_result = {"fixed": False, "message": f"Error checking Render: {str(e)}"}
+    
+    # Step 2: Run monitor loop
     # Default targets - read from environment variables
     default_targets = {}
     
