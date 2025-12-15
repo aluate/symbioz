@@ -17,6 +17,8 @@ from ..core.logging_utils import get_logger
 from ..providers.vercel_client import VercelClient
 from ..providers.render_client import RenderClient
 from ..providers.github_client import GitHubClient
+from .repair_classifiers import parse_vercel_failure, parse_render_failure
+from .repair_applicators import apply_patch_vercel, apply_patch_render
 
 logger = get_logger(__name__)
 
@@ -221,47 +223,150 @@ class MonitorRepairRedeploySkill:
     def _apply_fix(self, target: str, status: Dict[str, Any], config: Dict[str, Any], mode: str) -> Dict[str, Any]:
         """Apply minimal fix based on error logs"""
         errors = status.get("errors", [])
-        if not errors:
-            return {"success": False, "error": "No errors found to fix"}
+        logs_summary = status.get("logs_summary", "")
         
-        # For now, this is a stub - in a real implementation, this would:
-        # 1. Parse errors to identify root cause
-        # 2. Generate minimal patch
-        # 3. Apply patch to files
-        # 4. Run local checks (lint/build)
-        # 5. Commit and push
+        if not errors and not logs_summary:
+            return {"success": False, "error": "No errors or logs found to fix"}
         
-        logger.info(f"Would apply fix for {target} with errors: {errors[:2]}")
+        # Combine errors and logs for classification
+        log_text = "\n".join(errors) + "\n" + logs_summary
         
-        # Stub: create a minimal fix file
-        fix_file = Path("docs/deploy_failures_latest.md")
-        fix_file.parent.mkdir(parents=True, exist_ok=True)
+        # Classify the failure
+        if target == "vercel":
+            classification = parse_vercel_failure(log_text, status.get("logs", []))
+        elif target == "render":
+            classification = parse_render_failure(log_text)
+        else:
+            return {"success": False, "error": f"Unknown target: {target}"}
         
-        with open(fix_file, "w") as f:
-            f.write(f"# Latest Deployment Failures\n\n")
-            f.write(f"Target: {target}\n")
-            f.write(f"Errors detected:\n")
-            for error in errors[:5]:
-                f.write(f"- {error}\n")
+        category = classification.get("category", "unknown")
+        confidence = classification.get("confidence", 0.0)
         
-        # Commit the fix
-        if self.github_client:
-            if mode == "pr":
-                branch_name = f"fix/{target}-{int(time.time())}"
-                self.github_client.create_branch(branch_name)
+        logger.info(f"Classified {target} failure: {category} (confidence: {confidence:.2f})")
+        
+        # Only apply fix if confidence is high enough
+        if confidence < 0.85:
+            # Low confidence - create PR with diagnosis only
+            logger.info(f"Confidence too low ({confidence:.2f} < 0.85), creating diagnosis PR only")
+            return self._create_diagnosis_pr(target, status, classification, mode)
+        
+        # Apply the patch
+        repo_root = Path.cwd()
+        if target == "vercel":
+            patch_result = apply_patch_vercel(category, classification, repo_root)
+        elif target == "render":
+            patch_result = apply_patch_render(category, classification, repo_root)
+        else:
+            return {"success": False, "error": f"Unknown target: {target}"}
+        
+        if not patch_result.get("success"):
+            # Patch application failed - create diagnosis PR instead
+            logger.warning(f"Patch application failed: {patch_result.get('error')}")
+            return self._create_diagnosis_pr(target, status, classification, mode)
+        
+        files_changed = patch_result.get("files_changed", [])
+        
+        # Run minimal local check if applicable
+        if files_changed and target == "vercel":
+            # Check if we modified package.json - try a quick validation
+            for file_path in files_changed:
+                if "package.json" in file_path:
+                    try:
+                        import json
+                        with open(file_path, "r") as f:
+                            json.load(f)  # Validate JSON
+                    except Exception as e:
+                        logger.warning(f"package.json validation failed: {e}")
+                        return {
+                            "success": False,
+                            "error": f"Generated package.json is invalid: {e}"
+                        }
+        
+        # Commit and push
+        if not self.github_client:
+            return {"success": False, "error": "GitHub client not available"}
+        
+        if mode == "pr":
+            branch_name = f"fix/{target}-{category}-{int(time.time())}"
+            if not self.github_client.create_branch(branch_name):
+                return {"success": False, "error": "Failed to create branch"}
+        
+        commit_msg = f"Fix: {target} {category} (auto-repair confidence: {confidence:.0%})"
+        if not self.github_client.commit_changes(commit_msg, files_changed):
+            return {"success": False, "error": "Failed to commit changes"}
+        
+        push_result = self.github_client.push(
+            branch=self.github_client.get_current_branch(),
+            remote="origin"
+        )
+        
+        if push_result.get("success"):
+            return {
+                "success": True,
+                "files_changed": files_changed,
+                "commit_message": commit_msg,
+                "category": category,
+                "confidence": confidence,
+                "classification": classification
+            }
+        else:
+            return {
+                "success": False,
+                "error": f"Failed to push: {push_result.get('error')}"
+            }
+    
+    def _create_diagnosis_pr(self, target: str, status: Dict[str, Any], classification: Dict[str, Any], mode: str) -> Dict[str, Any]:
+        """Create a PR with diagnosis only (low confidence or patch failed)"""
+        if not self.github_client:
+            return {"success": False, "error": "GitHub client not available"}
+        
+        # Create diagnosis document
+        diagnosis_file = Path("docs/deploy_failures_latest.md")
+        diagnosis_file.parent.mkdir(parents=True, exist_ok=True)
+        
+        with open(diagnosis_file, "w") as f:
+            f.write(f"# Deployment Failure Diagnosis - {target}\n\n")
+            f.write(f"**Target:** {target}\n")
+            f.write(f"**Category:** {classification.get('category', 'unknown')}\n")
+            f.write(f"**Confidence:** {classification.get('confidence', 0):.0%}\n\n")
             
-            commit_msg = f"Fix: {target} deployment errors"
-            if self.github_client.commit_changes(commit_msg, [str(fix_file)]):
-                push_result = self.github_client.push(
-                    branch=self.github_client.get_current_branch(),
-                    remote="origin"
-                )
-                if push_result.get("success"):
-                    return {
-                        "success": True,
-                        "files_changed": [str(fix_file)],
-                        "commit_message": commit_msg
-                    }
+            patch_info = classification.get("suggested_patch", {})
+            f.write(f"**Recommended Action:**\n")
+            f.write(f"{patch_info.get('message', 'Manual review required')}\n\n")
+            
+            f.write(f"**Key Errors:**\n")
+            for error in classification.get("key_errors", [])[:10]:
+                f.write(f"- {error}\n")
+            
+            f.write(f"\n**Full Log Summary:**\n")
+            f.write(f"```\n{status.get('logs_summary', '')[:2000]}\n```\n")
         
-        return {"success": False, "error": "Could not commit or push changes"}
+        if mode == "pr":
+            branch_name = f"diagnosis/{target}-{int(time.time())}"
+            if not self.github_client.create_branch(branch_name):
+                return {"success": False, "error": "Failed to create branch"}
+        
+        commit_msg = f"Diagnosis: {target} deployment failure ({classification.get('category', 'unknown')})"
+        if not self.github_client.commit_changes(commit_msg, [str(diagnosis_file)]):
+            return {"success": False, "error": "Failed to commit diagnosis"}
+        
+        push_result = self.github_client.push(
+            branch=self.github_client.get_current_branch(),
+            remote="origin"
+        )
+        
+        if push_result.get("success"):
+            return {
+                "success": True,
+                "files_changed": [str(diagnosis_file)],
+                "commit_message": commit_msg,
+                "diagnosis_only": True,
+                "category": classification.get("category"),
+                "confidence": classification.get("confidence", 0)
+            }
+        else:
+            return {
+                "success": False,
+                "error": f"Failed to push diagnosis: {push_result.get('error')}"
+            }
 

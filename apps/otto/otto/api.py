@@ -282,16 +282,42 @@ class DeployMonitorRequest(BaseModel):
 @app.post("/actions/run_deploy_monitor")
 async def run_deploy_monitor(request: DeployMonitorRequest):
     """Run deploy monitor with saved config defaults"""
-    # Default targets - these should be configurable
-    default_targets = {
-        "vercel": {
-            "projectNameOrId": "symbioz-web",
-            "teamId": None
-        },
-        "render": {
-            "serviceId": os.getenv("RENDER_OTTO_SERVICE_ID")  # Should be set in Render env vars
+    # Default targets - read from environment variables
+    default_targets = {}
+    
+    # Vercel target
+    vercel_project = os.getenv("VERCEL_PROJECT_ID") or os.getenv("VERCEL_PROJECT_NAME")
+    if vercel_project:
+        default_targets["vercel"] = {
+            "projectNameOrId": vercel_project,
+            "teamId": os.getenv("VERCEL_TEAM_ID")
         }
-    }
+    
+    # Render targets - can monitor multiple services
+    render_services = []
+    if os.getenv("RENDER_SERVICE_ID_OTTO"):
+        render_services.append({
+            "name": "otto",
+            "serviceId": os.getenv("RENDER_SERVICE_ID_OTTO")
+        })
+    if os.getenv("RENDER_SERVICE_ID_SYMBIOZ"):
+        render_services.append({
+            "name": "symbioz",
+            "serviceId": os.getenv("RENDER_SERVICE_ID_SYMBIOZ")
+        })
+    
+    # Use first Render service if available, or allow multiple
+    if render_services:
+        # For now, monitor the first one (can be extended to monitor all)
+        default_targets["render"] = {
+            "serviceId": render_services[0]["serviceId"]
+        }
+    
+    if not default_targets:
+        raise HTTPException(
+            status_code=400,
+            detail="No monitoring targets configured. Set VERCEL_PROJECT_ID/NAME and/or RENDER_SERVICE_ID_* environment variables."
+        )
     
     monitor_request = MonitorRepairRequest(
         mode=request.mode,
