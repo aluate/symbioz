@@ -167,17 +167,12 @@ if ($fixesApplied.Count -gt 0) {
     Write-Host "Note: Some fixes may require manual intervention or Otto auto-repair." -ForegroundColor Cyan
 } else {
     Write-Host ""
-    Write-Host "No obvious issues found in codebase" -ForegroundColor Green
+    Write-Host "No obvious issues found" -ForegroundColor Green
     Write-Host ""
-    Write-Host "If builds are still failing:" -ForegroundColor Cyan
-    Write-Host "  1. Check Vercel Dashboard build logs" -ForegroundColor Gray
-    Write-Host "  2. Check Render Dashboard deploy logs" -ForegroundColor Gray
-    Write-Host "  3. Set RENDER_SERVICE_ID_OTTO and deploy Otto" -ForegroundColor Gray
+    Write-Host "Check build logs if still failing" -ForegroundColor Cyan
 }
 
 Write-Host ""
 Write-Host "To enable Otto auto-fix:" -ForegroundColor Cyan
-Write-Host "  1. Deploy Otto on Render" -ForegroundColor Gray
-Write-Host "  2. Set OTTO_BASE_URL environment variable" -ForegroundColor Gray
-Write-Host "  3. Run run_otto_fix_and_monitor.ps1" -ForegroundColor Gray
+Write-Host "Deploy Otto and set OTTO_BASE_URL" -ForegroundColor Gray
 
