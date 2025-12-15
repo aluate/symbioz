@@ -5,6 +5,7 @@ Applies minimal fixes based on classified failure types.
 """
 
 import json
+import os
 import re
 from pathlib import Path
 from typing import Dict, Any, List, Optional
@@ -13,7 +14,7 @@ from ..core.logging_utils import get_logger
 logger = get_logger(__name__)
 
 
-def apply_patch_vercel(category: str, classification: Dict[str, Any], repo_root: Path = None) -> Dict[str, Any]:
+def apply_patch_vercel(category: str, classification: Dict[str, Any], repo_root: Path = None, dry_run: bool = False) -> Dict[str, Any]:
     """
     Apply patch for Vercel failure.
     
@@ -48,14 +49,32 @@ def apply_patch_vercel(category: str, classification: Dict[str, Any], repo_root:
                         changed = True
                 
                 if changed:
-                    with open(package_json_path, "w") as f:
-                        json.dump(package_data, f, indent=2)
-                    files_changed.append(str(package_json_path))
-                    return {
-                        "success": True,
-                        "files_changed": files_changed,
-                        "message": "Updated package.json scripts to use 'npx next'"
-                    }
+                    if dry_run:
+                        # Show what would change
+                        old_scripts = {k: v for k, v in scripts.items() if not (isinstance(v, str) and v.startswith("next ") and "npx" not in v)}
+                        new_scripts = package_data.get("scripts", {})
+                        diff_lines = []
+                        for script_name, old_cmd in scripts.items():
+                            new_cmd = new_scripts.get(script_name)
+                            if old_cmd != new_cmd:
+                                diff_lines.append(f"-   \"{script_name}\": \"{old_cmd}\"")
+                                diff_lines.append(f"+   \"{script_name}\": \"{new_cmd}\"")
+                        return {
+                            "success": True,
+                            "files_changed": [str(package_json_path)],
+                            "message": "Would update package.json scripts to use 'npx next'",
+                            "dry_run": True,
+                            "diff": "\n".join(diff_lines)
+                        }
+                    else:
+                        with open(package_json_path, "w") as f:
+                            json.dump(package_data, f, indent=2)
+                        files_changed.append(str(package_json_path))
+                        return {
+                            "success": True,
+                            "files_changed": files_changed,
+                            "message": "Updated package.json scripts to use 'npx next'"
+                        }
             else:
                 return {
                     "success": False,
@@ -132,7 +151,7 @@ def apply_patch_vercel(category: str, classification: Dict[str, Any], repo_root:
         }
 
 
-def apply_patch_render(category: str, classification: Dict[str, Any], repo_root: Path = None) -> Dict[str, Any]:
+def apply_patch_render(category: str, classification: Dict[str, Any], repo_root: Path = None, dry_run: bool = False) -> Dict[str, Any]:
     """
     Apply patch for Render failure.
     
@@ -153,8 +172,13 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
     try:
         if category == "docker_copy_path":
             # Fix: Correct Dockerfile COPY paths for Render build context
-            # Render builds from root, so COPY paths need to be relative to repo root
+            # CRITICAL: Must respect RENDER_ROOT_DIR setting
+            # If Root Directory = apps/otto, build context IS apps/otto, so paths should NOT have apps/otto/ prefix
+            # If Root Directory = . (repo root), then paths need apps/otto/ prefix
+            
+            render_root_dir = os.getenv("RENDER_ROOT_DIR", "apps/otto")  # Default to apps/otto
             dockerfile_path = repo_root / "apps" / "otto" / "Dockerfile"
+            
             if dockerfile_path.exists():
                 with open(dockerfile_path, "r") as f:
                     lines = f.readlines()
@@ -169,44 +193,71 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                         copy_match = re.match(r"COPY\s+([^\s]+)\s+", line, re.IGNORECASE)
                         if copy_match:
                             source_path = copy_match.group(1)
-                            # If source path doesn't start with apps/, it might be wrong
-                            # For Render with root_dir=apps/otto, COPY should reference files relative to apps/otto
-                            # But if build context is repo root, need apps/otto/ prefix
                             
-                            # Check if path exists relative to Dockerfile location
+                            # Check if path exists relative to Dockerfile location (apps/otto/)
                             dockerfile_dir = dockerfile_path.parent
                             test_path = dockerfile_dir / source_path
                             
-                            # If file doesn't exist at that path, try with apps/otto/ prefix
-                            if not test_path.exists() and not source_path.startswith("apps/otto/"):
-                                # Try to fix: if requirements.txt, otto/, or otto_config.yaml
-                                if source_path == "requirements.txt":
-                                    new_source = "apps/otto/requirements.txt"
+                            # Determine correct path based on Render root directory
+                            if render_root_dir == "apps/otto" or render_root_dir.endswith("/otto"):
+                                # Build context is apps/otto, so paths should be relative to apps/otto (no prefix)
+                                # If path has apps/otto/ prefix, REMOVE it
+                                if source_path.startswith("apps/otto/"):
+                                    new_source = source_path.replace("apps/otto/", "", 1)
                                     line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
                                     modified = True
-                                    logger.info(f"Fixed COPY path: {source_path} -> {new_source}")
-                                elif source_path.startswith("otto/"):
-                                    new_source = f"apps/otto/{source_path}"
-                                    line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
-                                    modified = True
-                                    logger.info(f"Fixed COPY path: {source_path} -> {new_source}")
-                                elif source_path == "otto_config.yaml":
-                                    new_source = "apps/otto/otto_config.yaml"
-                                    line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
-                                    modified = True
-                                    logger.info(f"Fixed COPY path: {source_path} -> {new_source}")
+                                    logger.info(f"Fixed COPY path for root_dir={render_root_dir}: {source_path} -> {new_source}")
+                                elif not test_path.exists():
+                                    # Path doesn't exist - might need to check if it's a valid relative path
+                                    # For apps/otto root, valid paths are: requirements.txt, otto/, otto_config.yaml
+                                    if source_path not in ["requirements.txt", "otto/", "otto_config.yaml"] and not source_path.startswith("otto/"):
+                                        logger.warning(f"COPY path {source_path} may be incorrect for root_dir={render_root_dir}")
+                            else:
+                                # Build context is repo root, so paths need apps/otto/ prefix
+                                if not source_path.startswith("apps/otto/") and not test_path.exists():
+                                    # Try to fix: if requirements.txt, otto/, or otto_config.yaml
+                                    if source_path == "requirements.txt":
+                                        new_source = "apps/otto/requirements.txt"
+                                        line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
+                                        modified = True
+                                        logger.info(f"Fixed COPY path for root_dir={render_root_dir}: {source_path} -> {new_source}")
+                                    elif source_path.startswith("otto/"):
+                                        new_source = f"apps/otto/{source_path}"
+                                        line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
+                                        modified = True
+                                        logger.info(f"Fixed COPY path for root_dir={render_root_dir}: {source_path} -> {new_source}")
+                                    elif source_path == "otto_config.yaml":
+                                        new_source = "apps/otto/otto_config.yaml"
+                                        line = line.replace(f"COPY {source_path}", f"COPY {new_source}", 1)
+                                        modified = True
+                                        logger.info(f"Fixed COPY path for root_dir={render_root_dir}: {source_path} -> {new_source}")
                     
                     new_lines.append(line)
                 
                 if modified:
-                    with open(dockerfile_path, "w") as f:
-                        f.writelines(new_lines)
-                    files_changed.append(str(dockerfile_path))
-                    return {
-                        "success": True,
-                        "files_changed": files_changed,
-                        "message": "Fixed Dockerfile COPY paths for Render build context"
-                    }
+                    if dry_run:
+                        # In dry-run, show what would change
+                        diff_lines = []
+                        for old_line, new_line in zip(lines, new_lines):
+                            if old_line != new_line:
+                                diff_lines.append(f"- {old_line.rstrip()}")
+                                diff_lines.append(f"+ {new_line.rstrip()}")
+                        return {
+                            "success": True,
+                            "files_changed": [str(dockerfile_path)],
+                            "message": "Would fix Dockerfile COPY paths for Render build context",
+                            "dry_run": True,
+                            "diff": "\n".join(diff_lines)
+                        }
+                    else:
+                        with open(dockerfile_path, "w") as f:
+                            f.writelines(new_lines)
+                        files_changed.append(str(dockerfile_path))
+                        return {
+                            "success": True,
+                            "files_changed": files_changed,
+                            "message": f"Fixed Dockerfile COPY paths for Render build context (root_dir={render_root_dir})"
+                        }
                 else:
                     # Paths look correct, but still failing - might be build context issue
                     # Create a note about checking Render build context setting
@@ -277,14 +328,28 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                         in_cmd = False
                 
                 if modified:
-                    with open(dockerfile_path, "w") as f:
-                        f.writelines(new_lines)
-                    files_changed.append(str(dockerfile_path))
-                    return {
-                        "success": True,
-                        "files_changed": files_changed,
-                        "message": "Fixed Dockerfile to use PORT environment variable"
-                    }
+                    if dry_run:
+                        diff_lines = []
+                        for old_line, new_line in zip(lines, new_lines):
+                            if old_line != new_line:
+                                diff_lines.append(f"- {old_line.rstrip()}")
+                                diff_lines.append(f"+ {new_line.rstrip()}")
+                        return {
+                            "success": True,
+                            "files_changed": [str(dockerfile_path)],
+                            "message": "Would fix Dockerfile to use PORT environment variable",
+                            "dry_run": True,
+                            "diff": "\n".join(diff_lines)
+                        }
+                    else:
+                        with open(dockerfile_path, "w") as f:
+                            f.writelines(new_lines)
+                        files_changed.append(str(dockerfile_path))
+                        return {
+                            "success": True,
+                            "files_changed": files_changed,
+                            "message": "Fixed Dockerfile to use PORT environment variable"
+                        }
                 else:
                     # Already correct
                     return {
@@ -333,18 +398,27 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                     
                     install_name = package_mapping.get(package_lower, package_normalized)
                     
-                    # Add package (add at end, with newline)
-                    with open(requirements_path, "a") as f:
-                        if not requirements.endswith("\n"):
-                            f.write("\n")
-                        f.write(f"{install_name}\n")
-                    
-                    files_changed.append(str(requirements_path))
-                    return {
-                        "success": True,
-                        "files_changed": files_changed,
-                        "message": f"Added {install_name} to requirements.txt (module: {package_name})"
-                    }
+                    if dry_run:
+                        return {
+                            "success": True,
+                            "files_changed": [str(requirements_path)],
+                            "message": f"Would add {install_name} to requirements.txt (module: {package_name})",
+                            "dry_run": True,
+                            "diff": f"+ {install_name}\n"
+                        }
+                    else:
+                        # Add package (add at end, with newline)
+                        with open(requirements_path, "a") as f:
+                            if not requirements.endswith("\n"):
+                                f.write("\n")
+                            f.write(f"{install_name}\n")
+                        
+                        files_changed.append(str(requirements_path))
+                        return {
+                            "success": True,
+                            "files_changed": files_changed,
+                            "message": f"Added {install_name} to requirements.txt (module: {package_name})"
+                        }
                 else:
                     return {
                         "success": True,
@@ -391,14 +465,28 @@ def apply_patch_render(category: str, classification: Dict[str, Any], repo_root:
                             break
                 
                 if modified:
-                    with open(dockerfile_path, "w") as f:
-                        f.writelines(new_lines)
-                    files_changed.append(str(dockerfile_path))
-                    return {
-                        "success": True,
-                        "files_changed": files_changed,
-                        "message": "Fixed Dockerfile WORKDIR"
-                    }
+                    if dry_run:
+                        diff_lines = []
+                        for old_line, new_line in zip(lines, new_lines):
+                            if old_line != new_line:
+                                diff_lines.append(f"- {old_line.rstrip()}")
+                                diff_lines.append(f"+ {new_line.rstrip()}")
+                        return {
+                            "success": True,
+                            "files_changed": [str(dockerfile_path)],
+                            "message": "Would fix Dockerfile WORKDIR",
+                            "dry_run": True,
+                            "diff": "\n".join(diff_lines)
+                        }
+                    else:
+                        with open(dockerfile_path, "w") as f:
+                            f.writelines(new_lines)
+                        files_changed.append(str(dockerfile_path))
+                        return {
+                            "success": True,
+                            "files_changed": files_changed,
+                            "message": "Fixed Dockerfile WORKDIR"
+                        }
                 else:
                     return {
                         "success": True,

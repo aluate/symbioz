@@ -67,6 +67,7 @@ class MonitorRepairRedeploySkill:
             mode = payload.get("mode", "pr")  # "pr" or "main"
             targets = payload.get("targets", {})
             max_iterations = payload.get("maxIterations", 5)
+            dry_run = payload.get("dryRun", False) or os.getenv("DRY_RUN", "false").lower() == "true"
             
             vercel_config = targets.get("vercel", {})
             render_config = targets.get("render", {})
@@ -126,7 +127,7 @@ class MonitorRepairRedeploySkill:
                 
                 if failing_target:
                     # Apply fix
-                    fix_result = self._apply_fix(failing_target[0], failing_target[1], failing_target[2], mode)
+                    fix_result = self._apply_fix(failing_target[0], failing_target[1], failing_target[2], mode, dry_run)
                     if fix_result.get("success"):
                         results.append({
                             "iteration": iteration,
@@ -220,7 +221,7 @@ class MonitorRepairRedeploySkill:
         else:
             return {"status": "building", "message": f"Render deployment {deploy_status}", "deploy_id": deploy_id}
     
-    def _apply_fix(self, target: str, status: Dict[str, Any], config: Dict[str, Any], mode: str) -> Dict[str, Any]:
+    def _apply_fix(self, target: str, status: Dict[str, Any], config: Dict[str, Any], mode: str, dry_run: bool = False) -> Dict[str, Any]:
         """Apply minimal fix based on error logs"""
         errors = status.get("errors", [])
         logs_summary = status.get("logs_summary", "")
@@ -253,9 +254,9 @@ class MonitorRepairRedeploySkill:
         # Apply the patch
         repo_root = Path.cwd()
         if target == "vercel":
-            patch_result = apply_patch_vercel(category, classification, repo_root)
+            patch_result = apply_patch_vercel(category, classification, repo_root, dry_run=dry_run)
         elif target == "render":
-            patch_result = apply_patch_render(category, classification, repo_root)
+            patch_result = apply_patch_render(category, classification, repo_root, dry_run=dry_run)
         else:
             return {"success": False, "error": f"Unknown target: {target}"}
         
@@ -281,6 +282,18 @@ class MonitorRepairRedeploySkill:
                             "success": False,
                             "error": f"Generated package.json is invalid: {e}"
                         }
+        
+        # In dry-run mode, return without committing
+        if dry_run:
+            return {
+                "success": True,
+                "files_changed": files_changed,
+                "commit_message": f"Would commit: Fix: {target} {category} (auto-repair confidence: {confidence:.0%})",
+                "category": category,
+                "confidence": confidence,
+                "dry_run": True,
+                "diff": patch_result.get("diff", "")
+            }
         
         # Commit and push
         if not self.github_client:

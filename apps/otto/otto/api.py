@@ -232,6 +232,7 @@ class MonitorRepairRequest(BaseModel):
     mode: str = "pr"  # "pr" or "main"
     targets: Dict[str, Any]
     maxIterations: int = 5
+    dryRun: bool = False  # If true, show proposed changes without committing
 
 
 @app.post("/skills/monitor_repair_redeploy")
@@ -246,7 +247,8 @@ async def monitor_repair_redeploy(request: MonitorRepairRequest):
         payload={
             "mode": request.mode,
             "targets": request.targets,
-            "maxIterations": request.maxIterations
+            "maxIterations": request.maxIterations,
+            "dryRun": request.dryRun
         },
         source="api",
         status=TaskStatus.PENDING
@@ -277,6 +279,7 @@ class DeployMonitorRequest(BaseModel):
     """Request model for deploy monitor with defaults"""
     mode: str = "pr"
     maxIterations: int = 5
+    dryRun: bool = False
 
 
 @app.post("/actions/run_deploy_monitor")
@@ -322,7 +325,8 @@ async def run_deploy_monitor(request: DeployMonitorRequest):
     monitor_request = MonitorRepairRequest(
         mode=request.mode,
         targets=default_targets,
-        maxIterations=request.maxIterations
+        maxIterations=request.maxIterations,
+        dryRun=request.dryRun
     )
     
     return await monitor_repair_redeploy(monitor_request)
