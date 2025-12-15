@@ -286,6 +286,23 @@ def parse_render_failure(log_text: str) -> Dict[str, Any]:
             "key_errors": key_errors[:5]
         }
     
+    # Classification 7: requirements.txt not found (Python runtime without root directory)
+    if any(keyword in log_lower for keyword in [
+        "could not open requirements file",
+        "no such file or directory: 'requirements.txt'",
+        "errno 2.*requirements.txt"
+    ]):
+        return {
+            "category": "render_python_root_dir",
+            "confidence": 0.95,
+            "suggested_patch": {
+                "type": "config_note",
+                "action": "set_render_root_dir_or_docker",
+                "message": "Render is using Python runtime but Root Directory is not set to 'apps/otto'. Either set Root Directory to 'apps/otto' in Render dashboard, or change Runtime to 'Docker'."
+            },
+            "key_errors": key_errors[:5]
+        }
+    
     # Default: unknown failure
     return {
         "category": "unknown",
